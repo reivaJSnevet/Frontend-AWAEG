@@ -6,6 +6,7 @@ import ListRoles from './components/rol/ListAll'
 import AddRol from './components/rol/AddRole'
 import GetRolById from './components/rol/GetById'
 import DeleteRolById from './components/rol/DeleteRole'
+import './App.css';
 
 
 function App() {

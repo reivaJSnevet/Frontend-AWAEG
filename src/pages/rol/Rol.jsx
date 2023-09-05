@@ -1,23 +1,24 @@
 import { Link, Outlet } from 'react-router-dom';
+import Sidebar from '../../components/sidebar/Sidebar';
 
 function Rol() {
   return (
-    <div className="rol">
-      <nav>
-        <ul>
-            <li><Link to="todo">Ver todo</Link></li>
-            <li><Link to="crear">Crear</Link></li>
-            <li><Link to="buscar">Buscar</Link></li>
-            <li><Link to="actualizar">Actualizar</Link></li>
-            <li><Link to="borrar">Borrar</Link></li>
-        </ul>
-      </nav>
-      <Outlet />
+    <div className="roles-container">
+      <Sidebar />
+      <div className="roles-content">
+        <nav className="roles-tabs">
+          <ul>
+              <li><Link to="todo">Ver todo</Link></li>
+              <li><Link to="crear">Crear</Link></li>
+              <li><Link to="buscar">Buscar</Link></li>
+              <li><Link to="actualizar">Actualizar</Link></li>
+              <li><Link to="borrar">Borrar</Link></li>
+          </ul>
+        </nav>
+        <Outlet />
+      </div>
     </div>
   );
 }
 
 export default Rol;
-
-
-
