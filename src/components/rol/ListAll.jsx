@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import api from "../../services/api.config.js";
 
 const ListRoles = () => {
@@ -18,23 +18,6 @@ const ListRoles = () => {
 
   return (
     <div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: "20px",
-        }}
-      >
-        <h2>Roles</h2>
-        <button className="list-roles-button">
-          <Link to="/roles/crear">Crear</Link>
-        </button>
-        <button className="list-roles-button">
-          <Link to="/roles/buscar">Buscar</Link>
-        </button>
-      </div>
-
       <table className="list-roles-table">
         <thead>
           <tr className="list-roles-tr">
@@ -50,18 +33,12 @@ const ListRoles = () => {
             <tr key={rol.id} className="list-roles-tr">
               <td className="list-roles-td">{rol.id}</td>
               <td className="list-roles-td">{rol.nombre}</td>
-              {/* Para esto les recomiendo que hagan un enum en el backend */}
               <td className="list-roles-td">{rol.nivelPrivilegio}</td>
               <td className="list-roles-td">{rol.descripcion}</td>
               <td className="list-roles-td">
-                {/* Esto tienen que cambiarlo en los 
-                componentes para que reciba el 
-                id como parametro o 
-                crear la accion y llamado a la base 
-                de datos desde aqui*/}
-                <Link to={`roles/actualizar/${rol.id}`}>Actualizar</Link>
+                <Link to={`../actualizar/${rol.id}`}>Actualizar</Link>
                 &nbsp;|&nbsp;
-                <Link to={`roles/borrar/${rol.id}`}>borrar</Link>
+                <Link to={`../borrar/${rol.id}`}>Borrar</Link>
               </td>
             </tr>
           ))}

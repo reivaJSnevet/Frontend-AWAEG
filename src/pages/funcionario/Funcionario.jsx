@@ -1,10 +1,10 @@
 import { Link, Outlet } from 'react-router-dom';
 
-function Rol() {
+function Funcionario() {
   return (
-    <div className="roles-container">
-      <div className="roles-content">
-        <nav className="roles-tabs">
+    <div className="funcionarios-container">
+      <div className="funcionarios-content">
+        <nav className="funcionarios-tabs">
           <ul>
               <li><Link to="todo">Ver todo</Link></li>
               <li><Link to="crear">Crear</Link></li>
@@ -19,4 +19,4 @@ function Rol() {
   );
 }
 
-export default Rol;
+export default Funcionario;
