@@ -9,10 +9,9 @@ const DeleteUsuarioById = () => {
   const handleInputChange = (event) => {
     const inputValue = event.target.value;
 
-    // Verifica si el valor ingresado es un número
     if (/^\d+$/.test(inputValue) || inputValue === '') {
       setUsuarioId(inputValue);
-      setErrorMessage(''); // Limpia el mensaje de error si es válido
+      setErrorMessage('');
     } else {
       setErrorMessage('Ingrese solo números');
     }
@@ -21,27 +20,29 @@ const DeleteUsuarioById = () => {
   const handleDelete = (event) => {
     event.preventDefault();
 
-    // Muestra un cuadro de confirmación antes de eliminar al usuario
     const confirmDelete = window.confirm('¿Estás seguro de eliminar este usuario?');
 
     if (confirmDelete) {
-      // Realiza una solicitud DELETE para eliminar el usuario por ID
       api.delete(`/usuarios/${usuarioId}`)
         .then(() => {
-          // Maneja el éxito, por ejemplo, mostrando un mensaje de éxito
           setSuccessMessage('Usuario eliminado con éxito.');
+
           // Limpia el campo de entrada después de eliminar al usuario
           setUsuarioId('');
-          // Recarga la página
+
+          // Borra el mensaje de éxito después de 5 segundos
+          setTimeout(() => {
+            setSuccessMessage('');
+          }, 5000);
+
+          // Recarga la página (puedes considerar otras opciones, como redireccionar)
           window.location.reload();
         })
         .catch((error) => {
           if (error.response && error.response.status === 404) {
-            // El usuario no fue encontrado
             setErrorMessage('Usuario no encontrado.');
           } else {
             console.error('Error al eliminar el Usuario por ID:', error);
-            // Puedes manejar otros errores aquí
             setErrorMessage('Error al eliminar el usuario.');
           }
         });

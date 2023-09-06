@@ -22,6 +22,7 @@ function App() {
           <Route path="/perfil/*" element={<Perfil />} /> {/* Ruta para Borrar */}
           <Route path="/admin/*" element={<PanelAdmin />} />
           
+          {/* Rutas de Usuario */}
           <Route path="/usuarios/*" element={<Usuario />}>
           <Route index element={<ListUsuarios />} />
             <Route path="todo" element={<ListUsuarios />} /> {/* Ruta para Crear */}
