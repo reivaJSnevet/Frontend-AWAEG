@@ -8,9 +8,32 @@ const UpdateUsuario = () => {
   const [contraseña, setContraseña] = useState("");
   const [roleId, setRoleId] = useState(0);
   const [usuarioEncontrado, setUsuarioEncontrado] = useState(null);
+  const [roles, setRoles] = useState([]);
+  const [showPassword, setShowPassword] = useState(false);
+  const [idError, setIdError] = useState(false);
+
+  // Cargar la lista de roles al montar el componente
+  useEffect(() => {
+    api.get("/roles")
+      .then((response) => {
+        // Actualizar el estado con los roles obtenidos
+        setRoles(response.data);
+      })
+      .catch((error) => {
+        console.error("Error al obtener los roles:", error);
+      });
+  }, []);
 
   useEffect(() => {
     if (usuarioId) {
+      // Verificar si el valor ingresado es numérico
+      if (!/^\d+$/.test(usuarioId)) {
+        setIdError(true);
+        return;
+      } else {
+        setIdError(false);
+      }
+
       // Realiza una solicitud GET para obtener un usuario por su ID
       api.get(`/usuarios/${usuarioId}`)
         .then((response) => {
@@ -31,6 +54,11 @@ const UpdateUsuario = () => {
     }
   }, [usuarioId]);
 
+  const getRoleName = (roleId) => {
+    const role = roles.find((r) => r.id === roleId);
+    return role ? role.nombre : "Rol no encontrado";
+  };
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     if (name === "nombre") {
@@ -42,6 +70,10 @@ const UpdateUsuario = () => {
     } else if (name === "roleId") {
       setRoleId(Number(value));
     }
+  };
+
+  const handleShowPasswordChange = () => {
+    setShowPassword(!showPassword);
   };
 
   const handleSubmit = async (event) => {
@@ -82,15 +114,26 @@ const UpdateUsuario = () => {
         <div>
           <label>ID de Usuario:</label>
           <input
-            type="number"
+            type="text"
             name="usuarioId"
             value={usuarioId}
-            onChange={(e) => setUsuarioId(Number(e.target.value))}
+            onChange={(e) => {
+              const inputVal = e.target.value;
+              // Verificar si el valor ingresado es numérico
+              if (!/^\d+$/.test(inputVal)) {
+                setIdError(true);
+              } else {
+                setIdError(false);
+                setUsuarioId(inputVal);
+              }
+            }}
           />
+          {idError && <p>Por favor, ingrese solo números.</p>}
           <button type="button" onClick={() => setUsuarioId("")}>
             Limpiar
           </button>
         </div>
+        {usuarioEncontrado === null && <p>No existe un usuario con esa ID.</p>}
         {usuarioEncontrado && (
           <>
             <div>
@@ -114,20 +157,34 @@ const UpdateUsuario = () => {
             <div>
               <label>Contraseña:</label>
               <input
-                type="text"
+                type={showPassword ? "text" : "password"}
                 name="contraseña"
                 value={contraseña}
                 onChange={handleInputChange}
               />
+              <label>
+                <input
+                  type="checkbox"
+                  onChange={handleShowPasswordChange}
+                  checked={showPassword}
+                />
+                Mostrar Contraseña
+              </label>
             </div>
             <div>
               <label>Rol:</label>
-              <input
-                type="number"
+              <select
                 name="roleId"
                 value={roleId}
                 onChange={handleInputChange}
-              />
+              >
+                <option value={0}>Seleccionar Rol</option>
+                {roles.map((role) => (
+                  <option key={role.id} value={role.id}>
+                    {role.nombre}
+                  </option>
+                ))}
+              </select>
             </div>
             <div>
               <button type="submit">Actualizar Usuario</button>
