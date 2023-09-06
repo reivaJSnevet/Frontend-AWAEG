@@ -14,7 +14,19 @@ function Sidebar() {
           <Link to="funcionarios">Funcionarios</Link>
         </li>
         <li>
-          <Link to="perfil">Perfil</Link>
+          <Link to="estudiantes">Estudiantes</Link>
+        </li>
+        <li>
+          <Link to="grupos">Grupos</Link>
+        </li>
+        <li>
+          <Link to="horarios">Horarios</Link>
+        </li>
+        <li>
+          <Link to="notas">Notas</Link>
+        </li>
+        <li>
+          <Link to="/perfil">Perfil</Link>
         </li>
       </ul>
     </div>

@@ -3,7 +3,7 @@ import api from "../../services/api.config.js"; // Importa tu instancia de Axios
 
 function Perfil() {
   const [estudiante, setEstudiante] = useState(null);
-  const estudianteId = 153850556
+  const estudianteId = 118050543
 
   useEffect(() => {
     async function cargarEstudiante() {

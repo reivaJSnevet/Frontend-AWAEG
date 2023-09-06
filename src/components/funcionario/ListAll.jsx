@@ -20,30 +20,30 @@ const ListFuncionarios = () => {
 
   return (
     <div>
-    <table className="list-funcionarios-table">
+    <table className="list-roles-table">
       <thead>
-        <tr className="list-funcionarios-tr">
-          <th className="funcionarios-th">ID</th>
-          <th className="funcionarios-th">Nombre</th>
-          <th className="funcionarios-th">Primer Apellido</th>
-          <th className="funcionarios-th">Segundo Apellido</th>
-          <th className="funcionarios-th">Fecha de Nacimiento</th>
-          <th className="funcionarios-th">Edad</th>
-          <th className="funcionarios-th">Género</th>
-          <th className="funcionarios-th">Acciones</th>
+        <tr className="list-roles-tr">
+          <th className="roles-th">ID</th>
+          <th className="roles-th">Nombre</th>
+          <th className="roles-th">Primer Apellido</th>
+          <th className="roles-th">Segundo Apellido</th>
+          <th className="roles-th">Fecha de Nacimiento</th>
+          <th className="roles-th">Edad</th>
+          <th className="roles-th">Género</th>
+          <th className="roles-th">Acciones</th>
         </tr>
       </thead>
       <tbody>
         {funcionarios.map((funcionario) => (
-          <tr key={funcionario.id} className="list-funcionarios-tr">
-            <td className="list-funcionarios-td">{funcionario.id}</td>
-            <td className="list-funcionarios-td">{funcionario.nombre}</td>
-            <td className="list-funcionarios-td">{funcionario.apellido1}</td>
-            <td className="list-funcionarios-td">{funcionario.apellido2}</td>
-            <td className="list-funcionarios-td">{funcionario.fechaNacimiento}</td>
-            <td className="list-funcionarios-td">{funcionario.edad}</td>
-            <td className="list-funcionarios-td">{funcionario.sexo === false ? "Hombre" : "Mujer"}</td>
-            <td className="list-funcionarios-td">
+          <tr key={funcionario.id} className="list-roles-tr">
+            <td className="list-roles-td">{funcionario.id}</td>
+            <td className="list-roles-td">{funcionario.nombre}</td>
+            <td className="list-roles-td">{funcionario.apellido1}</td>
+            <td className="list-roles-td">{funcionario.apellido2}</td>
+            <td className="list-roles-td">{funcionario.fechaNacimiento}</td>
+            <td className="list-roles-td">{funcionario.edad}</td>
+            <td className="list-roles-td">{funcionario.sexo === false ? "Hombre" : "Mujer"}</td>
+            <td className="list-roles-td">
               <Link to={`../actualizar/${funcionario.id}`}>Actualizar</Link>
               &nbsp;|&nbsp;
               <Link to={`../borrar/${funcionario.id}`}>Borrar</Link>

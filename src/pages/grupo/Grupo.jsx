@@ -1,6 +1,6 @@
 import { Link, Outlet } from 'react-router-dom';
 
-function Funcionario() {
+function Grupo() {
   return (
     <div className="roles-container">
       <div className="roles-content">
@@ -19,4 +19,4 @@ function Funcionario() {
   );
 }
 
-export default Funcionario;
+export default Grupo;
