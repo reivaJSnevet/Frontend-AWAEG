@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import api from "../../services/api.config.js";
 
 const AddEstudiante = () => {
+
+  //estos campos se pueden crear en un solo obejeto useState({})
   const [id, setId] = useState("");
   const [nombre, setNombre] = useState("");
   const [apellido1, setApellido1] = useState("");
@@ -9,7 +11,26 @@ const AddEstudiante = () => {
   const [fechaNacimiento, setFechaNacimiento] = useState("");
   const [sexo, setSexo] = useState("");
   const [direccion, setDireccion] = useState("");
+  const [seccion, setSeccion ] = useState("");
 
+  const [secciones, setSecciones] = useState([]);
+
+  useEffect(() => {
+    const fetchSecciones = async () => {
+      try {
+        const response = await api.get("grupos");
+        setSecciones(response.data.map((grupo) => grupo.seccion));
+      } catch (error) {
+        console.error(
+          "Error fetching secciones:",
+          error.response?.data || error.message
+        );
+      }
+    };
+    fetchSecciones();
+  }, []);
+
+  //Cambiar esto
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     if (name === "id") {
@@ -26,6 +47,8 @@ const AddEstudiante = () => {
       setSexo(value);
     } else if (name === "direccion") {
       setDireccion(value);
+    } else if (name === "seccion") {
+      setSeccion(value);
     }
   };
 
@@ -58,16 +81,19 @@ const AddEstudiante = () => {
         fechaNacimiento,
         sexo,
         direccion,
+        seccion
       });
-
-      // Limpiar el formulario después de enviar los datos
+  
+      await api.put(`grupos/${seccion}/increment`);
       setId("");
       setNombre("");
       setApellido1("");
       setApellido2("");
       setFechaNacimiento("");
-      setSexo(-1);
+      setSexo("");
       setDireccion("");
+      setSeccion("");
+  
       alert("Estudiante agregado exitosamente.");
     } catch (error) {
       console.error("Error al agregar el Estudiante:", error);
@@ -143,6 +169,23 @@ const AddEstudiante = () => {
             value={direccion}
             onChange={handleInputChange}
           />
+        </div>
+        <div>
+          <label>Sección:</label>
+          <select
+            name="seccion"
+            value={seccion}
+            onChange={handleInputChange}
+          >
+            <option value="" disabled>
+              Seleccione una sección
+            </option>
+            {secciones.map((seccion, index) => (
+              <option key={index} value={seccion}>
+                {seccion}
+              </option>
+            ))}
+          </select>
         </div>
         <div>
           <button type="submit">Agregar Estudiante</button>

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 function Sidebar() {
   return (
@@ -23,6 +23,9 @@ function Sidebar() {
           <Link to="horarios">Horarios</Link>
         </li>
         <li>
+          <Link to="clases">Clases</Link>
+        </li>
+        <li>
           <Link to="notas">Notas</Link>
         </li>
         <li>
@@ -34,5 +37,3 @@ function Sidebar() {
 }
 
 export default Sidebar;
-
-

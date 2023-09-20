@@ -1,19 +1,21 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import api from "../../services/api.config.js";
+import api from "../../services/api.config";
 
 const ListRoles = () => {
   const [roles, setRoles] = useState([]);
 
   useEffect(() => {
-    api
-      .get("/roles")
-      .then((response) => {
+    try {
+      const fetchRoles = async () => {
+        const response = await api.get("/roles");
         setRoles(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching roles:", error);
-      });
+      };
+      fetchRoles();
+    } catch (error) {
+      //hay que agregar un manejo de errores
+      console.log(error);
+    }
   }, []);
 
   return (

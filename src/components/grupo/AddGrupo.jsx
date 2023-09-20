@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import api from '../../services/api.config.js';
 
 const AddGrupo = () => {
@@ -8,6 +8,20 @@ const AddGrupo = () => {
   const [aula, setAula] = useState('');
   const [cantAlumno, setCantAlumno] = useState('');
   const [turno, setturno] = useState('');
+  const [profesorId, setProfesorId] = useState('');
+  const [funcionarios, setFuncionarios] = useState([]);
+
+  useEffect(() => {
+    const fetchFuncionarios = async () => {
+      try {
+        const response = await api.get("funcionarios");
+        setFuncionarios(response.data);
+      } catch (error) {
+        console.error("Error fetching funcionarios:", error.response?.data || error.message);
+      }
+    };
+    fetchFuncionarios();
+  }, []);
   
 
   const handleInputChange = (event) => {
@@ -24,7 +38,9 @@ const AddGrupo = () => {
         setCantAlumno(value);
       } else if (name === 'turno') {
         setturno(value);
-      } 
+      } else if (name === 'profesorId') {
+        setProfesorId(value);
+      }
   }
 
   const handleSubmit = async (event) => {
@@ -118,6 +134,23 @@ const AddGrupo = () => {
             value={turno}
             onChange={handleInputChange}
           />
+          <div>
+          <label>Profesor:</label>
+          <select
+            name="profesor"
+            value={profesorId}
+            onChange={handleSubmit}
+          >
+            <option value="" disabled>
+              Seleccione un profesor
+            </option>
+            {funcionarios.map((funcionario) => (
+              <option key={funcionario.id} value={funcionario.id}>
+                {funcionario.nombre} {funcionario.apellido1} {funcionario.apellido2}
+              </option>
+            ))}
+          </select>
+        </div>
           <button type="submit">Agregar Grupo</button>
         </div>
       </form>
