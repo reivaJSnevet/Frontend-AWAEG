@@ -42,11 +42,14 @@ import CrearClase from "./components/clase/crearClase";
 import GetById from "./components/clase/GetById";
 import UpdateClase from "./components/clase/UpdateClase";
 import DeleteClase from "./components/clase/DeleteClase";
+import UpdateNota from "./components/nota/UpdateNota";
+import Login from "./pages/login/Login";
 
 function App() {
   return (
     <div className="App">
       <Routes>
+        <Route path="/" element={<Login />} />
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/admin/*" element={<PanelAdmin />}>
           <Route path="roles" element={<Rol />}>
@@ -96,7 +99,8 @@ function App() {
             <Route path="todo" element={<ListNotas />} />
             <Route path="crear" element={<AddNota />} />
             <Route path="buscar" element={<GetNotaById />} />
-            {/* <Route path="actualizar" element={<Update />} /> */}
+            <Route path="actualizar" element={<UpdateNota />} />
+            <Route path="actualizar/:id" element={<UpdateNota />} />
             <Route path="borrar" element={<DeleteNotaById />} />
             <Route path="borrar/:id" element={<DeleteNotaById />} />
           </Route>
