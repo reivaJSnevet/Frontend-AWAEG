@@ -20,10 +20,10 @@ const AddRol = () => {
 
   const handleValidation = () => {
     //validar que los campos no esten vacios
-    if (!nombre || !nivelPrivilegio || !descripcion) {
+/*     if (!nombre || !nivelPrivilegio || !descripcion) {
       alert("Por favor, complete todos los campos.");
       return false;
-    }
+    } */
     //verificar que el nivel de privilegio sea un numero y este entre 1 y 5
     if (isNaN(nivelPrivilegio)) {
       alert("El nivel de privilegio debe ser un número y estar entre 1 y 5");

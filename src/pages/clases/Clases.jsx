@@ -1,6 +1,6 @@
 import { Link, Outlet } from 'react-router-dom';
 
-function Clases() {
+function Clases(/* debe recibir un paramtero para el "to" de la ruta */) {
     return (
         <div className="roles-container">
           <div className="roles-content">
