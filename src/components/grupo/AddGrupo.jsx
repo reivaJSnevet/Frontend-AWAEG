@@ -38,13 +38,23 @@ const AddGrupo = () => {
         setCantAlumno(value);
       } else if (name === 'turno') {
         setturno(value);
-      } else if (name === 'profesorId') {
+      } else if (name === 'profesor') {
         setProfesorId(value);
       }
   }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    console.log({
+        seccion,
+        ciclo,
+        grado,
+        aula,
+        cantAlumno,
+        turno,
+        profesorId
+      });
 
     // Verificar que los campos estén completos
     if (!seccion || !grado || !aula || !cantAlumno || !turno || !ciclo) {
@@ -60,7 +70,8 @@ const AddGrupo = () => {
         grado,
         aula,
         cantAlumno,
-        turno
+        turno,
+        profesorId
       });
 
       // Limpiar el formulario después de enviar los datos
@@ -139,7 +150,7 @@ const AddGrupo = () => {
           <select
             name="profesor"
             value={profesorId}
-            onChange={handleSubmit}
+            onChange={handleInputChange}
           >
             <option value="" disabled>
               Seleccione un profesor

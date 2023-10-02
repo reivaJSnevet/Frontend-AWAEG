@@ -21,10 +21,11 @@ const Login = () => {
       const response = await api.post("/auth/login", { correo, contraseña });
 
       const { token, usuario } = response.data;
-      const { role } = usuario;
+      const { role, id } = usuario;
 
 
       localStorage.setItem("token", token); // Store token in local storage
+      localStorage.setItem("userId", id); // Almacena el ID del usuario en el local storage
 
       // Redirect user based on their role
       if (role.nombre === "estudiante") {
