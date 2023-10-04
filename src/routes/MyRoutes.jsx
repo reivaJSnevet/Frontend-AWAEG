@@ -45,6 +45,9 @@ import Login from "../pages/login/Login";
 import DatosPersonales from "../components/perfil/DatosPersonales";
 import Notas from "../components/perfil/Notas";
 import MiHorario from "../components/perfil/MiHorario";
+import Archivo from "../pages/archivo/Archivo";
+import SubirArchivo from "../components/archivo/SubirArchivo";
+import ListaArchivos from "../components/archivo/ListaArchivos";
 
 const MyRoutes = () => (
   <Routes>
@@ -116,6 +119,11 @@ const MyRoutes = () => (
         <Route path="actualizar" element={<UpdateClase />} />
         <Route path="borrar" element={<DeleteClase />} />
       </Route>
+      <Route path="archivos" element={<Archivo/>}>
+        <Route path="subir" element={<SubirArchivo/>}/>
+        <Route path="lista" element={<ListaArchivos/>}/>
+      </Route>
+
     </Route>
   </Routes>
 );
