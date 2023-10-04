@@ -42,11 +42,19 @@ import UpdateClase from "../components/clase/UpdateClase";
 import DeleteClase from "../components/clase/DeleteClase";
 import UpdateNota from "../components/nota/UpdateNota";
 import Login from "../pages/login/Login";
+import DatosPersonales from "../components/perfil/DatosPersonales";
+import Notas from "../components/perfil/Notas";
+import MiHorario from "../components/perfil/MiHorario";
 
 const MyRoutes = () => (
   <Routes>
     <Route path="/" element={<Login />} />
-    <Route path="/perfil" element={<Perfil />} />
+    <Route path="/perfil" element={<Perfil />}>
+        <Route path="notas" element={<Notas />}/>
+        <Route path="datosPersonales" element={<DatosPersonales/>}/>
+        <Route path="horario" element={<MiHorario />}/>
+    </Route>
+
     <Route path="/admin/*" element={<PanelAdmin />}>
       {/* Rutas para roles */}
       <Route path="roles" element={<Rol />}>

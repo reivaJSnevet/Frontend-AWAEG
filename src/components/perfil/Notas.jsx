@@ -1,40 +1,69 @@
-import { useEffect, useState } from 'react';
-import api from '../../services/api.config.js';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import api from "../../services/api.config.js";
+import { separador } from "../../services/separadorNotas.js";
 
-const Notas = () => {
-  const userId = localStorage.getItem("userId"); // Obtiene el ID del usuario del local storage
+function Notas() {
   const [notas, setNotas] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    // Verificar si el usuario está autenticado
-    if (!userId) {
-      navigate('/login'); // Redirigir a la página de inicio de sesión si el usuario no está autenticado
-      return;
-    }
+    const estudianteId = localStorage.getItem("EstId");
 
-    // Obtener notas del API usando el ID del usuario
-    api.get(`/users/${userId}/notas`)
-      .then(response => {
-        setNotas(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching notes:', error);
-        // Handle error (e.g., show an error message)
-      });
-  }, [userId, navigate]);
+    if (estudianteId) {
+      api.get(`notas/${estudianteId}`)
+        .then(response => {
+          const notasSeparadas = separador(response.data);
+          setNotas(notasSeparadas);
+        })
+        .catch(error => {
+          console.error("Error al obtener las notas:", error);
+        });
+    } else {
+      console.error("EstId no encontrado en el localStorage");
+    }
+  }, []);
 
   return (
     <div>
-      <h1>Notas</h1>
-      <ul>
-        {notas.map(nota => (
-          <li key={nota.id}>{nota.contenido}</li>
-        ))}
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Materia</th>
+            <th>Primero</th>
+            <th>Segundo</th>
+            <th>Tercero</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Object.keys(notas).map(materia => (
+            <tr key={materia}>
+              <td>{materia}</td>
+              <td>
+                {notas[materia].primero && notas[materia].primero.length > 0
+                  ? notas[materia].primero.map(nota => (
+                      <span key={nota.id}>{nota.calificacion}</span>
+                    ))
+                  : "NR"}
+              </td>
+              <td>
+                {notas[materia].segundo && notas[materia].segundo.length > 0
+                  ? notas[materia].segundo.map(nota => (
+                      <span key={nota.id}>{nota.calificacion}</span>
+                    ))
+                  : "NR"}
+              </td>
+              <td>
+                {notas[materia].tercero && notas[materia].tercero.length > 0
+                  ? notas[materia].tercero.map(nota => (
+                      <span key={nota.id}>{nota.calificacion}</span>
+                    ))
+                  : "NR"}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
-};
+}
 
 export default Notas;
