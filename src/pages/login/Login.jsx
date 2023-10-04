@@ -23,12 +23,11 @@ const Login = () => {
       const { token, usuario } = response.data;
       const { role, id } = usuario;
 
-
       localStorage.setItem("token", token); // Store token in local storage
       localStorage.setItem("userId", id); // Almacena el ID del usuario en el local storage
 
       // Redirect user based on their role
-      if (role.nombre === "estudiante") {
+      if (role.nombre === "Estudiante") {
         navigate("/perfil");
       } else if (role.nombre === "Director" || role.nombre === "Maestra") {
         navigate("/admin");
