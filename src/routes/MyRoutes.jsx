@@ -56,6 +56,7 @@ const MyRoutes = () => (
         <Route path="notas" element={<Notas />}/>
         <Route path="datosPersonales" element={<DatosPersonales/>}/>
         <Route path="horario" element={<MiHorario />}/>
+        <Route path="tareas" element={<ListaArchivos/>}/>
     </Route>
 
     <Route path="/admin/*" element={<PanelAdmin />}>

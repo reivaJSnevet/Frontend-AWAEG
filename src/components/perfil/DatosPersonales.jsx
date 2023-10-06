@@ -37,15 +37,17 @@ function DatosPersonales() {
   }
 
   return (
-    <div>
-      <div>DatosPersonales</div>
-      <p>Nombre: {estudiante.nombre}</p>
-      <p>Apellido 1: {estudiante.apellido1}</p>
-      <p>Apellido 2: {estudiante.apellido2}</p>
-      <p>Fecha de Nacimiento: {estudiante.fechaNacimiento}</p>
-      <p>Edad: {estudiante.edad}</p>
-      <p>Sexo: {estudiante.sexo ? "Masculino" : "Femenino"}</p>
-      <p>Dirección: {estudiante.direccion}</p>
+    <div className="datos-personales">
+    <h3>Datos Personales</h3>
+    <ul>
+        <li><strong>Nombre:</strong> {estudiante.nombre}</li>
+        <li><strong>Apellido 1:</strong> {estudiante.apellido1}</li>
+        <li><strong>Apellido 2:</strong> {estudiante.apellido2}</li>
+        <li><strong>Fecha de Nacimiento:</strong> {estudiante.fechaNacimiento}</li>
+        <li><strong>Edad:</strong> {estudiante.edad}</li>
+        <li><strong>Sexo:</strong> {estudiante.sexo ? "Masculino" : "Femenino"}</li>
+        <li><strong>Dirección:</strong> {estudiante.direccion}</li>
+    </ul>
     </div>
   );
 }
