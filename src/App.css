@@ -1,9 +1,14 @@
-#root {
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-}
+} */
 
 .logo {
   height: 6em;
@@ -39,4 +44,133 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.roles-container {
+  display: flex;
+  width: 100%;
+}
+
+.roles-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.roles-tabs {
+  display: flex;
+  gap: 10px;
+}
+
+.roles-tabs ul {
+  display: flex;
+  gap: 10px;
+  padding: 0;
+  list-style-type: none;
+}
+
+.roles-tabs li {
+  padding: 10px 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.roles-tabs li:hover {
+  background-color: #f0f0f0;
+}
+
+///
+
+.list-roles-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.list-roles-table,
+.roles-th,
+.roles-td {
+  border: 1px solid #ddd;
+}
+
+.list-roles-th,
+.roles-td {
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.list-roles-th {
+  background-color: #f4f4f4;
+}
+
+.list-roles-tr:hover {
+  background-color: #f0f0f0;
+}
+
+/* Styles for the roles Create button */
+.list-roles-button {
+  padding: 8px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.list-roles-button:hover {
+  background-color: #0056b3;
+}
+
+.list-roles-button a {
+  color: white;
+  text-decoration: none;
+}
+
+//funcionarios
+
+.update-funcionario {
+  padding: 20px;
+  max-width: 400px;
+  margin: 50px auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.update-funcionario h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.update-funcionario div {
+  margin-bottom: 20px;
+}
+
+.update-funcionario label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.update-funcionario input,
+.update-funcionario select {
+  width: 50%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.update-funcionario button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.update-funcionario button:hover {
+  background-color: #0056b3;
 }
