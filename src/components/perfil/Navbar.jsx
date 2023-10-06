@@ -13,6 +13,9 @@ function Navbar() {
         <li>
             <Link to="horario">Horario</Link>
         </li>
+        <li>
+            <Link to="tareas">Tareas</Link>
+        </li>
       </ul>
     </div>
   )

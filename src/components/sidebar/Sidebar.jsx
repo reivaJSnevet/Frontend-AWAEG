@@ -29,6 +29,9 @@ function Sidebar() {
           <Link to="notas">Notas</Link>
         </li>
         <li>
+          <Link to="archivos">Archivos</Link>
+        </li>
+        <li>
           <Link to="/perfil">Perfil</Link>
         </li>
       </ul>
