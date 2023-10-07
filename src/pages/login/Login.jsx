@@ -1,7 +1,16 @@
 import { useState } from "react";
 import api from "../../services/api.config.js";
 import { useNavigate } from "react-router-dom";
-import { Button, Checkbox, FormControl, FormHelperText, FormLabel, Grid, GridItem,  Heading} from "@chakra-ui/react";
+import {
+  Grid,
+  GridItem,
+  Heading,
+  FormControl,
+  FormLabel,
+  FormHelperText,
+  Checkbox,
+  Button,
+} from "@chakra-ui/react";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -12,15 +21,13 @@ const Login = () => {
 
   const { correo, contraseña } = formData;
 
-  
-  
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted");
+    console.log("Form submitted", correo, contraseña);
     try {
       const response = await api.post("/auth/login", { correo, contraseña });
 
@@ -43,64 +50,83 @@ const Login = () => {
     console.log("Form submitted");
   };
 
-
-
   return (
-    
     <Grid
-    templateAreas={`"Main Rest"`}
-    gridTemplateColumns={'1fr 2fr'} // Utilizamos unidades flexibles para las columnas
-    w='100vw'
-    h='100vh'
-    color='black.900'
-    fontWeight='bold'
-  >
-    <GridItem pl='2' bg='purple.600' area={'Main'} className="flex flex-col items-center justify-center ">
-      <Heading fontSize='5xl' className="mb-4">Bienvenido</Heading>
-      <div fontSize='3xl' className="mb-6">Inicia Sesión con tu cuenta</div>
+      templateAreas={`"Main Rest"`}
+      gridTemplateColumns={"1fr 2fr"} // Utilizamos unidades flexibles para las columnas
+      w="100vw"
+      h="100vh"
+      color="black.900"
+      fontWeight="bold"
+    >
+      <GridItem
+        pl="2"
+        bg="purple.600"
+        area={"Main"}
+        className="flex flex-col items-center justify-center "
+      >
+        <Heading fontSize="5xl" className="mb-4">
+          Bienvenido
+        </Heading>
+        <div fontSize="3xl" className="mb-6">
+          Inicia Sesión con tu cuenta
+        </div>
 
-      <FormControl onSubmit={handleSubmit} className="flex flex-col items-center justify-center  ">
-        <FormLabel color={"blackAlpha.900"}>Correo Electrónico:</FormLabel>
-        <input id="email-address" name="correo" type="email" placeholder="Escriba su correo electrónico" size='md' 
-          value={correo} onChange={handleChange}
-        />
-          <FormHelperText color={"blackAlpha.900"}>Ejemplo: correo@gmail.com</FormHelperText>
+        <FormControl
+          onSubmit={handleSubmit}
+          className="flex flex-col items-center justify-center "
+        >
+          <FormLabel color={"blackAlpha.900"}>Correo Electrónico:</FormLabel>
+          <input
+            id="email-address"
+            name="correo"
+            type="email"
+            placeholder="Escriba su correo electrónico"
+            size="md"
+            value={correo}
+            onChange={handleChange}
+          />
+          <FormHelperText color={"blackAlpha.900"}>
+            Ejemplo: correo@gmail.com
+          </FormHelperText>
 
-        <FormLabel color={"blackAlpha.900"}>Contraseña:</FormLabel>
-        <input id="contraseña" name="contraseña" type="password" placeholder="Escriba su contraseña" size='md'
-          value={contraseña} onChange={handleChange}
-        />
-          <FormHelperText color={"blackAlpha.900"}>Debe contener al menos 8 caracteres</FormHelperText>
+          <FormLabel color={"blackAlpha.900"}>Contraseña:</FormLabel>
+          <input
+            id="contraseña"
+            name="contraseña"
+            type="password"
+            placeholder="Escriba su contraseña"
+            size="md"
+            value={contraseña}
+            onChange={handleChange}
+          />
+          <FormHelperText color={"blackAlpha.900"}>
+            Debe contener al menos 8 caracteres
+          </FormHelperText>
 
-        <Checkbox className="mb-6">Mostrar Contraseña</Checkbox>
+          <Checkbox className="mb-6">Mostrar Contraseña</Checkbox>
 
-        <Button type="submit" bg='gray.300'>
-          Iniciar Seción
-        </Button>
-        
-    </FormControl>
-    </GridItem>
-    
-    <GridItem
-    pl='2'
-    area={'Rest'}
-    style={{
-      backgroundImage: 'url(https://images.alphacoders.com/109/1091572.png)',
-      backgroundSize: 'cover', // La imagen de fondo cubrirá todo el elemento
-      backgroundPosition: 'center center', // La imagen de fondo se centrará
-      backgroundRepeat: 'no-repeat', // Evita la repetición de la imagen de fondo
-  }}
->
-  <div className="flex flex-col items-center justify-center h-full p-6">
-    {/* Aquí va lo que sea que deba ir */}
-  </div>
-</GridItem>
+          <Button type="submit" bg="gray.300" onClick={handleSubmit}>
+            Iniciar Seción
+          </Button>
+        </FormControl>
+      </GridItem>
 
-  </Grid>
-
-    
+      <GridItem
+        pl="2"
+        area={"Rest"}
+        style={{
+          backgroundImage:
+            "url(https://images.alphacoders.com/109/1091572.png)",
+          backgroundSize: "cover", // La imagen de fondo cubrirá todo el elemento
+          backgroundPosition: "center center", // La imagen de fondo se centrará
+          backgroundRepeat: "no-repeat", // Evita la repetición de la imagen de fondo
+        }}
+      >
+        <div className="flex flex-col items-center justify-center h-full p-6"></div>
+      </GridItem>
+    </Grid>
   );
-  
 };
 
 export default Login;
