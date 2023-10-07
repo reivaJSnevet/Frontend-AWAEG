@@ -48,6 +48,12 @@ import MiHorario from "../components/perfil/MiHorario";
 import Archivo from "../pages/archivo/Archivo";
 import SubirArchivo from "../components/archivo/SubirArchivo";
 import ListaArchivos from "../components/archivo/ListaArchivos";
+import Usuario from "../pages/usuario/Usuario";
+import ListUsuarios from "../components/usuario/ListUsuarios";
+import AddUsuario from "../components/usuario/AddUsuario";
+import GetUsuarioById from "../components/usuario/GetUsuarioById";
+import UpdateUsuario from "../components/usuario/UpdateUsuario";
+import DeleteUsuarioById from "../components/usuario/DeleteUsuarioById";
 
 const MyRoutes = () => (
   <Routes>
@@ -123,6 +129,14 @@ const MyRoutes = () => (
       <Route path="archivos" element={<Archivo/>}>
         <Route path="subir" element={<SubirArchivo/>}/>
         <Route path="lista" element={<ListaArchivos/>}/>
+      </Route>
+
+      <Route path="usuarios" element={<Usuario />}>
+        <Route path="todo" element={<ListUsuarios />} /> {/* Ruta para Crear */}
+        <Route path="crear" element={<AddUsuario />} /> {/* Ruta para Crear */}
+        <Route path="buscar" element={<GetUsuarioById />} /> {/* Ruta para Buscar */}
+        <Route path="actualizar" element={<UpdateUsuario />} /> {/* Ruta para Actualizar */}
+        <Route path="borrar" element={<DeleteUsuarioById />} /> {/* Ruta para Borrar */}
       </Route>
 
     </Route>
