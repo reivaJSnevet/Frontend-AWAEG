@@ -1,93 +1,83 @@
 import React, { useEffect, useState } from "react";
 import api from "../../services/api.config.js";
-import { convertirAFormato12Horas } from "../../services/conversores.js";
+import { convertirANumeroRomano } from "../../services/conversores.js";
 
 function Horario() {
   const seccion = "1-1";
-  const [horarioData, setHorarioData] = useState(null);
+  const [horario, setHorario] = useState([]);
 
   useEffect(() => {
-    const fetchHorario = async () => {
-      try {
-        const response = await api.get(`grupos/${seccion}`);
-        setHorarioData(response.data.horario.clases);
-      } catch (error) {
-        console.error("Error fetching data:", error);
+    // Hacer la solicitud GET a tu API
+    api.get(`grupos/${seccion}`)
+      .then(response => {
+        console.log("DATOS DEL API", response.data);
+        setHorario(response.data);
+      })
+      .catch(error => {
+        console.error("Error fetching data: ", error);
+      });
+  }, []);
+
+  const renderizarTabla = () => {
+    const filas = [];
+
+    [...Array(7).keys()].forEach((index) => {
+      const horaInicio = horario.lunes?.[index]?.horaInicio ?? "";
+      const horaSalida = horario.lunes?.[index]?.horaSalida ?? "";
+
+      filas.push(
+        <tr key={filas.length * 2}>
+          <td className="px-2 py-1 text-xs border border-yellow-500 border-solid">{`${horaInicio} - ${horaSalida}`}</td>
+          <td className="px-2 py-1 text-xs border border-yellow-500 border-solid">{convertirANumeroRomano(index + 1)}</td>
+          <td className="px-2 py-1 text-xs border border-yellow-500 border-solid">{renderizarClase("lunes", index)}</td>
+          <td className="px-2 py-1 text-xs border border-yellow-500 border-solid">{renderizarClase("martes", index)}</td>
+          <td className="px-2 py-1 text-xs border border-yellow-500 border-solid">{renderizarClase("miercoles", index)}</td>
+          <td className="px-2 py-1 text-xs border border-yellow-500 border-solid">{renderizarClase("jueves", index)}</td>
+          <td className="px-2 py-1 text-xs border border-yellow-500 border-solid">{renderizarClase("viernes", index)}</td>
+        </tr>
+      );
+
+      // Agrega la fila de RECREO después de cada dos filas regulares
+      if ((filas.length + 1) % 3 === 0) {
+        filas.push(
+          <tr key={`${filas.length * 2}-recreo`}>
+            <td colSpan="7" className="px-2 py-1 text-xs text-center text-white bg-yellow-500 border border-white border-solid">RECREO</td>
+          </tr>
+        );
       }
-    };
-
-    fetchHorario();
-  }, [seccion]);
-
-  const renderHorario = () => {
-    if (!horarioData) {
-      return <p>Cargando...</p>;
-    }
-
-    let counter = 0;
+    });
 
     return (
-      <table>
+      <table className="w-full text-center">
         <thead>
           <tr>
-            <th>Hora</th>
-            <th>Lección</th>
-            <th>Lunes</th>
-            <th>Martes</th>
-            <th>Miércoles</th>
-            <th>Jueves</th>
-            <th>Viernes</th>
+            <th className="px-2 py-1 text-xs border border-yellow-500 border-solid">Hora</th>
+            <th className="px-2 py-1 text-xs border border-yellow-500 border-solid">Lección</th>
+            <th className="px-2 py-1 text-xs border border-yellow-500 border-solid">Lunes</th>
+            <th className="px-2 py-1 text-xs border border-yellow-500 border-solid">Martes</th>
+            <th className="px-2 py-1 text-xs border border-yellow-500 border-solid">Miércoles</th>
+            <th className="px-2 py-1 text-xs border border-yellow-500 border-solid">Jueves</th>
+            <th className="px-2 py-1 text-xs border border-yellow-500 border-solid">Viernes</th>
           </tr>
         </thead>
-        <tbody>
-          {horarioData.map((clase) => {
-            counter++;
-            if (counter % 3 === 0) {
-              return (
-                <React.Fragment key={counter}>
-                  <tr>
-                    <td>Recreo</td>
-                    <td>Recreo</td>
-                    <td>Recreo</td>
-                    <td>Recreo</td>
-                    <td>Recreo</td>
-                    <td>Recreo</td>
-                    <td>Recreo</td>
-                  </tr>
-                  <tr key={clase.id}>
-                    <td>{`${convertirAFormato12Horas(clase.horaInicio)}-${convertirAFormato12Horas(clase.horaSalida)}`}</td>
-                    <td>{clase.leccion}</td>
-                    <td>{clase.dia === "lunes" ? clase.materia.nombre : "LIBRE"}</td>
-                    <td>{clase.dia === "martes" ? clase.materia.nombre : "LIBRE"}</td>
-                    <td>{clase.dia === "miércoles" ? clase.materia.nombre : "LIBRE"}</td>
-                    <td>{clase.dia === "jueves" ? clase.materia.nombre : "LIBRE"}</td>
-                    <td>{clase.dia === "viernes" ? clase.materia.nombre : "LIBRE"}</td>
-                  </tr>
-                </React.Fragment>
-              );
-            } else {
-              return (
-                <tr key={clase.id}>
-                  <td>{`${convertirAFormato12Horas(clase.horaInicio)}-${convertirAFormato12Horas(clase.horaSalida)}`}</td>
-                  <td>{clase.leccion}</td>
-                  <td>{clase.dia === "lunes" ? clase.materia.nombre : "LIBRE"}</td>
-                  <td>{clase.dia === "martes" ? clase.materia.nombre : "LIBRE"}</td>
-                  <td>{clase.dia === "miércoles" ? clase.materia.nombre : "LIBRE"}</td>
-                  <td>{clase.dia === "jueves" ? clase.materia.nombre : "LIBRE"}</td>
-                  <td>{clase.dia === "viernes" ? clase.materia.nombre : "LIBRE"}</td>
-                </tr>
-              );
-            }
-          })}
-        </tbody>
+        <tbody>{filas}</tbody>
       </table>
     );
   };
 
+  const renderizarClase = (dia, index) => {
+    if (horario[dia] && horario[dia][index]) {
+      const clase = horario[dia][index];
+      return `${clase.materia}`;
+    } else {
+      return "";
+    }
+  };
+
   return (
-    <div>
-      <h2>Horario de Clases</h2>
-      {renderHorario()}
+    <div className="p-2 text-black bg-gray-100">
+      <h2 className="mb-2 text-lg font-bold">Horario de Clases</h2>
+      {renderizarTabla()}
     </div>
   );
 }
