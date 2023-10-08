@@ -1,5 +1,6 @@
 import {Outlet } from 'react-router-dom';
 import Sidebar from '../../components/sidebar/Sidebar';
+import Solicitud from '../../components/solicitud/Solicitud';
 
 function PanelAdmin() {
   return (
@@ -8,6 +9,7 @@ function PanelAdmin() {
       <main>
         <Outlet/>
       </main>
+     <Solicitud/>
     </div>
   );
 }
