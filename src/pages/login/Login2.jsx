@@ -43,9 +43,11 @@ const Login2 = () => {
       /* console.log(JSON.stringify(reponse?.data)); */
 
       const accessToken = reponse?.data?.token;
-      const role = reponse?.data?.usuario?.role?.nombre; //AQUIIIII OSOBILE FALLOOO APIII DIFERNETE
+      const role = reponse?.data?.usuario?.role; //AQUIIIII OSOBILE FALLOOO APIII DIFERNETE
 
-      setAuth({ user, pwd, role, accessToken });
+      const roleArray = role ? [role.nombre] : ["anonimo"];
+
+      setAuth({ user, pwd, roleArray, accessToken });
 
       setUser("");
       setPwd("");

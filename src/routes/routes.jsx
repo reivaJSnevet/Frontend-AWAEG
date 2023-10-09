@@ -61,14 +61,16 @@ const routes = (
   <>
     <Route path="login" element={<Login2 />} />
 
-    <Route element={<RequireAuth />}>
+    <Route element={<RequireAuth allowedRoles={["Estudiante"]} />}>
       <Route path="perfil/*" element={<Perfil />}>
         <Route path="notas" element={<Notas />} />
         <Route path="datosPersonales" element={<DatosPersonales />} />
         <Route path="horario" element={<MiHorario />} />
         <Route path="tareas" element={<ListaArchivos />} />
       </Route>
+    </Route>
 
+    <Route element={<RequireAuth allowedRoles={["Estudiante"]} />}>
       <Route path="admin/*" element={<PanelAdmin />}>
         <Route path="roles" element={<Rol />}>
           <Route path="todo" element={<ListRoles />} />
