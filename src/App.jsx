@@ -1,16 +1,18 @@
-import { BrowserRouter as Router } from "react-router-dom";
-import MyRoutes from "./routes/MyRoutes";
+import {Routes, Route} from "react-router-dom";
+import Layout from "./components/Layout";
+import routes from "./routes/routes";
+
 import "./App.css";
 
 function App() {
+
   return (
-    <div className="App">
-      <Router>
-        <MyRoutes />
-      </Router>
-    </div>
+    <Routes>
+        <Route path="/" element={<Layout />}>
+            {routes}
+        </Route>   
+    </Routes>
   );
 }
 
 export default App;
-
