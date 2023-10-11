@@ -1,6 +1,16 @@
 import { useState } from "react";
 import api from "../../services/api.config.js";
 import { useNavigate } from "react-router-dom";
+import {
+  Grid,
+  GridItem,
+  Heading,
+  FormControl,
+  FormLabel,
+  FormHelperText,
+  Checkbox,
+  Button,
+} from "@chakra-ui/react";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -17,6 +27,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Form submitted", correo, contraseña);
     try {
       const response = await api.post("/auth/login", { correo, contraseña });
 
@@ -36,90 +47,85 @@ const Login = () => {
       console.error("Login error", error);
       // Handle login error (e.g., show an error message)
     }
+    console.log("Form submitted");
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Inicia con tu cuenta
-          </h2>
+    <Grid
+      templateAreas={`"Main Rest"`}
+      gridTemplateColumns={"1fr 2fr"} // Utilizamos unidades flexibles para las columnas
+      w="100vw"
+      h="100vh"
+      color="black.900"
+      fontWeight="bold"
+    >
+      <GridItem
+        pl="2"
+        bg="purple.600"
+        area={"Main"}
+        className="flex flex-col items-center justify-center "
+      >
+        <Heading fontSize="5xl" className="mb-4">
+          Bienvenido
+        </Heading>
+        <div fontSize="3xl" className="mb-6">
+          Inicia Sesión con tu cuenta
         </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <input type="hidden" name="remember" defaultValue="true" />
-          <div className="rounded-md shadow-sm -space-y-px">
-            <div>
-              <label htmlFor="email-address" className="sr-only">
-                Correo Electronico
-              </label>
-              <input
-                id="email-address"
-                name="correo"
-                type="email"
-                autoComplete="correo"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Email address"
-                value={correo}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label htmlFor="password" className="sr-only">
-                Contraseña
-              </label>
-              <input
-                id="contraseña"
-                name="contraseña"
-                type="password"
-                autoComplete="current-password"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
-                value={contraseña}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
 
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember_me"
-                name="remember_me"
-                type="checkbox"
-                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-              />
-              <label
-                htmlFor="remember_me"
-                className="ml-2 block text-sm text-gray-900"
-              >
-                Recuerdame 
-              </label>
-            </div>
+        <FormControl
+          onSubmit={handleSubmit}
+          className="flex flex-col items-center justify-center "
+        >
+          <FormLabel color={"blackAlpha.900"}>Correo Electrónico:</FormLabel>
+          <input
+            id="email-address"
+            name="correo"
+            type="email"
+            placeholder="Escriba su correo electrónico"
+            size="md"
+            value={correo}
+            onChange={handleChange}
+          />
+          <FormHelperText color={"blackAlpha.900"}>
+            Ejemplo: correo@gmail.com
+          </FormHelperText>
 
-            <div className="text-sm">
-              <a
-                href="#"
-                className="font-medium text-indigo-600 hover:text-indigo-500"
-              >
-                Olvidaste tu contraseña?
-              </a>
-            </div>
-          </div>
+          <FormLabel color={"blackAlpha.900"}>Contraseña:</FormLabel>
+          <input
+            id="contraseña"
+            name="contraseña"
+            type="password"
+            placeholder="Escriba su contraseña"
+            size="md"
+            value={contraseña}
+            onChange={handleChange}
+          />
+          <FormHelperText color={"blackAlpha.900"}>
+            Debe contener al menos 8 caracteres
+          </FormHelperText>
 
-          <div>
-            <button
-              type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-              Iniciar sesion
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+          <Checkbox className="mb-6">Mostrar Contraseña</Checkbox>
+
+          <Button type="submit" bg="gray.300" onClick={handleSubmit}>
+            Iniciar Seción
+          </Button>
+        </FormControl>
+      </GridItem>
+
+      <GridItem
+        pl="2"
+        area={"Rest"}
+        style={{
+          backgroundImage:
+            "url(https://images.alphacoders.com/109/1091572.png)",
+          backgroundSize: "cover", // La imagen de fondo cubrirá todo el elemento
+          backgroundPosition: "center center", // La imagen de fondo se centrará
+          backgroundRepeat: "no-repeat", // Evita la repetición de la imagen de fondo
+        }}
+      >
+        <div className="flex flex-col items-center justify-center h-full p-6"></div>
+      </GridItem>
+    </Grid>
   );
 };
 
