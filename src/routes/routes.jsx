@@ -56,6 +56,8 @@ import UpdateUsuario from "../components/usuario/UpdateUsuario";
 import DeleteUsuarioById from "../components/usuario/DeleteUsuarioById";
 import Login2 from "../pages/login/Login2";
 import RequireAuth from "../components/auth/RequireAuth";
+import Unauthorized from "../pages/errors/Unauthorized";
+import NotFound from "../pages/errors/NotFound";
 
 const routes = (
   <>
@@ -70,7 +72,7 @@ const routes = (
       </Route>
     </Route>
 
-    <Route element={<RequireAuth allowedRoles={["Estudiante"]} />}>
+    <Route element={<RequireAuth allowedRoles={["Director", "Maestra", "Secretaria"]} />}> {/* SI FALLA LA RUTA O AUTH PROBLEM HERE */}
       <Route path="admin/*" element={<PanelAdmin />}>
         <Route path="roles" element={<Rol />}>
           <Route path="todo" element={<ListRoles />} />
@@ -140,6 +142,10 @@ const routes = (
         </Route>
       </Route>
     </Route>
+
+    <Route path="/unauthorized" element={<Unauthorized/>} />
+    <Route path="*" element={<NotFound />} />
+
   </>
 );
 

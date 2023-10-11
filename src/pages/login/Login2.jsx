@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
 
+import useAuth from "../../hooks/useAuth";
 import api from "../../api/axios";
 
 const Login2 = () => {
@@ -30,29 +30,30 @@ const Login2 = () => {
     e.preventDefault();
 
     try {
-      const reponse = await api.post(
+      const response = await api.post(
         "/auth/login",
-        JSON.stringify({ correo: user, contraseña: pwd }),
+        JSON.stringify({ nombre: user, contraseña: pwd }),
         {
           headers: {
             "Content-Type": "application/json",
           },
-          /*  withCredentials: true //AQUIIIII OSOBILE FALLOOO APIII DIFERNETE */
+          withCredentials: true, //POSIBLE FALLO AQUI PORQUE NO SE SI ES TRUE O FALSE
         }
       );
-      /* console.log(JSON.stringify(reponse?.data)); */
+      /* console.log(JSON.stringify(response?.data)); */
 
-      const accessToken = reponse?.data?.token;
-      const role = reponse?.data?.usuario?.role; //AQUIIIII OSOBILE FALLOOO APIII DIFERNETE
+      const accessToken = response?.data?.accessToken;
+      const role = response?.data?.rol; //POSIBLE FALLO CON ROLES manejo diferente
 
-      const roleArray = role ? [role.nombre] : ["anonimo"];
+      const roleArray = role ? [role] : ["anonimo"];
 
       setAuth({ user, pwd, roleArray, accessToken });
 
       setUser("");
       setPwd("");
-
+	
       navigate(from, { replace: true });
+
     } catch (error) {
       if (!error?.response) {
         setErrMsg("Error de conexión, sin respuesta del servidor");
@@ -61,6 +62,8 @@ const Login2 = () => {
         setErrMsg("Usuario o contraseña incorrecta");
       } else if (error?.response?.status === 401) {
         setErrMsg("Sin autorización");
+      } else if (error?.response?.status === 404) {
+        setErrMsg("Usuario no registrado");
       } else {
         setErrMsg("Error desconocido");
       }
@@ -69,10 +72,13 @@ const Login2 = () => {
   };
 
   return (
-    <section className="flex flex-col items-center h-screen md:flex-row">
+    <section className="flex flex-col items-center h-screen md:flex-col">
       <p
         ref={errRef}
-        className={errMsg ? "errmsg" : "offscreen"}
+        className={`${
+          errMsg ? "errmsg p-3" : "offscreen"
+        } bg-red-500 text-white p-0 rounded-md mt-2`}
+        role="alert"
         aria-live="assertive"
       >
         {errMsg}
@@ -110,7 +116,7 @@ const Login2 = () => {
         <input
           type="password"
           id="password"
-          autoComplete="on"
+          autoComplete="off"
           onChange={(e) => setPwd(e.target.value)}
           value={pwd}
           required
@@ -124,7 +130,7 @@ const Login2 = () => {
         <span className="text-blue-500">
           Recupérala
           {/* router link aqui */}
-          <a href="#"> aquí</a>
+          <a href="/Admin"> aquí</a>
         </span>
       </p>
     </section>
