@@ -40,7 +40,7 @@ const Login2 = () => {
           withCredentials: true, //POSIBLE FALLO AQUI PORQUE NO SE SI ES TRUE O FALSE
         }
       );
-      /* console.log(JSON.stringify(response?.data)); */
+      console.log(JSON.stringify(response?.data));
 
       const accessToken = response?.data?.accessToken;
       const role = response?.data?.rol; //POSIBLE FALLO CON ROLES manejo diferente

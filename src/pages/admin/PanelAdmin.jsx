@@ -12,7 +12,7 @@ function PanelAdmin() {
         <br/>
         <Outlet/>
       </main>
-     <Solicitud/>
+{/*      <Solicitud/> */}
     </div>
   );
 }
