@@ -1,11 +1,11 @@
 import { useRef, useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-
+import useLocalStorage from "../../hooks/useLocalStorage";
 import useAuth from "../../hooks/useAuth";
 import api from "../../api/axios";
 
 const Login2 = () => {
-  const { setAuth } = useAuth();
+  const { setAuth, persist, setPersist } = useAuth();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -14,7 +14,7 @@ const Login2 = () => {
   const userRef = useRef();
   const errRef = useRef();
 
-  const [user, setUser] = useState("");
+  const [user, setUser] = useLocalStorage("user", "")  //useState("");
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
 
@@ -51,9 +51,8 @@ const Login2 = () => {
 
       setUser("");
       setPwd("");
-	
-      navigate(from, { replace: true });
 
+      navigate(from, { replace: true });
     } catch (error) {
       if (!error?.response) {
         setErrMsg("Error de conexión, sin respuesta del servidor");
@@ -70,6 +69,14 @@ const Login2 = () => {
       errRef.current.focus();
     }
   };
+
+  const togglePersist = () => {
+    setPersist((prev) => !prev);
+  }
+
+  useEffect(() => {
+    localStorage.setItem("persist", persist);
+  }, [persist]);
 
   return (
     <section className="flex flex-col items-center h-screen md:flex-col">
@@ -123,6 +130,18 @@ const Login2 = () => {
           className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm dark:bg-gray-700 dark:text-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
         />
         <button>Iniciar sesión</button>
+        <div className="flex items-center mt-4">
+          <input
+            type="checkbox"
+            id="persist"
+            onChange={togglePersist}
+            checked={persist}
+            className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 focus:ring focus:ring-opacity-50"
+          />
+          <label htmlFor="persist" className="ml-2 text-sm text-gray-700">
+            Mantener sesión iniciada
+          </label>
+        </div>
       </form>
       <p>
         ¿Olvidaste tu contraseña?
