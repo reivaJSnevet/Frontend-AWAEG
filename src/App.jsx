@@ -3,15 +3,18 @@ import Layout from "./components/Layout";
 import routes from "./routes/routes";
 
 import "./App.css";
+import { ChakraProvider } from "@chakra-ui/react";
 
 function App() {
 
   return (
-    <Routes>
+    <ChakraProvider>
+      <Routes>
         <Route path="/" element={<Layout />}>
             {routes}
         </Route>   
-    </Routes>
+      </Routes>
+    </ChakraProvider>
   );
 }
 
