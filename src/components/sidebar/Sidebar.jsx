@@ -1,6 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useLogout from "../../hooks/useLogout";
 
-function Sidebar() {
+const Sidebar = () => {
+    const navigate = useNavigate();
+    const logout = useLogout();
+
+    const signOut = async () => {
+        await logout();
+        navigate("/login");
+    }
+
   return (
     <div className="sidebar">
       <ul>
@@ -34,6 +43,10 @@ function Sidebar() {
         <li>
           <Link to="/perfil">Perfil</Link>
         </li>
+        <br />
+        <div>
+            <button onClick={signOut}>Cerrar sesión</button>
+        </div>
       </ul>
     </div>
   );

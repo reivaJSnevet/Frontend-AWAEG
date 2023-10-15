@@ -1,15 +1,20 @@
-import { BrowserRouter as Router } from "react-router-dom";
-import MyRoutes from "./routes/MyRoutes";
+import {Routes, Route} from "react-router-dom";
+import Layout from "./components/Layout";
+import routes from "./routes/routes";
+
 import "./App.css";
 import { ChakraProvider } from "@chakra-ui/react";
 
 function App() {
+
   return (
     <ChakraProvider>
-      <Router>
-        <MyRoutes />
-      </Router>
-      </ChakraProvider>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+            {routes}
+        </Route>   
+      </Routes>
+    </ChakraProvider>
   );
 }
 
