@@ -41,7 +41,7 @@ import GetById from "../components/clase/GetById";
 import UpdateClase from "../components/clase/UpdateClase";
 import DeleteClase from "../components/clase/DeleteClase";
 import UpdateNota from "../components/nota/UpdateNota";
-import Login from "../pages/login/Login";
+/* import Login from "../pages/login/Login"; */
 import DatosPersonales from "../components/perfil/DatosPersonales";
 import Notas from "../components/perfil/Notas";
 import MiHorario from "../components/perfil/MiHorario";
@@ -59,98 +59,98 @@ import RequireAuth from "../components/auth/RequireAuth";
 import Unauthorized from "../pages/errors/Unauthorized";
 import NotFound from "../pages/errors/NotFound";
 import PersistLogin from "../components/auth/PersistLogin";
+import Home from "../pages/home/Home";
 
 const routes = (
   <>
     <Route path="login" element={<Login2 />} />
+    <Route path="/" element={<Home />} />
+    <Route element={<PersistLogin />}>
+      <Route element={<RequireAuth allowedRoles={["Estudiante"]} />}>
+        <Route path="perfil/" element={<Perfil />}>
+          <Route path="notas" element={<Notas />} />
+          <Route path="datosPersonales" element={<DatosPersonales />} />
+          <Route path="horario" element={<MiHorario />} />
+          <Route path="tareas" element={<ListaArchivos />} />
+        </Route>
+      </Route>
+    </Route>
 
     <Route element={<PersistLogin />}>
-        <Route element={<RequireAuth allowedRoles={["Estudiante"]} />}>
-            <Route path="perfil/" element={<Perfil />}>
-                <Route path="notas" element={<Notas />} />
-                <Route path="datosPersonales" element={<DatosPersonales />} />
-                <Route path="horario" element={<MiHorario />} />
-                <Route path="tareas" element={<ListaArchivos />} />
-            </Route>
+      <Route element={<RequireAuth allowedRoles={["Director", "Maestra", "Secretaria"]} />}>
+        <Route path="admin/" element={<PanelAdmin />}>
+          <Route path="roles" element={<Rol />}>
+            <Route path="todo" element={<ListRoles />} />
+            <Route path="crear" element={<AddRol />} />
+            <Route path="buscar" element={<GetRolById />} />
+            <Route path="borrar" element={<DeleteRolById />} />
+          </Route>
+
+          <Route path="funcionarios" element={<Funcionario />}>
+            <Route path="todo" element={<ListFuncionarios />} />
+            <Route path="crear" element={<AddFuncionario />} />
+            <Route path="buscar" element={<GetFuncionarioById />} />
+            <Route path="actualizar" element={<UpdateFuncionario />} />
+            <Route path="borrar" element={<DeleteFuncionarioById />} />
+          </Route>
+
+          <Route path="estudiantes" element={<Estudiante />}>
+            <Route path="todo" element={<ListEstudiantes />} />
+            <Route path="crear" element={<AddEstudiante />} />
+            <Route path="buscar" element={<GetEstudianteById />} />
+            <Route path="actualizar" element={<UpdateEstudiante />} />
+            <Route path="borrar" element={<DeleteEstudianteById />} />
+          </Route>
+
+          <Route path="grupos" element={<Grupo />}>
+            <Route path="todo" element={<ListGrupos />} />
+            <Route path="crear" element={<AddGrupo />} />
+            <Route path="buscar" element={<GetGrupoById />} />
+            <Route path="actualizar" element={<UpdateGrupo />} />
+            <Route path="borrar" element={<DeleteGrupoById />} />
+          </Route>
+
+          <Route path="horarios" element={<Horario />}>
+            <Route path="todo" element={<ListHorarios />} />
+            <Route path="crear" element={<AddHorario />} />
+            <Route path="buscar" element={<GetHorarioById />} />
+            <Route path="borrar" element={<DeleteHorarioById />} />
+          </Route>
+
+          <Route path="notas" element={<Nota />}>
+            <Route path="todo" element={<ListNotas />} />
+            <Route path="crear" element={<AddNota />} />
+            <Route path="buscar" element={<GetNotaById />} />
+            <Route path="actualizar" element={<UpdateNota />} />
+            <Route path="borrar" element={<DeleteNotaById />} />
+          </Route>
+
+          <Route path="clases" element={<Clases />}>
+            <Route path="todo" element={<ListAll />} />
+            <Route path="crear" element={<CrearClase />} />
+            <Route path="buscar" element={<GetById />} />
+            <Route path="actualizar" element={<UpdateClase />} />
+            <Route path="borrar" element={<DeleteClase />} />
+          </Route>
+
+          <Route path="archivos" element={<Archivo />}>
+            <Route path="subir" element={<SubirArchivo />} />
+            <Route path="lista" element={<ListaArchivos />} />
+          </Route>
+
+          <Route path="usuarios" element={<Usuario />}>
+            <Route path="todo" element={<ListUsuarios />} />
+            <Route path="crear" element={<AddUsuario />} />
+            <Route path="buscar" element={<GetUsuarioById />} />
+            <Route path="actualizar" element={<UpdateUsuario />} />
+            <Route path="borrar" element={<DeleteUsuarioById />} />
+          </Route>
         </Route>
+      </Route>
     </Route>
 
-    <Route element={<PersistLogin/>}>
-        <Route element={<RequireAuth allowedRoles={["Director", "Maestra", "Secretaria"]} />}> {/* SI FALLA LA RUTA O AUTH PROBLEM HERE */}
-            <Route path="admin/" element={<PanelAdmin />}>
-                <Route path="roles" element={<Rol />}>
-                <Route path="todo" element={<ListRoles />} />
-                <Route path="crear" element={<AddRol />} />
-                <Route path="buscar" element={<GetRolById />} />
-                <Route path="borrar" element={<DeleteRolById />} />
-                </Route>
-
-                <Route path="funcionarios" element={<Funcionario />}>
-                <Route path="todo" element={<ListFuncionarios />} />
-                <Route path="crear" element={<AddFuncionario />} />
-                <Route path="buscar" element={<GetFuncionarioById />} />
-                <Route path="actualizar" element={<UpdateFuncionario />} />
-                <Route path="borrar" element={<DeleteFuncionarioById />} />
-                </Route>
-
-                <Route path="estudiantes" element={<Estudiante />}>
-                <Route path="todo" element={<ListEstudiantes />} />
-                <Route path="crear" element={<AddEstudiante />} />
-                <Route path="buscar" element={<GetEstudianteById />} />
-                <Route path="actualizar" element={<UpdateEstudiante />} />
-                <Route path="borrar" element={<DeleteEstudianteById />} />
-                </Route>
-
-                <Route path="grupos" element={<Grupo />}>
-                <Route path="todo" element={<ListGrupos />} />
-                <Route path="crear" element={<AddGrupo />} />
-                <Route path="buscar" element={<GetGrupoById />} />
-                <Route path="actualizar" element={<UpdateGrupo />} />
-                <Route path="borrar" element={<DeleteGrupoById />} />
-                </Route>
-
-                <Route path="horarios" element={<Horario />}>
-                <Route path="todo" element={<ListHorarios />} />
-                <Route path="crear" element={<AddHorario />} />
-                <Route path="buscar" element={<GetHorarioById />} />
-                <Route path="borrar" element={<DeleteHorarioById />} />
-                </Route>
-
-                <Route path="notas" element={<Nota />}>
-                <Route path="todo" element={<ListNotas />} />
-                <Route path="crear" element={<AddNota />} />
-                <Route path="buscar" element={<GetNotaById />} />
-                <Route path="actualizar" element={<UpdateNota />} />
-                <Route path="borrar" element={<DeleteNotaById />} />
-                </Route>
-
-                <Route path="clases" element={<Clases />}>
-                <Route path="todo" element={<ListAll />} />
-                <Route path="crear" element={<CrearClase />} />
-                <Route path="buscar" element={<GetById />} />
-                <Route path="actualizar" element={<UpdateClase />} />
-                <Route path="borrar" element={<DeleteClase />} />
-                </Route>
-
-                <Route path="archivos" element={<Archivo />}>
-                <Route path="subir" element={<SubirArchivo />} />
-                <Route path="lista" element={<ListaArchivos />} />
-                </Route>
-
-                <Route path="usuarios" element={<Usuario />}>
-                <Route path="todo" element={<ListUsuarios />} />
-                <Route path="crear" element={<AddUsuario />} />
-                <Route path="buscar" element={<GetUsuarioById />} />
-                <Route path="actualizar" element={<UpdateUsuario />} />
-                <Route path="borrar" element={<DeleteUsuarioById />} />
-                </Route>
-            </Route>
-        </Route>
-    </Route>
-
-    <Route path="unauthorized/*" element={<Unauthorized/>} />
+    <Route path="unauthorized/*" element={<Unauthorized />} />
     <Route path="*" element={<NotFound />} />
-
   </>
 );
 

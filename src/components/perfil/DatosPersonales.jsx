@@ -1,54 +1,77 @@
 import { useState, useEffect } from "react";
-import api from "../../services/api.config";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import useAuth from "../../hooks/useAuth";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  Heading,
+  Text,
+  Box, // Importa el componente Box
+} from "@chakra-ui/react";
 
 function DatosPersonales() {
-  const [estudiante, setEstudiante] = useState(null);
+  const [estudiante, setEstudiante] = useState("");
+  const { auth } = useAuth();
+  const api = useAxiosPrivate();
+  const id = 198765432;
 
   useEffect(() => {
-    // Obtener userId y token del localStorage
-    const userId = localStorage.getItem("userId");
-    const token = localStorage.getItem("token");
+    let isMounted = true;
+    const controller = new AbortController();
 
-    async function cargarEstudiante() {
+    console.log(auth);
+
+    const getUsers = async () => {
       try {
-        // Agregar el token a la instancia de Axios para autorización
-        api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
-        const response = await api.get(`estudiantes/usuario/${userId}`);
-        const estudianteData = response.data;
-        setEstudiante(estudianteData);
-        localStorage.setItem("EstId", estudianteData.id); // Store token in local storage
-      } catch (error) {
-        console.error("Error al cargar el estudiante:", error);
+        const response = await api.get(`/estudiantes/${id}`, {
+          signal: controller.signal,
+        });
+        if (isMounted) {
+          setEstudiante(response.data);
+        }
+      } catch (err) {
+        if (isMounted) {
+          console.error(err);
+        }
       }
-    }
+    };
 
-    // Verificar si hay userId y token en el localStorage antes de hacer la solicitud
-    if (userId && token) {
-      cargarEstudiante();
-    } else {
-      // Manejar el caso en el que no haya userId o token en el localStorage (por ejemplo, redirigir a la página de inicio de sesión)
-      console.error("UserId o token no encontrados en el localStorage.");
-    }
-  }, []); // Deja el array de dependencias vacío para que se ejecute solo una vez al cargar el componente
+    getUsers();
 
-  if (!estudiante) {
-    return <div>Cargando...</div>;
-  }
+    return () => {
+      isMounted = false;
+      controller.abort();
+    };
+  }, []);
 
   return (
-    <div className="datos-personales">
-    <h3>Datos Personales</h3>
-    <ul>
-        <li><strong>Nombre:</strong> {estudiante.nombre}</li>
-        <li><strong>Apellido 1:</strong> {estudiante.apellido1}</li>
-        <li><strong>Apellido 2:</strong> {estudiante.apellido2}</li>
-        <li><strong>Fecha de Nacimiento:</strong> {estudiante.fechaNacimiento}</li>
-        <li><strong>Edad:</strong> {estudiante.edad}</li>
-        <li><strong>Sexo:</strong> {estudiante.sexo ? "Masculino" : "Femenino"}</li>
-        <li><strong>Dirección:</strong> {estudiante.direccion}</li>
-    </ul>
-    </div>
+    <Box
+      maxW="650px" // Establece el ancho máximo a 650px
+    /*   minW="650px" */ // Establece el ancho mínimo a 650px
+      w="100%" // Establece el ancho al 100% del contenedor padre
+      className="flex flex-col items-center justify-center p-6 text-white bg-purple-600 rounded-lg shadow-lg rounded-tr-3xl"
+    >
+      <div className="w-full max-w-md p-6 bg-purple-400 rounded-lg shadow-md">
+        <Card>
+          <CardHeader>
+            <Heading size="md">Datos Personales</Heading>
+          </CardHeader>
+          <CardBody>
+            <Text className="mb-2">
+              {estudiante.nombre} {estudiante.apellido1} {estudiante.apellido2}
+            </Text>
+            <Text className="mb-2">
+              {estudiante.sexo ? "Masculino" : "Femenino"}
+            </Text>
+            <Text className="mb-2">
+              {estudiante.fechaNacimiento} ({estudiante.edad} años)
+            </Text>
+            <Text className="mb-2">{estudiante.direccion}</Text>
+          </CardBody>
+        </Card>
+      </div>
+    </Box>
   );
 }
 
