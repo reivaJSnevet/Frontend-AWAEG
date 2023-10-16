@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import api from "../../services/api.config.js";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 function ListaArchivos() {
   const [archivos, setArchivos] = useState([]);
+  const api = useAxiosPrivate();
 
   useEffect(() => {
     // Hacer la solicitud a la API para obtener la lista de archivos
-    api.get("/archivos")
+    api.get("/archivo")
       .then((response) => {
         setArchivos(response.data.archivos);
       })

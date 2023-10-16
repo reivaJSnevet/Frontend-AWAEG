@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import api from "../../services/api.config.js";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { separador } from "../../services/separadorNotas.js";
+import { Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
 
 function Notas() {
   const [notas, setNotas] = useState([]);
+  const api = useAxiosPrivate();
 
   useEffect(() => {
-    const estudianteId = localStorage.getItem("EstId");
+    const estudianteId = 198765432;
 
     if (estudianteId) {
       api.get(`notas/${estudianteId}`)
@@ -23,45 +25,51 @@ function Notas() {
   }, []);
 
   return (
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th>Materia</th>
-            <th>Primero</th>
-            <th>Segundo</th>
-            <th>Tercero</th>
-          </tr>
-        </thead>
-        <tbody>
+    <div className="p-8 bg-purple-500">
+      <Table variant="striped" colorScheme="yellow">
+        <Thead>
+          <Tr>
+            <Th>Materia</Th>
+            <Th>Primero</Th>
+            <Th>Segundo</Th>
+            <Th>Tercero</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
           {Object.keys(notas).map(materia => (
-            <tr key={materia}>
-              <td>{materia}</td>
-              <td>
+            <Tr key={materia}>
+              <Td>{materia}</Td>
+              <Td>
                 {notas[materia].primero && notas[materia].primero.length > 0
                   ? notas[materia].primero.map(nota => (
-                      <span key={nota.id}>{nota.calificacion}</span>
+                      <span key={nota.id} className="p-1 mr-2 text-white bg-yellow-500 rounded">
+                        {nota.calificacion}
+                      </span>
                     ))
                   : "NR"}
-              </td>
-              <td>
+              </Td>
+              <Td>
                 {notas[materia].segundo && notas[materia].segundo.length > 0
                   ? notas[materia].segundo.map(nota => (
-                      <span key={nota.id}>{nota.calificacion}</span>
+                      <span key={nota.id} className="p-1 mr-2 text-white bg-yellow-500 rounded ">
+                        {nota.calificacion}
+                      </span>
                     ))
                   : "NR"}
-              </td>
-              <td>
+              </Td>
+              <Td>
                 {notas[materia].tercero && notas[materia].tercero.length > 0
                   ? notas[materia].tercero.map(nota => (
-                      <span key={nota.id}>{nota.calificacion}</span>
+                      <span key={nota.id} className="p-1 mr-2 text-white bg-yellow-500 rounded">
+                        {nota.calificacion}
+                      </span>
                     ))
                   : "NR"}
-              </td>
-            </tr>
+              </Td>
+            </Tr>
           ))}
-        </tbody>
-      </table>
+        </Tbody>
+      </Table>
     </div>
   );
 }

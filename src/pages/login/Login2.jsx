@@ -47,12 +47,41 @@ const Login2 = () => {
 
       const roleArray = role ? [role] : ["anonimo"];
 
-      setAuth({ user, pwd, roleArray, accessToken });
+      setAuth({roleArray, accessToken });
 
       setUser("");
       setPwd("");
 
-      navigate(from, { replace: true });
+
+
+        const roles = ["Director","Maestra"]
+
+        console.log("AQUIIIII RUTAN ANTES: ",from);
+
+      if (roleArray.includes(roles) && from === "/admin") {
+        navigate(from, { replace: true });
+        console.log("1111111111");
+
+      }else if (roleArray.includes("Estudiante") && from === "/perfil") {
+        navigate(from, { replace: true });
+        console.log("222222222222");
+
+      }else if (roleArray.includes(roles)) {
+        navigate("/admin", { replace: true });
+        console.log("3333333333333");
+
+      }else if (roleArray.includes("Estudiante")) {
+        navigate("/perfil", { replace: true });
+        console.log("444444444444");
+      }
+
+
+
+
+
+
+      /* navigate(from, { replace: true }); */
+      
     } catch (error) {
       if (!error?.response) {
         setErrMsg("Error de conexión, sin respuesta del servidor");
