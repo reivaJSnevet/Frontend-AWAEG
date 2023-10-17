@@ -38,7 +38,7 @@ function Sidebar() {
       bg="purple.500"
     >
       <Flex
-        // p="5%"
+        p="5%"
         flexDir="column"
         alignItems={navSize == "small" ? "center" : "flex-start"}
         as={"nav"}
