@@ -65,11 +65,12 @@ const routes = (
   <>
     <Route path="login" element={<Login2 />} />
     <Route path="/" element={<Home />} />
+
     <Route element={<PersistLogin />}>
       <Route element={<RequireAuth allowedRoles={["Estudiante"]} />}>
         <Route path="perfil/" element={<Perfil />}>
+          <Route index element={<DatosPersonales />} />
           <Route path="notas" element={<Notas />} />
-          <Route path="datosPersonales" element={<DatosPersonales />} />
           <Route path="horario" element={<MiHorario />} />
           <Route path="tareas" element={<ListaArchivos />} />
         </Route>
@@ -77,7 +78,11 @@ const routes = (
     </Route>
 
     <Route element={<PersistLogin />}>
-      <Route element={<RequireAuth allowedRoles={["Director", "Maestra", "Secretaria"]} />}>
+      <Route
+        element={
+          <RequireAuth allowedRoles={["Director", "Maestra", "Secretaria"]} />
+        }
+      >
         <Route path="admin/" element={<PanelAdmin />}>
           <Route path="roles" element={<Rol />}>
             <Route path="todo" element={<ListRoles />} />

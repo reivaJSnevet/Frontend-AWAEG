@@ -1,74 +1,137 @@
 import React, { useState, useEffect } from "react";
-import "./modal.css";
-import api from "../../services/api.config";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import useAuth from "../../hooks/useAuth";
 
 const Prematricula = () => {
-  const EstId = localStorage.getItem("EstId"); // Obtén la ID del estudiante del localStorage
+  const api = useAxiosPrivate();
+  const { auth } = useAuth();
 
-  const [showModal, setShowModal] = useState(false);
-  const [nombre, setNombre] = useState("");
-  const [grado, setGrado] = useState("");
+  const [estudiante, setEstudiante] = useState({
+    id: "",
+    nombre: "",
+    apellido1: "",
+    apellido2: "",
+    fechaNacimiento: "",
+    edad: "",
+    sexo: false,
+    seccion: "",
+  });
 
-  const closeModal = () => setShowModal(false);
-  const openModal = () => setShowModal(true);
+  const handlePrematricula = async () => {
+    try {
+      const nuevoGrado = parseInt(estudiante.seccion.charAt(0)) + 1;
+      const prematriculaData = {
+        grado: nuevoGrado,
+        estudianteId: estudiante.id,
+      };
+
+      await api.post("prematriculas", prematriculaData);
+      // Puedes agregar lógica adicional después de enviar la prematrícula si es necesario.
+      console.log("Prematrícula enviada con éxito");
+    } catch (error) {
+      console.error("Error al enviar la prematrícula:", error);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await api.get(`estudiantes/${EstId}`);
-        const { nombre, seccion } = response.data;
-        setNombre(nombre);
-        // Obtén solo el primer número de la sección y suma 1
-        const primerNumero = parseInt(seccion.split("-")[0], 10);
-        setGrado(primerNumero + 1);
+        const response = await api.get(`estudiantes/${auth.personaId}`);
+        setEstudiante(response.data);
       } catch (error) {
         console.error("Error al obtener datos del estudiante:", error);
       }
     };
 
-    if (EstId) {
-      fetchData();
-    }
-  }, [EstId]);
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      // Realiza el POST a la ruta "prematricula" enviando la ID del estudiante y el primer número de la sección más 1
-      await api.post("prematriculas", { grado, estudianteId: EstId });
-      console.log("Prematrícula exitosa para el estudiante", EstId);
-      // Realiza acciones adicionales después de la prematrícula
-      closeModal();
-    } catch (error) {
-      console.error("Error al prematricular al estudiante:", error);
-    }
-  };
+    fetchData();
+  }, []);
 
   return (
-    <>
-      <button onClick={openModal}>Prematricular</button>
-
-      {showModal && (
-        <div className="custom-modal">
-          <div className="modal-content">
-            <span className="close" onClick={closeModal}>&times;</span>
-            <h2>Prematrícula</h2>
-            <form onSubmit={handleSubmit}>
-              <label>Nombre:</label>
-              <input
-                type="text"
-                value={nombre}
-                onChange={(e) => setNombre(e.target.value)}
-                required
-              />
-              <label>Grado:</label>
-              <div>{grado}</div> {/* Usar div o span para mostrar el valor, no se puede editar */}
-              <button type="submit">Enviar</button>
-            </form>
-          </div>
+    <div className="max-w-2xl p-8 mx-auto my-4 bg-purple-700 rounded-lg shadow-lg">
+      <h2 className="mb-4 text-3xl font-bold text-white">
+        Datos del Estudiante
+      </h2>
+      <form className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="flex flex-col">
+          <label className="mb-1 text-white">Cedula:</label>
+          <input
+            type="text"
+            value={estudiante.id}
+            readOnly
+            className="px-3 py-2 text-white bg-purple-600 border-2 rounded"
+          />
         </div>
-      )}
-    </>
+        <div className="flex flex-col">
+          <label className="mb-1 text-white">Nombre:</label>
+          <input
+            type="text"
+            value={estudiante.nombre}
+            readOnly
+            className="px-3 py-2 text-white bg-purple-600 border-2 rounded"
+          />
+        </div>
+        <div className="flex flex-col">
+          <label className="mb-1 text-white">Apellido 1:</label>
+          <input
+            type="text"
+            value={estudiante.apellido1}
+            readOnly
+            className="px-3 py-2 text-white bg-purple-600 border-2 rounded"
+          />
+        </div>
+        <div className="flex flex-col">
+          <label className="mb-1 text-white">Apellido 2:</label>
+          <input
+            type="text"
+            value={estudiante.apellido2}
+            readOnly
+            className="px-3 py-2 text-white bg-purple-600 border-2 rounded"
+          />
+        </div>
+        <div className="flex flex-col">
+          <label className="mb-1 text-white">Fecha de Nacimiento:</label>
+          <input
+            type="text"
+            value={estudiante.fechaNacimiento}
+            readOnly
+            className="px-3 py-2 text-white bg-purple-600 border-2 rounded"
+          />
+        </div>
+        <div className="flex flex-col">
+          <label className="mb-1 text-white">Edad:</label>
+          <input
+            type="text"
+            value={estudiante.edad}
+            readOnly
+            className="px-3 py-2 text-white bg-purple-600 border-2 rounded"
+          />
+        </div>
+        <div className="flex flex-col">
+          <label className="mb-1 text-white">Sexo:</label>
+          <input
+            type="text"
+            value={estudiante.sexo ? "Femenino" : "Masculino"}
+            readOnly
+            className="px-3 py-2 text-white bg-purple-600 border-2 rounded"
+          />
+        </div>
+        <div className="flex flex-col">
+          <label className="mb-1 text-white">Sección Anterior:</label>
+          <input
+            type="text"
+            value={estudiante.seccion}
+            readOnly
+            className="px-3 py-2 text-white bg-purple-600 border-2 rounded"
+          />
+        </div>
+
+      </form>
+      <div className="flex justify-center">
+          <button type="submit" onClick={handlePrematricula} className="px-4 py-2 mt-10 text-lg font-bold text-white bg-yellow-500 rounded hover:bg-yellow-700">
+            Enviar Prematricula
+          </button>
+        </div>
+    </div>
   );
 };
 
