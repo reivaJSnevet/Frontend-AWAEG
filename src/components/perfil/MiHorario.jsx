@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
-import api from "../../services/api.config.js";
+import { useEffect, useState } from "react";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { convertirANumeroRomano } from "../../services/conversores.js";
 
 function Horario() {
   const seccion = "1-1";
+  const api = useAxiosPrivate();
   const [horario, setHorario] = useState([]);
 
   useEffect(() => {

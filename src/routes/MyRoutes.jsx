@@ -54,93 +54,97 @@ import AddUsuario from "../components/usuario/AddUsuario";
 import GetUsuarioById from "../components/usuario/GetUsuarioById";
 import UpdateUsuario from "../components/usuario/UpdateUsuario";
 import DeleteUsuarioById from "../components/usuario/DeleteUsuarioById";
+import Login2 from "../pages/login/Login2";
+import React from "react";
 
 const MyRoutes = () => (
-  <Routes>
-    <Route path="/" element={<Login />} />
-    <Route path="/perfil" element={<Perfil />}>
-        <Route path="notas" element={<Notas />}/>
-        <Route path="datosPersonales" element={<DatosPersonales/>}/>
-        <Route path="horario" element={<MiHorario />}/>
-        <Route path="tareas" element={<ListaArchivos/>}/>
+    <Route element={<React.Fragment/>}>
+
+        <Route path="/login" element={<Login2/>}/>
+
+        <Route path="/perfil/*" element={<Perfil />}>
+            <Route path="notas" element={<Notas />}/>
+            <Route path="datosPersonales" element={<DatosPersonales/>}/>
+            <Route path="horario" element={<MiHorario />}/>
+            <Route path="tareas" element={<ListaArchivos/>}/>
+        </Route>
+
+        <Route path="/admin/*" element={<PanelAdmin />}>
+            {/* Rutas para roles */}
+            <Route path="roles" element={<Rol />}>
+                <Route path="todo" element={<ListRoles />} />
+                <Route path="crear" element={<AddRol />} />
+                <Route path="buscar" element={<GetRolById />} />
+                <Route path="borrar" element={<DeleteRolById />} />
+            </Route>
+
+            {/* Rutas para funcionarios */}
+            <Route path="funcionarios" element={<Funcionario />}>
+                <Route path="todo" element={<ListFuncionarios />} />
+                <Route path="crear" element={<AddFuncionario />} />
+                <Route path="buscar" element={<GetFuncionarioById />} />
+                <Route path="actualizar" element={<UpdateFuncionario />} />
+                <Route path="borrar" element={<DeleteFuncionarioById />} />
+            </Route>
+
+            {/* Rutas para estudiantes */}
+            <Route path="estudiantes" element={<Estudiante />}>
+                <Route path="todo" element={<ListEstudiantes />} />
+                <Route path="crear" element={<AddEstudiante />} />
+                <Route path="buscar" element={<GetEstudianteById />} />
+                <Route path="actualizar" element={<UpdateEstudiante />} />
+                <Route path="borrar" element={<DeleteEstudianteById />} />
+            </Route>
+
+            {/* Rutas para grupos */}
+            <Route path="grupos" element={<Grupo />}>
+                <Route path="todo" element={<ListGrupos />} />
+                <Route path="crear" element={<AddGrupo />} />
+                <Route path="buscar" element={<GetGrupoById />} />
+                <Route path="actualizar" element={<UpdateGrupo />} />
+                <Route path="borrar" element={<DeleteGrupoById />} />
+            </Route>
+
+            {/* Rutas para horarios */}
+            <Route path="horarios" element={<Horario />}>
+                <Route path="todo" element={<ListHorarios />} />
+                <Route path="crear" element={<AddHorario />} />
+                <Route path="buscar" element={<GetHorarioById />} />
+                <Route path="borrar" element={<DeleteHorarioById />} />
+            </Route>
+
+            {/* Rutas para notas */}
+            <Route path="notas" element={<Nota />}>
+                <Route path="todo" element={<ListNotas />} />
+                <Route path="crear" element={<AddNota />} />
+                <Route path="buscar" element={<GetNotaById />} />
+                <Route path="actualizar" element={<UpdateNota />} />
+                <Route path="borrar" element={<DeleteNotaById />} />
+            </Route>
+
+            {/* Rutas para clases */}
+            <Route path="clases" element={<Clases />}>
+                <Route path="todo" element={<ListAll />} />
+                <Route path="crear" element={<CrearClase />} />
+                <Route path="buscar" element={<GetById />} />
+                <Route path="actualizar" element={<UpdateClase />} />
+                <Route path="borrar" element={<DeleteClase />} />
+            </Route>
+            <Route path="archivos" element={<Archivo/>}>
+                <Route path="subir" element={<SubirArchivo/>}/>
+                <Route path="lista" element={<ListaArchivos/>}/>
+            </Route>
+
+            <Route path="usuarios" element={<Usuario />}>
+                <Route path="todo" element={<ListUsuarios />} /> {/* Ruta para Crear */}
+                <Route path="crear" element={<AddUsuario />} /> {/* Ruta para Crear */}
+                <Route path="buscar" element={<GetUsuarioById />} /> {/* Ruta para Buscar */}
+                <Route path="actualizar" element={<UpdateUsuario />} /> {/* Ruta para Actualizar */}
+                <Route path="borrar" element={<DeleteUsuarioById />} /> {/* Ruta para Borrar */}
+            </Route>
+
+        </Route>
     </Route>
-
-    <Route path="/admin/*" element={<PanelAdmin />}>
-      {/* Rutas para roles */}
-      <Route path="roles" element={<Rol />}>
-        <Route path="todo" element={<ListRoles />} />
-        <Route path="crear" element={<AddRol />} />
-        <Route path="buscar" element={<GetRolById />} />
-        <Route path="borrar" element={<DeleteRolById />} />
-      </Route>
-
-      {/* Rutas para funcionarios */}
-      <Route path="funcionarios" element={<Funcionario />}>
-        <Route path="todo" element={<ListFuncionarios />} />
-        <Route path="crear" element={<AddFuncionario />} />
-        <Route path="buscar" element={<GetFuncionarioById />} />
-        <Route path="actualizar" element={<UpdateFuncionario />} />
-        <Route path="borrar" element={<DeleteFuncionarioById />} />
-      </Route>
-
-      {/* Rutas para estudiantes */}
-      <Route path="estudiantes" element={<Estudiante />}>
-        <Route path="todo" element={<ListEstudiantes />} />
-        <Route path="crear" element={<AddEstudiante />} />
-        <Route path="buscar" element={<GetEstudianteById />} />
-        <Route path="actualizar" element={<UpdateEstudiante />} />
-        <Route path="borrar" element={<DeleteEstudianteById />} />
-      </Route>
-
-      {/* Rutas para grupos */}
-      <Route path="grupos" element={<Grupo />}>
-        <Route path="todo" element={<ListGrupos />} />
-        <Route path="crear" element={<AddGrupo />} />
-        <Route path="buscar" element={<GetGrupoById />} />
-        <Route path="actualizar" element={<UpdateGrupo />} />
-        <Route path="borrar" element={<DeleteGrupoById />} />
-      </Route>
-
-      {/* Rutas para horarios */}
-      <Route path="horarios" element={<Horario />}>
-        <Route path="todo" element={<ListHorarios />} />
-        <Route path="crear" element={<AddHorario />} />
-        <Route path="buscar" element={<GetHorarioById />} />
-        <Route path="borrar" element={<DeleteHorarioById />} />
-      </Route>
-
-      {/* Rutas para notas */}
-      <Route path="notas" element={<Nota />}>
-        <Route path="todo" element={<ListNotas />} />
-        <Route path="crear" element={<AddNota />} />
-        <Route path="buscar" element={<GetNotaById />} />
-        <Route path="actualizar" element={<UpdateNota />} />
-        <Route path="borrar" element={<DeleteNotaById />} />
-      </Route>
-
-      {/* Rutas para clases */}
-      <Route path="clases" element={<Clases />}>
-        <Route path="todo" element={<ListAll />} />
-        <Route path="crear" element={<CrearClase />} />
-        <Route path="buscar" element={<GetById />} />
-        <Route path="actualizar" element={<UpdateClase />} />
-        <Route path="borrar" element={<DeleteClase />} />
-      </Route>
-      <Route path="archivos" element={<Archivo/>}>
-        <Route path="subir" element={<SubirArchivo/>}/>
-        <Route path="lista" element={<ListaArchivos/>}/>
-      </Route>
-
-      <Route path="usuarios" element={<Usuario />}>
-        <Route path="todo" element={<ListUsuarios />} /> {/* Ruta para Crear */}
-        <Route path="crear" element={<AddUsuario />} /> {/* Ruta para Crear */}
-        <Route path="buscar" element={<GetUsuarioById />} /> {/* Ruta para Buscar */}
-        <Route path="actualizar" element={<UpdateUsuario />} /> {/* Ruta para Actualizar */}
-        <Route path="borrar" element={<DeleteUsuarioById />} /> {/* Ruta para Borrar */}
-      </Route>
-
-    </Route>
-  </Routes>
 );
 
 export default MyRoutes;

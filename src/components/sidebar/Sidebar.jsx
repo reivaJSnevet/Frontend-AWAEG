@@ -22,9 +22,16 @@ import { PiStudent } from "react-icons/pi";
 import { MdOutlineClass } from "react-icons/md";
 import { VscFileSubmodule } from "react-icons/vsc";
 import { CgProfile } from "react-icons/cg";
+import useLogout from "../../hooks/useLogout";
 
 function Sidebar() {
   const [navSize, changeNavSize] = useState("large");
+  
+  const signOut = async () => {
+        await logout();
+        navigate("/login");
+  }
+  
   return (
     <Flex
       className=""
@@ -92,6 +99,9 @@ function Sidebar() {
         <Link to="/perfil">
           <NavItem navSize={navSize} icon={CgProfile} title="Perfil" />
         </Link>
+        <div>
+            <button onClick={signOut}>Cerrar sesión</button>
+        </div>
       </Flex>
 
       <Flex
