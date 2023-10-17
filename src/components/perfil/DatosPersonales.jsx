@@ -14,13 +14,11 @@ function DatosPersonales() {
   const [estudiante, setEstudiante] = useState("");
   const { auth } = useAuth();
   const api = useAxiosPrivate();
-  const id = 198765432;
+  const id = auth?.personaId || 0;
 
   useEffect(() => {
     let isMounted = true;
     const controller = new AbortController();
-
-    console.log(auth);
 
     const getUsers = async () => {
       try {
@@ -62,12 +60,26 @@ function DatosPersonales() {
               {estudiante.nombre} {estudiante.apellido1} {estudiante.apellido2}
             </Text>
             <Text className="mb-2">
+              {estudiante.id}
+            </Text>
+            <Text className="mb-2">
               {estudiante.sexo ? "Masculino" : "Femenino"}
             </Text>
             <Text className="mb-2">
               {estudiante.fechaNacimiento} ({estudiante.edad} años)
             </Text>
-            <Text className="mb-2">{estudiante.direccion}</Text>
+            <Text className="mb-2">
+                {estudiante.direccion}
+            </Text>
+            <Text className="mb-2">
+              {estudiante.seccion}
+            </Text>
+            <Text className="mb-2 font-semibold">
+              {"Encargado: "}
+            </Text>
+            <Text className="mb-2">
+              {estudiante.encargado?.nombre} {estudiante.encargado?.apellido1} {estudiante.encargado?.apellido2}
+            </Text>
           </CardBody>
         </Card>
       </div>

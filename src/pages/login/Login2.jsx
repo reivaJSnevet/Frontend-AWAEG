@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import useAuth from "../../hooks/useAuth";
 import api from "../../api/axios";
@@ -43,11 +43,12 @@ const Login2 = () => {
       console.log(JSON.stringify(response?.data));
 
       const accessToken = response?.data?.accessToken;
-      const role = response?.data?.rol; //POSIBLE FALLO CON ROLES manejo diferente
+      const role = response?.data?.rol; //POSIBLE FALLO CON ROLES manejo diferente(si funciponao al final jeje)
+      const personaId = response?.data?.personaId;
 
       const roleArray = role ? [role] : ["anonimo"];
 
-      setAuth({roleArray, accessToken });
+      setAuth({roleArray, accessToken, personaId});
 
       setUser("");
       setPwd("");
@@ -56,7 +57,7 @@ const Login2 = () => {
 
         const roles = ["Director","Maestra"]
 
-        console.log("AQUIIIII RUTAN ANTES: ",from);
+        /* console.log("AQUIIIII RUTAN ANTES: ",from); */
 
       if (roleArray.includes(roles) && from === "/admin") {
         navigate(from, { replace: true });

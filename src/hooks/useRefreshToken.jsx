@@ -9,12 +9,14 @@ const useRefreshToken = () => {
       withCredentials: true,
     });
     setAuth(prev => {
-      console.log(JSON.stringify(prev));
-      console.log(response.data.accessToken);
+      /* console.log(JSON.stringify(prev)); */
+      /* console.log(response.data.accessToken); */
       return { 
         ...prev,
         roleArray: response.data.rol ? [response.data.rol] : ["anonimo"],
-        accessToken: response.data.accessToken };
+        accessToken: response.data.accessToken,
+        personaId: response.data.personaId
+      };
     });
     return response.data.accessToken;
   };
