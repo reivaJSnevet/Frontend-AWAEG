@@ -176,13 +176,43 @@ const Home = () => {
             a través de la herramienta de Google Maps. Esto te permitirá encontrar nuestra ubicación de forma rápida y eficiente, facilitando enormemente tu llegada a nuestras instalaciones.
              Gracias a la integración de Google Maps en nuestro sitio web, te ofrecemos una solución efectiva para eliminar cualquier posible confusión en tu camino hacia nuestra institución.
               Ya no tendrás que preocuparte por direcciones complicadas o búsquedas infructuosas en mapas tradicionales,No importa si eres nuevo en la zona o si has visitado 
-              nuestra institución antes, con esta opción, te garantizamos un acceso sencillo y directo.¡Esperamos verte pronto en nuestras instalaciones!
+              nuestra institución antes, con esta opción, te garantizamos un acceso sencillo y directo. ¡Esperamos verte pronto en nuestras instalaciones!
           </Text>
           </Center>
         </Box>
 
       </Flex>
+      
       <Divider />
+
+      <Center>
+      <footer className="bg-gray-800 py-6 text-white">
+    <div className="container mx-auto p-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="flex flex-col">
+                <h2 className="text-2xl font-bold mb-2">Sistema Administrativo AWAEG</h2>
+                <p className="text-xl">Inicio</p>
+                <p className="text-xl">Sobre Nosotros</p>
+                <p className="text-xl">Estudiantes</p>
+                <p className="text-xl">Profesores</p>
+                <p className="text-xl">Administrativos</p>
+            </div>
+            <div className="flex flex-col">
+                <h2 className="text-2xl font-bold mb-2">Equipo Desarrollador</h2>
+                <p className="text-xl">Emilio Guevara Gómez</p>
+                <p className="text-xl">Javier Díaz Marin</p>
+                <p className="text-xl">Dyllan Ruíz Vásquez</p>
+                <p className="text-xl">José Elías Vallejos Álvarez</p>
+            </div>
+            <div className="flex flex-col">
+                <h2 className="text-2xl font-bold mb-2">Contactos</h2>
+                <p className="text-xl">esc.guayabal@mep.go.cr</p>
+                <p className="text-xl">Teléfono: +506 2680-4790</p>
+            </div>
+        </div>
+    </div>
+</footer>
+</Center>
 
 dadad
     </footer>
