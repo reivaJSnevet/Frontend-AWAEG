@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import api from "../../services/api.config.js";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate.jsx";
 import { convertirAFormato12Horas } from "../../services/conversores.js";
 
 const ListAll = () => {
+    const api = useAxiosPrivate();
   const [clases, setClases] = useState([]);
 
   useEffect(() => {

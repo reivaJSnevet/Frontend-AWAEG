@@ -1,4 +1,3 @@
-import React from "react";
 import { Flex, Menu, Icon, Text, Link, MenuButton, MenuList } from "@chakra-ui/react";
 
 

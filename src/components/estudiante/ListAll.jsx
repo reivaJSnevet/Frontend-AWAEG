@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
-import api from '../../services/api.config.js';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 const ListEstudiantes = () => {
+    const api = useAxiosPrivate();
   const [estudiantes, setEstudiantes] = useState([]);
 
   useEffect(() => {

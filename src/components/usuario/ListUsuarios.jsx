@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import api from "../../services/api.config";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const ListUsuarios = () => {
+    const api = useAxiosPrivate();
   const [usuarios, setUsuarios] = useState([]);
 
   useEffect(() => {

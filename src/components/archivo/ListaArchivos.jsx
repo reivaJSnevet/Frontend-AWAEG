@@ -9,11 +9,14 @@ function ListaArchivos() {
     // Hacer la solicitud a la API para obtener la lista de archivos
     api.get("/archivo")
       .then((response) => {
+        console.log(response.data);
         setArchivos(response.data.archivos);
       })
       .catch((error) => {
         console.error(error);
       });
+
+      
   }, []); 
 
   const handleDescargarArchivo = (nombreArchivo) => {

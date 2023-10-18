@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import api from "../../services/api.config";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const ListRoles = () => {
   const [roles, setRoles] = useState([]);
+  const api = useAxiosPrivate();
 
   useEffect(() => {
     try {

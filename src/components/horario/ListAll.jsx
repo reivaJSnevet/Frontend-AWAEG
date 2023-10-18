@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import api from "../../services/api.config.js";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const ListHorarios = () => {
+    const api = useAxiosPrivate();
   const [horarios, setHorarios] = useState([]);
 
   useEffect(() => {
