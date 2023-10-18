@@ -35,6 +35,11 @@ function Navbar() {
           </Link>
         </li>
         <li>
+          <Link className="font-extrabold text-purple-500 hover:text-yellow-600" to="citas">
+            Citas
+          </Link>
+        </li>
+        <li>
         <button
         type="button"
           className="px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700"

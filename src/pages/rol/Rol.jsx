@@ -2,15 +2,25 @@ import { Link, Outlet } from 'react-router-dom';
 
 function Rol() {
   return (
-    <div className="roles-container">
-      <div className="roles-content">
-        <nav className="roles-tabs">
-          <ul>
-              <li><Link to="todo">Ver todo</Link></li>
-              <li><Link to="crear">Crear</Link></li>
-              <li><Link to="buscar">Buscar</Link></li>
-              <li><Link to="actualizar">Actualizar</Link></li>
-              <li><Link to="borrar">Borrar</Link></li>
+    <div className="flex items-center justify-center h-screen bg-purple-500">
+      <div className="w-full p-8 bg-white rounded-lg shadow-lg">
+        <nav className="flex justify-center mb-6">
+          <ul className="flex space-x-4">
+            <li>
+              <Link to="../roles" className="text-purple-500 transition duration-300 hover:text-yellow-500">
+                Ver todo
+              </Link>
+            </li>
+            <li>
+              <Link to="crear" className="text-purple-500 transition duration-300 hover:text-yellow-500">
+                Crear
+              </Link>
+            </li>
+            <li>
+              <Link to="buscar" className="text-purple-500 transition duration-300 hover:text-yellow-500">
+                Buscar
+              </Link>
+            </li>
           </ul>
         </nav>
         <Outlet />

@@ -1,6 +1,7 @@
-import api from "./api.config";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 export const GetAllFuncionarios = async () => {
+    const api = useAxiosPrivate();
     try {
       const response = await api.get("/funcionarios");
       return response.data

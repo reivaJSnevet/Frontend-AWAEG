@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
-import api from "../../services/api.config.js";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate.jsx";
 import {
   convertirAFormato24Horas,
   convertirAFormato12Horas,
   convertirANumeroRomano,
 } from "../../services/conversores.js";
-import { GetAllMaterias } from "../../services/materiaAPI.js";
-import { GetAllFuncionarios } from "../../services/funcionarioAPI.js";
 
 const CrearClase = () => {
+  const api = useAxiosPrivate();
   const [dia, setDia] = useState("lunes");
   const [selectedLeccion, setSelectedLeccion] = useState("I");
   const [profesores, setProfesores] = useState([]);
@@ -20,11 +19,18 @@ const CrearClase = () => {
   const diasSemana = ["lunes", "martes", "miércoles", "jueves", "viernes"];
 
   useEffect(() => {
-    const fetchData = async () => {
-      setProfesores(await GetAllFuncionarios());
-      setMaterias(await GetAllMaterias());
+    try {
+      const fetchData = async () => {
+        const responseF = await api.get("/funcionarios");
+        const responseM = await api.get("/materias");
+
+        setProfesores(responseF.data);
+        setMaterias(responseM.data);
+      };
+      fetchData();
+    } catch (error) {
+        console.log(error);
     }
-    fetchData();
   }, []);
 
   const handleToggleTurno = () => {

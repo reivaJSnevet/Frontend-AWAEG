@@ -6,7 +6,7 @@ function Archivo() {
           <div className="roles-content">
             <nav className="roles-tabs">
               <ul>
-                  <li><Link to="lista">Lista</Link></li>
+                  <li><Link to="../archivos">Lista</Link></li>
                   <li><Link to="subir">Subir</Link></li> 
               </ul>
             </nav>

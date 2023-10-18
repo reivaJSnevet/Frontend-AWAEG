@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import api from "../../services/api.config.js";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const AddEstudiante = () => {
+    const api = useAxiosPrivate();
 
   //estos campos se pueden crear en un solo obejeto useState({})
   const [id, setId] = useState("");

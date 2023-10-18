@@ -1,12 +1,13 @@
 import { useState } from "react";
-import api from "../../services/api.config.js";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const AddRol = () => {
+    const api = useAxiosPrivate();
   const [nombre, setNombre] = useState("");
   const [nivelPrivilegio, setNivelPrivilegio] = useState(0);
   const [descripcion, setDescripcion] = useState("");
+  const [mensaje, setMensaje] = useState(null);
 
-  // Esto parece poco practico, pero es la forma más sencilla de manejar los cambios en los campos del formulario
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     if (name === "nombre") {
@@ -19,17 +20,11 @@ const AddRol = () => {
   };
 
   const handleValidation = () => {
-    //validar que los campos no esten vacios
-/*     if (!nombre || !nivelPrivilegio || !descripcion) {
-      alert("Por favor, complete todos los campos.");
-      return false;
-    } */
-    //verificar que el nivel de privilegio sea un numero y este entre 1 y 5
     if (isNaN(nivelPrivilegio)) {
-      alert("El nivel de privilegio debe ser un número y estar entre 1 y 5");
+      setMensaje("El nivel de privilegio debe ser un número y estar entre 1 y 5");
       return false;
     } else if (nivelPrivilegio < 1 || nivelPrivilegio > 5) {
-      alert("El nivel de privilegio debe estar entre 1 y 5");
+      setMensaje("El nivel de privilegio debe estar entre 1 y 5");
       return false;
     }
     return true;
@@ -38,64 +33,69 @@ const AddRol = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Verificar que los campos estén completos
     if (!handleValidation()) {
       return;
     }
 
     try {
-      // Realizar la solicitud POST a través de la instancia de Axios
       await api.post("/roles", {
         nombre,
         nivelPrivilegio,
         descripcion,
       });
 
-      // Limpiar el formulario después de enviar los datos
       setNombre("");
       setNivelPrivilegio(0);
       setDescripcion("");
-
-      alert("Rol agregado exitosamente.");
+      setMensaje("Rol agregado exitosamente.");
     } catch (error) {
       console.error("Error al agregar el rol:", error);
-      alert("Hubo un error al agregar el rol. Por favor, inténtelo de nuevo.");
+      setMensaje("Hubo un error al agregar el rol. Por favor, inténtelo de nuevo.");
     }
   };
 
   return (
-    <div>
-      <h2>Agregar Rol</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="max-w-md p-8 mx-auto mt-10 bg-purple-500 rounded-lg shadow-lg">
+      <h2 className="mb-6 text-2xl font-bold text-white">Agregar Rol</h2>
+      {mensaje && <div className="mb-4 text-gray-200">{mensaje}</div>}
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label>Nombre:</label>
+          <label className="block mb-1 text-sm font-medium text-white">Nombre:</label>
           <input
             type="text"
             name="nombre"
             value={nombre}
             onChange={handleInputChange}
+            className="w-full p-2 bg-transparent border border-white rounded-md focus:outline-none focus:ring focus:ring-white"
           />
         </div>
         <div>
-          <label>Nivel de Privilegio:</label>
+          <label className="block mb-1 text-sm font-medium text-white">Nivel de Privilegio:</label>
           <input
             type="number"
             name="nivelPrivilegio"
             value={nivelPrivilegio}
             onChange={handleInputChange}
+            className="w-full p-2 bg-transparent border border-white rounded-md focus:outline-none focus:ring focus:ring-white"
           />
         </div>
         <div>
-          <label>Descripción:</label>
+          <label className="block mb-1 text-sm font-medium text-white">Descripción:</label>
           <input
             type="text"
             name="descripcion"
             value={descripcion}
             onChange={handleInputChange}
+            className="w-full p-2 bg-transparent border border-white rounded-md focus:outline-none focus:ring focus:ring-white"
           />
         </div>
         <div>
-          <button type="submit">Agregar Rol</button>
+          <button
+            type="submit"
+            className="w-full p-2 text-purple-500 bg-white rounded-md hover:bg-gray-100 focus:outline-none focus:ring focus:ring-gray-200"
+          >
+            Agregar Rol
+          </button>
         </div>
       </form>
     </div>

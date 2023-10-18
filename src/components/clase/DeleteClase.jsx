@@ -6,6 +6,8 @@ const DeleteClase = () => {
   const { paramId } = useParams();
   const [id, setId] = useState(paramId || "");
 
+  console.log(paramId);
+
   useEffect(() => {
     if (paramId) {
       setId(paramId);

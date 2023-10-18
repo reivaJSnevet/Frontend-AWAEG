@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import api from '../../services/api.config.js';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 const AddGrupo = () => {
+    const api = useAxiosPrivate();
   const [seccion, setSeccion] = useState('');
   const [ciclo, setCiclo] = useState('');
   const [grado, setGrado] = useState('');

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import { useState } from "react";
 import {
   Flex,
@@ -9,7 +9,7 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
-import NavItem from "./navItem";
+import NavItem from "./NavItem";
 import {
   GrConfigure,
   GrUser,
@@ -22,9 +22,18 @@ import { PiStudent } from "react-icons/pi";
 import { MdOutlineClass } from "react-icons/md";
 import { VscFileSubmodule } from "react-icons/vsc";
 import { CgProfile } from "react-icons/cg";
+import useLogout from "../../hooks/useLogout";
 
 function Sidebar() {
+    const navigate = useNavigate();
+    const logout = useLogout();
   const [navSize, changeNavSize] = useState("large");
+
+  const signOut = async () => {
+    await logout();
+    navigate("/");
+  }
+  
   return (
     <Flex
       className=""
@@ -38,7 +47,7 @@ function Sidebar() {
       bg="purple.500"
     >
       <Flex
-        // p="5%"
+        p="5%"
         flexDir="column"
         alignItems={navSize == "small" ? "center" : "flex-start"}
         as={"nav"}
@@ -54,7 +63,7 @@ function Sidebar() {
           }}
         />
         <Link to="roles">
-          <NavItem  navSize={navSize} icon={GrConfigure} title="Roles" />
+          <NavItem navSize={navSize} icon={GrConfigure} title="Roles" />
         </Link>
 
         <Link to="usuarios">
@@ -89,9 +98,13 @@ function Sidebar() {
           <NavItem navSize={navSize} icon={VscFileSubmodule} title="Archivos" />
         </Link>
 
-        <Link to="/perfil">
+        <Link to="perfil">
           <NavItem navSize={navSize} icon={CgProfile} title="Perfil" />
         </Link>
+        <br />
+        <button type="button" onClick={signOut} className="text-white">Cerrar Sesión</button>
+
+
       </Flex>
 
       <Flex
@@ -103,7 +116,6 @@ function Sidebar() {
       >
         <Divider display={navSize == "small" ? "none" : "flex"} />
         <Flex mt={4} align="center">
-
           <Avatar
             size="sm"
             src="https://images.vexels.com/media/users/3/152802/isolated/preview/4a12178b4182569cfb402bd969ff4965-icono-de-edificio-de-escuela-clasica.png"
