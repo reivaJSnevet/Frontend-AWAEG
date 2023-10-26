@@ -2,26 +2,24 @@ import { Link, Outlet } from 'react-router-dom';
 
 function Rol() {
   return (
-    <div className="flex items-center justify-center h-screen bg-purple-500">
-      <div className="w-full p-8 bg-white rounded-lg shadow-lg">
-        <nav className="flex justify-center mb-6">
-          <ul className="flex space-x-4">
-            <li>
-              <Link to="../roles" className="text-purple-500 transition duration-300 hover:text-yellow-500">
+    <div >
+      <div className="h-[80vh] bg-red-900 p-8 rounded-xl ">
+        <nav className=" flex justify-center mb-8 gap-6 p-1 rounded-lg bg-blue-400">
+          
+              <Link to="../roles" className="flex items-center gap-4 text-white font-semibold hover:bg-purple-600 p-4  rounded-lg transition-colors">
                 Ver todo
               </Link>
-            </li>
-            <li>
-              <Link to="crear" className="text-purple-500 transition duration-300 hover:text-yellow-500">
+           
+            
+              <Link to="crear" className="flex items-center gap-4 text-white font-semibold hover:bg-purple-600 p-4  rounded-lg transition-colors">
                 Crear
               </Link>
-            </li>
-            <li>
-              <Link to="buscar" className="text-purple-500 transition duration-300 hover:text-yellow-500">
+            
+            
+              <Link to="buscar" className="flex items-center gap-4 text-white font-semibold hover:bg-purple-600 p-4  rounded-lg transition-colors">
                 Buscar
               </Link>
-            </li>
-          </ul>
+            
         </nav>
         <Outlet />
       </div>
