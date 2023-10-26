@@ -2,17 +2,26 @@ import { useEffect, useState } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const AddEstudiante = () => {
-    const api = useAxiosPrivate();
+  const api = useAxiosPrivate();
 
-  //estos campos se pueden crear en un solo obejeto useState({})
-  const [id, setId] = useState("");
-  const [nombre, setNombre] = useState("");
-  const [apellido1, setApellido1] = useState("");
-  const [apellido2, setApellido2] = useState("");
-  const [fechaNacimiento, setFechaNacimiento] = useState("");
-  const [sexo, setSexo] = useState("");
-  const [direccion, setDireccion] = useState("");
-  const [seccion, setSeccion ] = useState("");
+  const [estudiante, setEstudiante] = useState({
+    id: "",
+    nombre: "",
+    apellido1: "",
+    apellido2: "",
+    fechaNacimiento: "",
+    sexo: true,
+    direccion: "",
+    seccion: "",
+    encargadoId: "",
+  });
+
+  const [encargado, setEncargado] = useState({
+    id: "",
+    nombre: "",
+    apellido1: "",
+    apellido2: "",
+  });
 
   const [secciones, setSecciones] = useState([]);
 
@@ -31,167 +40,274 @@ const AddEstudiante = () => {
     fetchSecciones();
   }, []);
 
-  //Cambiar esto
-  const handleInputChange = (event) => {
+  const handleInputChange = (event, target) => {
     const { name, value } = event.target;
-    if (name === "id") {
-        setId(value);
-    }else if (name === "nombre") {
-      setNombre(value);
-    } else if (name === "apellido1") {
-      setApellido1(value);
-    } else if (name === "apellido2") {
-      setApellido2(value);
-    } else if (name === "fechaNacimiento") {
-      setFechaNacimiento(value);
-    } else if (name === "sexo") {
-      setSexo(value);
-    } else if (name === "direccion") {
-      setDireccion(value);
-    } else if (name === "seccion") {
-      setSeccion(value);
+
+    if (target === "estudiante") {
+      setEstudiante({
+        ...estudiante,
+        [name]: value,
+      });
+    } else if (target === "encargado") {
+      setEncargado({
+        ...encargado,
+        [name]: value,
+      });
+
+      if (name === "id") {
+        setEstudiante({
+          ...estudiante,
+          encargadoId: value,
+        });
+      }
     }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(id, nombre, apellido1, apellido2, fechaNacimiento, sexo, direccion);
-
-    // Verificar que los campos estén completos
-    if (
-      !id ||
-      !nombre ||
-      !apellido1 ||
-      !apellido2 ||
-      !fechaNacimiento ||
-      !sexo ||
-      !direccion
-    ) {
-      alert("Por favor, complete todos los campos.");
-      
-      return console.log({id, nombre, apellido1, apellido2, fechaNacimiento, sexo, direccion});
-    }
-
     try {
-      // Realizar la solicitud POST a través de la instancia de Axios
-      await api.post("/estudiantes", {
-        id,
-        nombre,
-        apellido1,
-        apellido2,
-        fechaNacimiento,
-        sexo,
-        direccion,
-        seccion
+        
+      // Realizar la solicitud POST para el encargado
+      await api.post("/encargados", encargado);
+
+      // Realizar la solicitud POST para el estudiante
+      await api.post("/estudiantes", estudiante);
+
+      // Limpiar el formulario después de enviar los datos
+      setEstudiante({
+        id: "",
+        nombre: "",
+        apellido1: "",
+        apellido2: "",
+        fechaNacimiento: "",
+        sexo: true,
+        direccion: "",
+        seccion: "",
+        encargadoId: "",
       });
-  
-      await api.put(`grupos/${seccion}/increment`);
-      setId("");
-      setNombre("");
-      setApellido1("");
-      setApellido2("");
-      setFechaNacimiento("");
-      setSexo("");
-      setDireccion("");
-      setSeccion("");
-  
-      alert("Estudiante agregado exitosamente.");
+
+      setEncargado({
+        id: "",
+        nombre: "",
+        apellido1: "",
+        apellido2: "",
+      });
+
     } catch (error) {
-      console.error("Error al agregar el Estudiante:", error);
-      alert(
-        "Hubo un error al agregar el Estudiante. Por favor, inténtelo de nuevo."
-      );
+      console.error("Error al agregar el Estudiante y Encargado:", error);
     }
   };
 
   return (
-    <div>
-      <h2>Agregar Estudiante</h2>
-      <form onSubmit={handleSubmit}>
-      <div>
-          <label>Id:</label>
-          <input
-            type="text"
-            name="id"
-            value={id}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label>Nombre:</label>
-          <input
-            type="text"
-            name="nombre"
-            value={nombre}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label>Primer Apellido:</label>
-          <input
-            type="text"
-            name="apellido1"
-            value={apellido1}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label>Segundo Apellido:</label>
-          <input
-            type="text"
-            name="apellido2"
-            value={apellido2}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label>Fecha de Nacimiento:</label>
-          <input
-            type="text"
-            name="fechaNacimiento"
-            value={fechaNacimiento}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label>Sexo:</label>
-          <input
-            type="text"
-            name="sexo"
-            value={sexo}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label>Direccion:</label>
-          <input
-            type="text"
-            name="direccion"
-            value={direccion}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label>Sección:</label>
-          <select
-            name="seccion"
-            value={seccion}
-            onChange={handleInputChange}
-          >
-            <option value="" disabled>
-              Seleccione una sección
-            </option>
-            {secciones.map((seccion, index) => (
-              <option key={index} value={seccion}>
-                {seccion}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <button type="submit">Agregar Estudiante</button>
-        </div>
-      </form>
+    <div className="flex flex-col items-center justify-center bg-purple-400">
+      <div className="p-8 mt-5 mb-5 bg-white rounded-lg shadow-md">
+        <h2 className="mb-2 text-2xl font-bold text-purple-400">
+          Agregar Estudiante y Encargado
+        </h2>
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="mb-6">
+            <h3 className="mb-2 text-lg font-semibold text-purple-400">
+              Estudiante
+            </h3>
+            <div className="grid grid-cols-2 gap-4">
+              <label className="block mb-2 text-sm font-semibold text-gray-600">
+                Id Estudiante:
+              </label>
+              <input
+                type="text"
+                name="id"
+                value={estudiante.id}
+                onChange={(e) => {
+                  handleInputChange(e, "estudiante");
+                }}
+                className="w-full p-2 border rounded"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block mb-2 text-sm font-semibold text-gray-600">
+                Nombre Estudiante:
+              </label>
+              <input
+                type="text"
+                name="nombre"
+                value={estudiante.nombre}
+                onChange={(e) => {
+                  handleInputChange(e, "estudiante");
+                }}
+                className="w-full p-2 border rounded"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block mb-2 text-sm font-semibold text-gray-600">
+                Primer Apellido Estudiante:
+              </label>
+              <input
+                type="text"
+                name="apellido1"
+                value={estudiante.apellido1}
+                onChange={(e) => {
+                  handleInputChange(e, "estudiante");
+                }}
+                className="w-full p-2 border rounded"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block mb-2 text-sm font-semibold text-gray-600">
+                Segundo Apellido Estudiante:
+              </label>
+              <input
+                type="text"
+                name="apellido2"
+                value={estudiante.apellido2}
+                onChange={(e) => {
+                  handleInputChange(e, "estudiante");
+                }}
+                className="w-full p-2 border rounded"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block mb-2 text-sm font-semibold text-gray-600">
+                Fecha de Nacimiento Estudiante:
+              </label>
+              <input
+                type="date"
+                name="fechaNacimiento"
+                value={estudiante.fechaNacimiento}
+                onChange={(e) => {
+                  handleInputChange(e, "estudiante");
+                }}
+                className="w-full p-2 border rounded"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block mb-2 text-sm font-semibold text-gray-600">
+                Dirección Estudiante:
+              </label>
+              <input
+                type="text"
+                name="direccion"
+                value={estudiante.direccion}
+                onChange={(e) => {
+                  handleInputChange(e, "estudiante");
+                }}
+                className="w-full p-2 border rounded"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block mb-2 text-sm font-semibold text-gray-600">
+                Sexo Estudiante:
+              </label>
+              <select
+                name="sexo"
+                value={estudiante.sexo.toString()} // Convertir el valor booleano a cadena
+                onChange={(e) => {
+                  const valorSeleccionado = e.target.value === "true"; // Convertir la cadena de nuevo a booleano
+                  handleInputChange(
+                    { target: { name: "sexo", value: valorSeleccionado } },
+                    "estudiante"
+                  );
+                }}
+                className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
+              >
+                <option value={true.toString()}>Hombre</option>{" "}
+                {/* Convertir true a cadena */}
+                <option value={false.toString()}>Mujer</option>{" "}
+                {/* Convertir false a cadena */}
+              </select>
+            </div>
+            <div className="mb-4">
+              <label className="block mb-2 text-sm font-semibold text-gray-600">
+                Sección Estudiante:
+              </label>
+              <select
+                name="seccion"
+                value={estudiante.seccion}
+                onChange={(e) => {
+                  handleInputChange(e, "estudiante");
+                }}
+                className="w-full p-2 border rounded"
+              >
+                <option value="" disabled>
+                  Seleccione una sección
+                </option>
+                {secciones.map((seccion, index) => (
+                  <option key={index} value={seccion}>
+                    {seccion}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className="mb-6">
+            <h3 className="mb-2 text-lg font-semibold text-purple-400">
+              Encargado
+            </h3>
+            <div className="grid grid-cols-2 gap-4">
+              <label className="block mb-2 text-sm font-semibold text-gray-600">
+                Id Encargado:
+              </label>
+              <input
+                type="text"
+                name="id"
+                value={encargado.id}
+                onChange={(e) => {
+                  handleInputChange(e, "encargado");
+                }}
+                className="w-full p-2 border rounded"
+              />
+              <label className="block mb-2 text-sm font-semibold text-gray-600">
+                Nombre Encargado:
+              </label>
+              <input
+                type="text"
+                name="nombre"
+                value={encargado.nombre}
+                onChange={(e) => {
+                  handleInputChange(e, "encargado");
+                }}
+                className="w-full p-2 border rounded"
+              />
+              <div className="mb-4">
+                <label className="block mb-2 text-sm font-semibold text-gray-600">
+                  Primer Apellido Encargado:
+                </label>
+                <input
+                  type="text"
+                  name="apellido1"
+                  value={encargado.apellido1}
+                  onChange={(e) => {
+                    handleInputChange(e, "encargado");
+                  }}
+                  className="w-full p-2 border rounded"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block mb-2 text-sm font-semibold text-gray-600">
+                  Segundo Apellido Encargado:
+                </label>
+                <input
+                  type="text"
+                  name="apellido2"
+                  value={encargado.apellido2}
+                  onChange={(e) => {
+                    handleInputChange(e, "encargado");
+                  }}
+                  className="w-full p-2 border rounded"
+                />
+              </div>
+            </div>
+          </div>
+          <div className="flex justify-center">
+            <button
+              type="submit"
+              className="px-4 py-2 text-white transition duration-300 bg-purple-400 rounded hover:bg-purple-200"
+            >
+              Agregar Estudiante y Encargado
+            </button>
+          </div>
+        </form>  
+      </div>
     </div>
   );
 };

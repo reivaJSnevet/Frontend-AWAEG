@@ -9,12 +9,12 @@ const Login2 = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname;
 
   const userRef = useRef();
   const errRef = useRef();
 
-  const [user, setUser] = useLocalStorage("user", "")  //useState("");
+  const [user, setUser] = useLocalStorage("user", "");
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
 
@@ -37,52 +37,44 @@ const Login2 = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          withCredentials: true, //POSIBLE FALLO AQUI PORQUE NO SE SI ES TRUE O FALSE
+          withCredentials: true,
         }
       );
       console.log(JSON.stringify(response?.data));
 
       const accessToken = response?.data?.accessToken;
-      const role = response?.data?.rol; //POSIBLE FALLO CON ROLES manejo diferente(si funciponao al final jeje)
+      const role = response?.data?.rol;
       const personaId = response?.data?.personaId;
 
       const roleArray = role ? [role] : ["anonimo"];
 
-      setAuth({roleArray, accessToken, personaId});
+      setAuth({ roleArray, accessToken, personaId });
 
       setUser("");
       setPwd("");
 
-
-
-        const roles = ["Director","Maestra"]
-
-        /* console.log("AQUIIIII RUTAN ANTES: ",from); */
-
-      if (roleArray.includes(roles) && from === "/admin") {
-        navigate(from, { replace: true });
+      if ((roleArray.includes("Director") || roleArray.includes("Maestra")) && from === "/admin") {
         console.log("1111111111");
-
-      }else if (roleArray.includes("Estudiante") && from === "/perfil") {
         navigate(from, { replace: true });
+
+      } else if (roleArray.includes("Estudiante") && from === "/perfil") {
         console.log("222222222222");
-
-      }else if (roleArray.includes(roles)) {
-        navigate("/admin", { replace: true });
+        navigate(from, { replace: true });
+        
+      } else if (roleArray.includes("Director") || roleArray.includes("Maestra")) {
         console.log("3333333333333");
+        navigate("/admin", { replace: true });
 
-      }else if (roleArray.includes("Estudiante")) {
-        navigate("/perfil", { replace: true });
+      } else if (roleArray.includes("Estudiante")) {
         console.log("444444444444");
+        navigate("/perfil", { replace: true });
+
+      } else {
+        console.log("Rol desconocido o ruta incorrecta para el rol");
+        navigate("/", { replace: true });
       }
 
-
-
-
-
-
       /* navigate(from, { replace: true }); */
-      
     } catch (error) {
       if (!error?.response) {
         setErrMsg("Error de conexión, sin respuesta del servidor");
@@ -102,7 +94,7 @@ const Login2 = () => {
 
   const togglePersist = () => {
     setPersist((prev) => !prev);
-  }
+  };
 
   useEffect(() => {
     localStorage.setItem("persist", persist);

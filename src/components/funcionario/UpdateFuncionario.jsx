@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import api from "../../services/api.config";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const UpdateFuncionario = () => {
-  const { id } = useParams();
+    const api = useAxiosPrivate();
+  const { paramId } = useParams();
 
   const [formData, setFormData] = useState({
     id: "",
@@ -11,15 +12,15 @@ const UpdateFuncionario = () => {
     apellido1: "",
     apellido2: "",
     fechaNacimiento: "",
-    sexo: 0,
+    sexo: true,
   });
 
   useEffect(() => {
-    if (id) {
+    if (paramId) {
       // Fetch the data for the Funcionario with the given ID
       const fetchData = async () => {
         try {
-          const response = await api.get(`funcionarios/${id}`);
+          const response = await api.get(`funcionarios/${paramId}`);
           setFormData(response.data);
         } catch (error) {
           console.error(
@@ -30,7 +31,7 @@ const UpdateFuncionario = () => {
       };
       fetchData();
     }
-  }, [id]);
+  }, [paramId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -74,7 +75,7 @@ const UpdateFuncionario = () => {
 
     try {
       const response = await api.put(
-        `funcionarios/${id || formData.id}`,
+        `funcionarios/${paramId || formData.id}`,
         formData
       );
       console.log("Update successful:", response.data);
@@ -143,11 +144,11 @@ const UpdateFuncionario = () => {
         <div>
           <label>Sexo:</label>
           <select name="sexo" value={formData.sexo} onChange={handleChange}>
-            <option value={0} disabled>
+            <option value={null} disabled>
               Select one
             </option>
-            <option value={0}>Male</option>
-            <option value={1}>Female</option>
+            <option value={true}>Male</option>
+            <option value={false}>Female</option>
           </select>
         </div>
         <button type="submit">Update</button>

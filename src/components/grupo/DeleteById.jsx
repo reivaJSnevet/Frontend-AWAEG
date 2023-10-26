@@ -1,10 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import api from '../../services/api.config.js';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 const DeleteGrupoById = () => {
-  const { id } = useParams();
-  const [grupoId, setGrupoId] = useState(id);
+    const api = useAxiosPrivate(); 
+  const { paramId } = useParams();
+  const [grupoId, setGrupoId] = useState('');
+
+    useEffect(() => {
+        if(paramId){
+            setGrupoId(paramId);
+        }else{
+            setGrupoId('');
+        }
+    }, [paramId])
 
   const handleInputChange = (event) => {
     setGrupoId(event.target.value);
@@ -21,7 +30,6 @@ const DeleteGrupoById = () => {
         // Limpia el campo de entrada después de eliminar el Grupo
         setGrupoId('');
         // Recarga la página
-        window.location.reload();
       })
       .catch((error) => {
         console.error('Error al eliminar el Grupo por ID:', error);

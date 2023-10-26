@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import api from "../../services/api.config";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const UpdateEstudiante = () => {
-  const { id } = useParams();
+  const api = useAxiosPrivate();
+  const { paramId } = useParams();
 
   const [formData, setFormData] = useState({
     id: "",
@@ -11,17 +12,32 @@ const UpdateEstudiante = () => {
     apellido1: "",
     apellido2: "",
     fechaNacimiento: "",
-    sexo: 0,
+    sexo: true,
     direccion: "",
+    seccion: "",
+    encargadoId: "",
   });
+  const [encargado, setEncargado] = useState([]);
   const [secciones, setSecciones] = useState([]);
 
   useEffect(() => {
-    if (id) {
+    if (paramId) {
       const fetchData = async () => {
         try {
-          const response = await api.get(`estudiantes/${id}`);
-          setFormData(response.data);
+          const response = await api.get(`estudiantes/${paramId}`);
+          const { id, nombre, apellido1, apellido2, fechaNacimiento, sexo, direccion, seccion, encargadoId } = response.data;
+          setFormData({
+            id,
+            nombre,
+            apellido1,
+            apellido2,
+            fechaNacimiento,
+            sexo,
+            direccion,
+            seccion,
+            encargadoId
+          });
+          setEncargado(response.data.encargado);
         } catch (error) {
           console.error(
             "Error fetching estudiante:",
@@ -31,7 +47,9 @@ const UpdateEstudiante = () => {
       };
       fetchData();
     }
-  }, [id]);
+    console.log(formData);
+    console.log(encargado);
+  }, [paramId]);
 
   useEffect(() => {
     const fetchSecciones = async () => {
@@ -56,52 +74,30 @@ const UpdateEstudiante = () => {
     }));
   };
 
-  const validateForm = () => {
-    // Check if id is 9 digits
-    if (!/^(\d{9})$/.test(formData.id)) {
-      alert("Debe ingresar un ID de 9 dígitos.");
-      return false;
-    }
-
-    const { id, nombre, apellido1, apellido2, fechaNacimiento, sexo } =
-      formData;
-    console.log(formData);
-    if (
-      !id ||
-      !nombre ||
-      !apellido1 ||
-      !apellido2 ||
-      !fechaNacimiento ||
-      !sexo
-    ) {
-      alert("Por favor, complete todos los campos.");
-      return false;
-    }
-
-    return true;
+  const handleChangeEncargado = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    if (!validateForm()) {
-      return;
-    }
-  
-    try {
-      const oldSeccion = id ? (await api.get(`estudiantes/${id}`)).data.seccion : null;
 
-      const response = await api.put(`estudiantes/${id || formData.id}`, formData);
+    try {
+      const response = await api.put(
+        `estudiantes/${paramId || formData.id}`,
+        formData
+      );
+      const responseEncargado = await api.put(
+        `encargados/${encargado.id}`,
+        encargado
+        );
 
       console.log("Update successful:", response.data);
+      console.log("Update successful:", responseEncargado.data);
 
-      if (id && oldSeccion !== formData.seccion) {
-        await api.put(`grupos/${oldSeccion}/decrement`);
-        await api.put(`grupos/${formData.seccion}/increment`);
-      } else if (!id) {
-        await api.put(`grupos/${formData.seccion}/increment`);
-      }
-  
     } catch (error) {
       console.error(
         "Error during operation:",
@@ -109,14 +105,13 @@ const UpdateEstudiante = () => {
       );
     }
   };
-  
 
   return (
     <div className="update-estudiante">
       <h2>Update Estudiante</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>ID:</label>
+          <label>ID: </label>
           <input
             type="text"
             name="id"
@@ -126,7 +121,7 @@ const UpdateEstudiante = () => {
           />
         </div>
         <div>
-          <label>Nombre:</label>
+          <label>Nombre: </label>
           <input
             type="text"
             name="nombre"
@@ -136,7 +131,7 @@ const UpdateEstudiante = () => {
           />
         </div>
         <div>
-          <label>Apellido 1:</label>
+          <label>Pimer Apellido: </label>
           <input
             type="text"
             name="apellido1"
@@ -146,7 +141,7 @@ const UpdateEstudiante = () => {
           />
         </div>
         <div>
-          <label>Apellido 2:</label>
+          <label>Segundo Apellido: </label>
           <input
             type="text"
             name="apellido2"
@@ -156,7 +151,7 @@ const UpdateEstudiante = () => {
           />
         </div>
         <div>
-          <label>Fecha Nacimiento:</label>
+          <label>Fecha Nacimiento: </label>
           <input
             type="date"
             name="fechaNacimiento"
@@ -166,18 +161,21 @@ const UpdateEstudiante = () => {
           />
         </div>
         <div>
-          <label>Sexo:</label>
-          <select name="sexo" value={formData.sexo} onChange={handleChange}>
+          <label>Sexo: </label>
+          <select 
+            name="sexo" 
+            value={formData.sexo} 
+            onChange={handleChange}>
             <option value={0} disabled>
               Select one
             </option>
-            <option value={0}>Male</option>
-            <option value={1}>Female</option>
+            <option value={false}>Mujer</option>
+            <option value={true}>Hombre</option>
           </select>
         </div>
 
         <div>
-          <label>Dirección:</label>
+          <label>Dirección: </label>
           <input
             type="text"
             name="direccion"
@@ -187,13 +185,13 @@ const UpdateEstudiante = () => {
           />
         </div>
         <div>
-          <label>Sección:</label>
+          <label>Sección: </label>
           <select
             name="seccion"
             value={formData.seccion}
             onChange={handleChange}
             required
-          >
+          >s
             <option value="" disabled>
               Select one
             </option>
@@ -204,7 +202,17 @@ const UpdateEstudiante = () => {
             ))}
           </select>
         </div>
-
+        <h3>Encargado</h3>
+        <div>
+          <label>Nombre: </label>
+          <input
+            type="text"
+            name="nombreEncargado"
+            value={encargado.nombre}
+            onChange={handleChangeEncargado}
+            required
+          />
+        </div>
         <button type="submit">Update</button>
       </form>
     </div>

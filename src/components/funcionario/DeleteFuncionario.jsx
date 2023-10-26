@@ -1,8 +1,19 @@
-import { useState } from "react";
-import api from "../../services/api.config.js";
+import { useState, useEffect} from "react";
+import { useParams } from "react-router-dom";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const DeleteFuncionarioById = () => {
+    const api = useAxiosPrivate();
   const [funcionarioId, setFuncionarioId] = useState("");
+  const {paramId} = useParams();
+
+  useEffect(() => { 
+    if(paramId){
+        setFuncionarioId(paramId);
+    }else{
+        setFuncionarioId('');
+    }
+  }, [paramId]);
 
   const handleInputChange = (event) => {
     setFuncionarioId(event.target.value);

@@ -9,8 +9,6 @@ function Funcionario() {
               <li><Link to="../funcionarios">Ver todo</Link></li>
               <li><Link to="crear">Crear</Link></li>
               <li><Link to="buscar">Buscar</Link></li>
-              <li><Link to="actualizar">Actualizar</Link></li>
-              <li><Link to="borrar">Borrar</Link></li>
           </ul>
         </nav>
         <Outlet />
