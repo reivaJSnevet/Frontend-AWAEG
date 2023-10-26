@@ -14,7 +14,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="flex items-center justify-between p-4 bg-purple-800">
+    <nav className="flex items-center justify-between p-4 bg-purple-500 rounded-lg">
       <Link to="/" className="text-lg font-bold text-white">
         SWAEG
       </Link>
@@ -38,7 +38,11 @@ function Navbar() {
             ></path>
           </svg>
         </button>
-        <div className={`lg:flex flex-grow items-center justify-center ${menuOpen ? "block" : "hidden"}`}>
+        <div
+          className={`lg:flex flex-grow items-center justify-center ${
+            menuOpen ? "block" : "hidden"
+          }`}
+        >
           <ul className="flex flex-col lg:flex-row lg:space-x-8 lg:items-center">
             <li>
               <Link

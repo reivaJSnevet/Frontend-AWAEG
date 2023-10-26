@@ -55,7 +55,7 @@ function ListaArchivos() {
           <li key={index} className="flex items-center justify-between py-2 border-b border-yellow-300">
             <span>{archivo}</span>
             <button 
-              className="px-3 py-1 text-white bg-yellow-500 rounded hover:bg-yellow-400"
+              className="px-3 py-1 ml-2 text-white bg-yellow-500 rounded hover:bg-yellow-400"
               onClick={() => handleDescargarArchivo(archivo)}
             >
               Descargar
