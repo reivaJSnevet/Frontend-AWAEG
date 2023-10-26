@@ -1,138 +1,134 @@
-import { Link, useNavigate} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
-import {
-  Flex,
-  Divider,
-  Avatar,
-  Heading,
-  Text,
-  IconButton,
-} from "@chakra-ui/react";
-import { HamburgerIcon } from "@chakra-ui/icons";
-import NavItem from "./NavItem";
 import {
   GrConfigure,
   GrUser,
   GrUserWorker,
+  GrScorecard,
   GrGroup,
   GrSchedules,
   GrBook,
+  GrCatalogOption,
+  GrDocumentText,
+  GrUserSettings,
+  GrLogout,
+  GrMenu,
+  GrClose,
 } from "react-icons/gr";
-import { PiStudent } from "react-icons/pi";
-import { MdOutlineClass } from "react-icons/md";
-import { VscFileSubmodule } from "react-icons/vsc";
-import { CgProfile } from "react-icons/cg";
 import useLogout from "../../hooks/useLogout";
 
 function Sidebar() {
-    const navigate = useNavigate();
-    const logout = useLogout();
-  const [navSize, changeNavSize] = useState("large");
+  const [showMenu, setShowMenu] = useState(false);
+  const logout = useLogout();
 
   const signOut = async () => {
     await logout();
     navigate("/");
-  }
-  
+  };
+
   return (
-    <Flex
-      className=""
-      pos="sticky"
-      left="5"
-      h="100vh"
-      boxShadow="0 4px 12px 0 rgba(0,0,0,0.05)"
-      w={navSize === "small" ? "75px" : "200px"}
-      flexDir="column"
-      justifyContent="space-between"
-      bg="purple.500"
-    >
-      <Flex
-        p="5%"
-        flexDir="column"
-        alignItems={navSize == "small" ? "center" : "flex-start"}
-        as={"nav"}
+    <>
+      <div
+        className={`xl:h-[100vh] overflow-y-auto fixed xl:static w-[80%] md:w-[40%] lg:w-[30%] xl:w-auto h-full top-0 bg-gray-500 p-10 flex flex-col justify-between z-50 ${
+          showMenu ? "left-0" : "-left-full"
+        } transition-all`}
       >
-        <IconButton
-          bg="none"
-          mt={5}
-          _hover={{ bg: "none" }}
-          icon={<HamburgerIcon color="whiteAlpha.900" />}
-          onClick={() => {
-            if (navSize === "small") changeNavSize("large");
-            else changeNavSize("small");
-          }}
-        />
-        <Link to="roles">
-          <NavItem navSize={navSize} icon={GrConfigure} title="Roles" />
+        {/* titulo */}
+        <h1 className="text-center 2xl font-bold text-white mb-10 ">AWAEG</h1>
+
+        {/* links */}
+        <Link to="roles" className="link-item">
+          <div className="flex items-center gap-4 text-white font-semibold hover:bg-purple-600 p-4  rounded-lg transition-colors">
+            {" "}
+            <GrConfigure /> Roles{" "}
+          </div>
+        </Link>
+        <Link to="usuarios" className="link-item">
+          <div className="flex items-center gap-4 text-white font-semibold hover:bg-purple-600 p-4  rounded-lg transition-colors">
+            {" "}
+            <GrUser /> Usuario{" "}
+          </div>
+        </Link>
+        <Link to="funcionarios" className="link-item">
+          <div className="flex items-center gap-4 text-white font-semibold hover:bg-purple-600 p-4  rounded-lg transition-colors">
+            {" "}
+            <GrUserWorker /> Funcionarios{" "}
+          </div>
+        </Link>
+        <Link to="estudiantes" className="link-item">
+          <div className="flex items-center gap-4 text-white font-semibold hover:bg-purple-600 p-4  rounded-lg transition-colors">
+            {" "}
+            <GrBook /> Estudiantes{" "}
+          </div>
+        </Link>
+        <Link to="grupos" className="link-item">
+          <div className="flex items-center gap-4 text-white font-semibold hover:bg-purple-600 p-4  rounded-lg transition-colors">
+            {" "}
+            <GrGroup /> Grupos{" "}
+          </div>
+        </Link>
+        <Link to="horarios" className="link-item">
+          <div className="flex items-center gap-4 text-white font-semibold hover:bg-purple-600 p-4  rounded-lg transition-colors">
+            {" "}
+            <GrSchedules /> Horarios{" "}
+          </div>
+        </Link>
+        <Link to="clases" className="link-item">
+          <div className="flex items-center gap-4 text-white font-semibold hover:bg-purple-600 p-4  rounded-lg transition-colors">
+            {" "}
+            <GrCatalogOption /> Clases{" "}
+          </div>
+        </Link>
+        <Link to="notas" className="link-item">
+          <div className="flex items-center gap-4 text-white font-semibold hover:bg-purple-600 p-4  rounded-lg transition-colors">
+            {" "}
+            <GrScorecard /> Notas{" "}
+          </div>
+        </Link>
+        <Link to="archivos" className="link-item">
+          <div className="flex items-center gap-4 text-white font-semibold hover:bg-purple-600 p-4  rounded-lg transition-colors">
+            {" "}
+            <GrDocumentText /> Archivos{" "}
+          </div>
+        </Link>
+        <Link to="perfil" className="link-item">
+          <div className="flex items-center gap-4 text-white font-semibold hover:bg-purple-600 p-4 rounded-lg transition-colors">
+            {" "}
+            <GrUserSettings /> Perfil{" "}
+          </div>
         </Link>
 
-        <Link to="usuarios">
-          <NavItem navSize={navSize} icon={GrUser} title="Usuarios" />
-        </Link>
+        {/* image */}
+        <div className="">
+          <Link to="">
+            <img
+              src="/logo-removebg-preview.png"
+              alt="Image"
+              style={{ width: "100px", height: "auto" }}
+            />
+          </Link>
+        </div>
 
-        <Link to="funcionarios">
-          <NavItem navSize={navSize} icon={GrUserWorker} title="Funcionarios" />
-        </Link>
-
-        <Link to="estudiantes">
-          <NavItem navSize={navSize} icon={PiStudent} title="Estudiantes" />
-        </Link>
-
-        <Link to="grupos">
-          <NavItem navSize={navSize} icon={GrGroup} title="Grupos" />
-        </Link>
-
-        <Link to="horarios">
-          <NavItem navSize={navSize} icon={GrSchedules} title="Horarios" />
-        </Link>
-
-        <Link to="clases">
-          <NavItem navSize={navSize} icon={MdOutlineClass} title="Clases" />
-        </Link>
-
-        <Link to="notas">
-          <NavItem navSize={navSize} icon={GrBook} title="Notas" />
-        </Link>
-
-        <Link to="archivos">
-          <NavItem navSize={navSize} icon={VscFileSubmodule} title="Archivos" />
-        </Link>
-
-        <Link to="perfil">
-          <NavItem navSize={navSize} icon={CgProfile} title="Perfil" />
-        </Link>
-        <br />
-        <button type="button" onClick={signOut} className="text-white">Cerrar Sesión</button>
-
-
-      </Flex>
-
-      <Flex
-        p="5%"
-        flexDir="column"
-        w="100%"
-        alignItems={navSize == "small" ? "center" : "flex-start"}
-        mb={4}
-      >
-        <Divider display={navSize == "small" ? "none" : "flex"} />
-        <Flex mt={4} align="center">
-          <Avatar
-            size="sm"
-            src="https://images.vexels.com/media/users/3/152802/isolated/preview/4a12178b4182569cfb402bd969ff4965-icono-de-edificio-de-escuela-clasica.png"
-          />
-          <Flex
-            flexDir="column"
-            ml={4}
-            display={navSize == "small" ? "none" : "flex"}
+        <div>
+          <button
+            type="button"
+            onClick={signOut}
+            className="flex items-center gap-4 text-white font-semibold hover:bg-purple-600 p-4 rounded-lg transition-colors"
           >
-            <Heading as="h3" size="sm" color="white">
-              Sistema Administrativo
-            </Heading>
-            <Text color="gray.800">AWAEG</Text>
-          </Flex>
-        </Flex>
-      </Flex>
-    </Flex>
+            <GrLogout />
+            Cerrar Sesión
+          </button>
+        </div>
+      </div>
+
+      {/* boton responsive */}
+      <button
+        onClick={() => setShowMenu(!showMenu)}
+        className="xl:hidden fixed bottom-4 right-4 bg-purple-600 text-black p-3 rounded-full z-50"
+      >
+        {showMenu ? <GrClose /> : <GrMenu />}
+      </button>
+    </>
   );
 }
 
