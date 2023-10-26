@@ -12,8 +12,8 @@ function Perfil() {
 
   return (
     <div
-      className="w-full h-screen bg-center bg-cover"
-      style={{ backgroundImage: "url(/imagenaqui.jpg)" }}
+      className=""
+      style={{ backgroundImage: "url(/layered-waves-3.png)", backgroundSize: "cover", backgroundRepeat: "no-repeat", backgroundPosition: "center", minHeight: "100vh", minWidth: "100vw", overflow: "hidden", position: "relative"}}
     >
       <div className="grid grid-cols-1 grid-rows-1 gap-4 p-4 md:grid-rows-1 md:grid-cols-12">
         {/* Parte superior del grid (Barra de navegación y Ventana modal) */}
@@ -21,7 +21,7 @@ function Perfil() {
           <Navbar />
           <button
           type="button"
-            className="px-4 py-2 mt-4 text-xs font-bold text-white bg-yellow-500 rounded hover:bg-yellow-700"
+            className="px-4 py-2 mt-4 text-xs font-bold text-black bg-yellow-500 rounded hover:bg-yellow-700"
             onClick={toggleModal}
           >
             Preamtricular
@@ -32,7 +32,7 @@ function Perfil() {
                 <Prematricula />
                 <div className="flex justify-end ">
                   <button
-                    className="px-4 py-2 mt-4 text-xs font-bold text-white bg-yellow-500 rounded hover:bg-yellow-700"
+                    className="px-4 py-2 mt-4 text-xs font-bold text-black bg-yellow-500 rounded hover:bg-yellow-700"
                     onClick={toggleModal}
                   >
                     Cerrar
@@ -44,8 +44,8 @@ function Perfil() {
         </div>
 
         {/* Parte inferior del grid (Título y Contenido) */}
-        <div className=" md:col-span-12 md:row-span-1">
-          <h2 className="mb-4 text-2xl">Perfil de Estudiante</h2>
+        <div className="p-4 mx-auto text-white bg-purple-400 rounded-lg shadow-lg md:col-span-12 md:row-span-1">
+          <h2 className="mb-4 text-2xl ">Perfil de Estudiante</h2>
           {/* Outlet para las rutas hijas */}
           <Outlet />
         </div>

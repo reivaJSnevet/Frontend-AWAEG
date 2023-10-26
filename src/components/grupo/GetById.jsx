@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import api from '../../services/api.config.js';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 const GetGrupoById = () => {
+    const api = useAxiosPrivate();
   const [grupoId, setGrupoId] = useState(''); // Estado para almacenar el ID ingresado
   const [grupoInfo, setGrupoInfo] = useState(null); // Estado para almacenar la información del Grupo
   const handleInputChange = (event) => {
@@ -15,7 +16,9 @@ const GetGrupoById = () => {
     api.get(`/grupos/${grupoId}`)
       .then((response) => {
         // Actualiza el estado con la información del Grupo
-        setGrupoInfo(response.data);
+        const grupo = response.data[1];
+        setGrupoInfo(grupo);
+        console.log(grupo);
       })
       .catch((error) => {
         console.error('Error al obtener el Grupo por seccion:', error);
@@ -40,15 +43,29 @@ const GetGrupoById = () => {
         </div>
       </form>
       {grupoInfo && (
-        <div>
-          <h3>Información del Grupo</h3>
+        <div className='mt-5'>
+          <h3 className='font-semibold'>Información del Grupo</h3>
           <p>seccion: {grupoInfo.seccion}</p>
           <p>Grado: {grupoInfo.ciclo}</p>
           <p>Grado: {grupoInfo.grado}</p>
           <p>Aula: {grupoInfo.aula}</p>
           <p>Cantidad de Estudiantes: {grupoInfo.cantAlumno}</p>
           <p>turno: {grupoInfo.turno === false ? "mañana" : "tarde"}</p>
+          <div className='mt-2'>
+          <h2 className='font-semibold'>Detalles del Grupo</h2>
+          <p>Funcionario: {grupoInfo.funcionario.nombre} {grupoInfo.funcionario.apellido1}</p>
+          <h3 className='font-semibold'>Estudiantes del Grupo:</h3>
+          <ul>
+            {grupoInfo.estudiantes.map((estudiante) => (
+              <li key={estudiante.id}>
+                {estudiante.nombre} {estudiante.apellido1} {estudiante.apellido2}
+              </li>
+            ))}
+          </ul>
         </div>
+        </div>
+        
+        
       )}
     </div>
   );

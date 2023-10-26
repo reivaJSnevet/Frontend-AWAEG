@@ -5,6 +5,13 @@ import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 const ListGrupos = () => {
     const api = useAxiosPrivate();
   const [grupos, setGrupos] = useState([]);
+  const [grupoSeleccionado, setGrupoSeleccionado] = useState(null);
+
+  const mostrarEstudiantes = (grupo) => {
+    // Actualiza el estado del grupo seleccionado al hacer clic en el botón "Detalle"
+    setGrupoSeleccionado(grupo);
+  };
+
 
   useEffect(() => {
     // Realiza una solicitud GET para obtener todos los grupos
@@ -42,14 +49,30 @@ const ListGrupos = () => {
               <td className="list-roles-td">{grupo.cantAlumno}</td>
               <td className="list-roles-td">{grupo.turno === false ? "mañana" : "tarde"}</td>
               <td className="list-roles-td">
-                <Link to={`../actualizar/${grupo.seccion}`}>Actualizar</Link>
+                <Link to={`actualizar/${grupo.seccion}`}>Actualizar</Link>
                 &nbsp;|&nbsp;
-                <Link to={`../borrar/${grupo.seccion}`}>Borrar</Link>
+                <Link to={`borrar/${grupo.seccion}`}>Borrar</Link>
+                <button onClick={() => mostrarEstudiantes(grupo)} className='px-2'>Detalle</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      {/* Mostrar detalles del grupo seleccionado */}
+      {grupoSeleccionado && (
+        <div className='mt-2'>
+          <h2 className='font-semibold'>Detalles del Grupo</h2>
+          <p>Funcionario: {grupoSeleccionado.funcionario.nombre} {grupoSeleccionado.funcionario.apellido1}</p>
+          <h3 className='font-semibold'>Estudiantes del Grupo:</h3>
+          <ul>
+            {grupoSeleccionado.estudiantes.map((estudiante) => (
+              <li key={estudiante.id}>
+                {estudiante.nombre} {estudiante.apellido1} {estudiante.apellido2}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }

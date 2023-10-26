@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import api from '../../services/api.config.js';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 const GetRoleById = () => {
+    const api = useAxiosPrivate();
   const [roleId, setRoleId] = useState(''); // Estado para almacenar el ID ingresado
   const [roleInfo, setRoleInfo] = useState(null); // Estado para almacenar la información del rol
   const [error, setError] = useState('');

@@ -185,12 +185,12 @@
             "method": "GET",
             "sortNum": 20000,
             "created": "2023-10-11T08:22:53.502Z",
-            "modified": "2023-10-11T08:22:53.502Z",
+            "modified": "2023-10-24T04:56:49.053Z",
             "headers": [],
             "params": [],
             "auth": {
                 "type": "bearer",
-                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRXN0dWRpYW50ZSIsImlhdCI6MTY5NjgwMzM2OSwiZXhwIjoxNjk2ODg5NzY5fQ.02PQgbrNSIXmKHn_Nfeefm4Z5FE-yUiRvNHmLKCuxFc"
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTgxMDA2NTQsImV4cCI6MTY5ODE4NzA1NH0.yXZ4EoByZsy_-nxR--1GH0NqZSqtC2iq673jrHs5ueY"
             },
             "tests": []
         },

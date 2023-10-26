@@ -1,15 +1,18 @@
-import { useEffect, useState } from 'react';
-import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import { useEffect, useState } from "react";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const AddGrupo = () => {
-    const api = useAxiosPrivate();
-  const [seccion, setSeccion] = useState('');
-  const [ciclo, setCiclo] = useState('');
-  const [grado, setGrado] = useState('');
-  const [aula, setAula] = useState('');
-  const [cantAlumno, setCantAlumno] = useState('');
-  const [turno, setturno] = useState('');
-  const [profesorId, setProfesorId] = useState('');
+  const api = useAxiosPrivate();
+  const [formulario, setFormulario] = useState({
+    seccion: "",
+    ciclo: "",
+    grado: "",
+    aula: "",
+    cantAlumno: "",
+    turno: false,
+    funcionarioId: "",
+  });
+
   const [funcionarios, setFuncionarios] = useState([]);
 
   useEffect(() => {
@@ -18,78 +21,77 @@ const AddGrupo = () => {
         const response = await api.get("funcionarios");
         setFuncionarios(response.data);
       } catch (error) {
-        console.error("Error fetching funcionarios:", error.response?.data || error.message);
+        console.error(
+          "Error fetching funcionarios:",
+          error.response?.data || error.message
+        );
       }
     };
     fetchFuncionarios();
   }, []);
-  
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    if (name === 'seccion') {
-      setSeccion(value);
-    }else if (name === 'ciclo') {
-        setCiclo(value);
-    }else if (name === 'grado') {
-        setGrado(value);
-      } else if (name === 'aula') {
-        setAula(value);
-      }else if (name === 'cantAlumno') {
-        setCantAlumno(value);
-      } else if (name === 'turno') {
-        setturno(value);
-      } else if (name === 'profesor') {
-        setProfesorId(value);
-      }
-  }
+    console.log(name, value);
+  
+    if (name === 'turno') {
+      // Convierte 'tarde' en true y 'mañana' en false
+      setFormulario((prevFormulario) => ({
+        ...prevFormulario,
+        turno: value === 'tarde',
+      }));
+    } else {
+      setFormulario((prevFormulario) => ({
+        ...prevFormulario,
+        [name]: value,
+      }));
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    console.log({
-        seccion,
-        ciclo,
-        grado,
-        aula,
-        cantAlumno,
-        turno,
-        profesorId
-      });
+    console.log(formulario);
 
     // Verificar que los campos estén completos
-    if (!seccion || !grado || !aula || !cantAlumno || !turno || !ciclo) {
-      alert('Por favor, complete todos los campos.');
+    const { seccion, ciclo, grado, aula, cantAlumno, turno, funcionarioId } =
+      formulario;
+    if (
+      !seccion ||
+      !grado ||
+      !aula ||
+      !cantAlumno ||
+      !ciclo ||
+      !funcionarioId
+    ) {
+      alert("Por favor, complete todos los campos.");
+      console.log(!seccion, !grado, !aula, !cantAlumno, !ciclo, !turno, !funcionarioId);
       return;
     }
 
     try {
       // Realizar la solicitud POST a través de la instancia de Axios
-      await api.post('/grupos', {
-        seccion,
-        ciclo,
-        grado,
-        aula,
-        cantAlumno,
-        turno,
-        profesorId
-      });
+      await api.post("/grupos", formulario);
 
       // Limpiar el formulario después de enviar los datos
-      setSeccion('');
-      setCiclo('')
-      setGrado('');
-      setAula('');
-      setCantAlumno('');
-      setturno('');
-     
+      setFormulario({
+        seccion: "",
+        ciclo: "",
+        grado: "",
+        aula: "",
+        cantAlumno: "",
+        turno: false,
+        funcionarioId: "",
+      });
 
-      alert('Grupo agregado exitosamente.');
+      alert("Grupo agregado exitosamente.");
     } catch (error) {
-      console.error('Error al agregar el Grupo:', error);
-      alert('Hubo un error al agregar el Grupo. Por favor, inténtelo de nuevo.');
+      console.error("Error al agregar el Grupo:", error);
+      alert(
+        "Hubo un error al agregar el Grupo. Por favor, inténtelo de nuevo."
+      );
     }
-  }
+  };
 
   return (
     <div>
@@ -100,25 +102,25 @@ const AddGrupo = () => {
           <input
             type="text"
             name="seccion"
-            value={seccion}
+            value={formulario.seccion}
             onChange={handleInputChange}
           />
         </div>
         <div>
-        <label>Ciclo:</label>
+          <label>Ciclo:</label>
           <input
             type="text"
             name="ciclo"
-            value={ciclo}
+            value={formulario.ciclo}
             onChange={handleInputChange}
           />
         </div>
         <div>
-        <label>Grado:</label>
+          <label>Grado:</label>
           <input
             type="text"
             name="grado"
-            value={grado}
+            value={formulario.grado}
             onChange={handleInputChange}
           />
         </div>
@@ -127,51 +129,53 @@ const AddGrupo = () => {
           <input
             type="text"
             name="aula"
-            value={aula}
+            value={formulario.aula}
             onChange={handleInputChange}
           />
         </div>
         <div>
-        <label>Cantidad de Estudiantes:</label>
+          <label>Cantidad de Estudiantes:</label>
           <input
             type="number"
             name="cantAlumno"
-            value={cantAlumno}
+            value={formulario.cantAlumno}
             onChange={handleInputChange}
           />
-            <label>turno:</label>
-          <input
-            type="text"
-            name="turno"
-            value={turno}
-            onChange={handleInputChange}
-          />
-          <div>
-          <label>Profesor:</label>
+          <label>Turno:</label>
           <select
-            name="profesor"
-            value={profesorId}
+            name="turno"
+            value={formulario.turno ? "tarde" : "mañana"}
             onChange={handleInputChange}
           >
             <option value="" disabled>
-              Seleccione un profesor
-            </option>
-            {funcionarios.map((funcionario) => (
-              <option key={funcionario.id} value={funcionario.id}>
-                {funcionario.nombre} {funcionario.apellido1} {funcionario.apellido2}
+                Seleccione un turno
               </option>
-            ))}
+            <option value="mañana">Mañana</option>
+            <option value="tarde">Tarde</option>
           </select>
-        </div>
+          <div>
+            <label>Profesor:</label>
+            <select
+              name="funcionarioId"
+              value={formulario.funcionarioId}
+              onChange={handleInputChange}
+            >
+              <option value="" disabled>
+                Seleccione un profesor
+              </option>
+              {funcionarios.map((funcionario) => (
+                <option key={funcionario.id} value={funcionario.id}>
+                  {funcionario.nombre} {funcionario.apellido1}{" "}
+                  {funcionario.apellido2}
+                </option>
+              ))}
+            </select>
+          </div>
           <button type="submit">Agregar Grupo</button>
         </div>
       </form>
     </div>
   );
-}
+};
 
 export default AddGrupo;
-
-
-
-

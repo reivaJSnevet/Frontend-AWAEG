@@ -62,6 +62,7 @@ import NotFound from "../pages/errors/NotFound";
 import PersistLogin from "../components/auth/PersistLogin";
 import Home from "../pages/home/Home";
 import ListAllCitas from "../components/cita/ListAllCitas";
+import UpdateRol from "../components/rol/UpdateRole";
 
 const routes = (
   <>
@@ -91,6 +92,7 @@ const routes = (
             <Route index element={<ListRoles />} />
             <Route path="crear" element={<AddRol />} />
             <Route path="buscar" element={<GetRolById />} />
+            <Route path="actualizar/:paramId" element={<UpdateRol />} />
             <Route path="borrar/:paramId" element={<DeleteRolById />} />
           </Route>
 

@@ -42,10 +42,10 @@ function ListaArchivos() {
   };
 
   return (
-    <div className="px-4 py-8 bg-purple-600 rounded-lg shadow-lg">
+    <div className="px-4 py-8 bg-purple-400 rounded-lg shadow-lg">
     <h2 className="mb-4 text-2xl font-bold">Lista de Archivos</h2>
     {archivos.length === 0 ? (
-        <div className="bg-purple-400 p-14 rounded-t-2xl">
+        <div className="bg-purple-200 p-14 rounded-t-2xl">
       <p className="p-10 mb-8 text-2xl font-bold bg-white rounded-md rounded-tr-xl">Sin tarea</p>
       </div>
       

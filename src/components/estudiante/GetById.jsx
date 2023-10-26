@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import api from '../../services/api.config.js';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 const GetEstudianteById = () => {
+    const api = useAxiosPrivate();
   const [estudianteId, setestudianteId] = useState(''); // Estado para almacenar el ID ingresado
   const [estudianteInfo, setEstudianteInfo] = useState(null); // Estado para almacenar la información del Estudiante
   const handleInputChange = (event) => {
@@ -48,7 +49,7 @@ const GetEstudianteById = () => {
           <p>Segundo Apellido: {estudianteInfo.apellido2}</p>
           <p>fecha de Nacimiento: {estudianteInfo.fechNacimiento}</p>
           <p>Edad: {estudianteInfo.edad}</p>
-          <p>Sexo: {estudianteInfo.sexo === false ? "Hombre" : "Mujer"}</p>
+          <p>Sexo: {estudianteInfo.sexo ? "Hombre" : "Mujer"}</p>
           <p>direccion: {estudianteInfo.direccion}</p>
         </div>
       )}

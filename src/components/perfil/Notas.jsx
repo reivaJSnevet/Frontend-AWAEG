@@ -32,9 +32,9 @@ function Notas() {
         /* minW="650px" */ // Establece el ancho mínimo a 650px
       w="100%" // Establece el ancho al 100% del contenedor padre
       fontSize={{ base: "12px", md: "12px", lg: "15px" }}
-      className="flex flex-col items-center justify-center p-6 text-white bg-purple-600 rounded-lg shadow-lg rounded-tr-3xl"
+      className="flex flex-col items-center justify-center p-6 text-black rounded-lg shadow-lg rounded-tr-3xl"
     >
-      <div className="bg-purple-500 rounded-md shadow-xl p-7">
+      <div className="bg-purple-200 rounded-md shadow-xl p-7">
         <Table variant="striped" colorScheme="purple.500" size={{md:"md", lg:"lg"}}>
           <Thead>
             <Tr>
@@ -53,7 +53,7 @@ function Notas() {
                     ? notas[materia].primero.map((nota) => (
                         <span
                           key={nota.id}
-                          className="p-1 mr-2 text-white bg-yellow-500 rounded "
+                          className="p-1 mr-2 text-black rounded"
                         >
                           {nota.calificacion}
                         </span>
@@ -65,7 +65,7 @@ function Notas() {
                     ? notas[materia].segundo.map((nota) => (
                         <span
                           key={nota.id}
-                          className="p-1 mr-2 text-white bg-yellow-500 rounded "
+                          className="p-1 mr-2 text-black rounded "
                         >
                           {nota.calificacion}
                         </span>
@@ -77,7 +77,7 @@ function Notas() {
                     ? notas[materia].tercero.map((nota) => (
                         <span
                           key={nota.id}
-                          className="p-1 mr-2 text-white bg-yellow-500 rounded"
+                          className="p-1 mr-2 text-black rounded"
                         >
                           {nota.calificacion}
                         </span>
