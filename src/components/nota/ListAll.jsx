@@ -37,9 +37,9 @@ const ListNotas = () => {
               <td className="list-roles-td">{nota.periodo}</td>
               <td className="list-roles-td">{nota.fechaSubida}</td>
               <td className="list-roles-td">
-                <Link to={`../actualizar/${nota.id}`}>Actualizar</Link>
+                <Link to={`actualizar/${nota.id}`}>Actualizar</Link>
                 &nbsp;|&nbsp;
-                <Link to={`../borrar/${nota.id}`}>Borrar</Link>
+                <Link to={`borrar/${nota.id}`}>Borrar</Link>
               </td>
             </tr>
           ))}

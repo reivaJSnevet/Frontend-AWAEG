@@ -1,69 +1,111 @@
-import React, { useState, useEffect } from 'react';
-import api from '../../services/api.config';
+import { useState, useEffect } from "react";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 function Solicitud() {
-  const [solicitudesData, setSolicitudesData] = useState(null);
+  const api = useAxiosPrivate();
+  const [solicitudesData, setSolicitudesData] = useState([]);
 
   useEffect(() => {
     // Llama a la API y actualiza el estado con los datos
-    api.get('/solicitudes')
-      .then(response => {
+    api
+      .get("/solicitudes")
+      .then((response) => {
         setSolicitudesData(response.data);
+        console.log(response.data);
       })
-      .catch(error => {
-        console.error('Error al obtener datos de la API:', error);
+      .catch((error) => {
+        console.error("Error al obtener datos de la API:", error);
       });
-  }, []); // El segundo argumento del useEffect asegura que este se ejecute solo una vez (equivalente a componentDidMount)
+  }, []);
 
   if (!solicitudesData) {
     return <div>Cargando...</div>;
   }
 
   return (
-    <div>
-      <h1>Solicitudes</h1>
-      <h2>Tabla de Notas</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Calificación</th>
-            {/* Agrega más encabezados según tus necesidades */}
-          </tr>
-        </thead>
-        <tbody>
-          {solicitudesData.notas.map(nota => (
-            <tr key={nota.id}>
-              <td>{nota.id}</td>
-              <td>{nota.calificacion}</td>
-              {/* Agrega más columnas según tus necesidades */}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-purple-400">
+      <div className="w-full max-w-md p-6 m-4 bg-purple-200 rounded-lg shadow-md">
+        <h1 className="mb-4 text-2xl font-bold">Solicitudes</h1>
 
-      <h2>Tabla de Archivos</h2>
-      {/* Agrega una tabla similar para los archivos */}
+        {solicitudesData.notas && solicitudesData.notas.length > 0 ? (
+          <div>
+            <h2 className="mb-2 text-xl font-semibold">Tabla de Notas</h2>
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr>
+                  <th className="px-4 py-2 text-white bg-purple-400">ID</th>
+                  <th className="px-4 py-2 text-white bg-purple-400">
+                    Calificación
+                  </th>
+                  {/* Agrega más encabezados según tus necesidades */}
+                </tr>
+              </thead>
+              <tbody>
+                {solicitudesData.notas.map((nota) => (
+                  <tr key={nota.id} className="bg-white">
+                    <td className="px-4 py-2 border-t">{nota.id}</td>
+                    <td className="px-4 py-2 border-t">{nota.calificacion}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p className="mt-4">Sin solicitudes de notas.</p>
+        )}
 
-      <h2>Tabla de Prematrículas</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Estado</th>
-            {/* Agrega más encabezados según tus necesidades */}
-          </tr>
-        </thead>
-        <tbody>
-          {solicitudesData.prematriculas.map(prematricula => (
-            <tr key={prematricula.id}>
-              <td>{prematricula.id}</td>
-              <td>{prematricula.estado}</td>
-              {/* Agrega más columnas según tus necesidades */}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+        {/* <div className="w-full max-w-md p-6 m-4 bg-purple-200 rounded-lg shadow-md"> */}
+          {solicitudesData.archivos && solicitudesData.archivos.length > 0 ? (
+            <div className="mt-8">
+              <h2 className="mb-2 text-xl font-semibold">Tabla de Archivos</h2>
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr>
+                    <th className="px-4 py-2 text-white bg-purple-400">ID</th>
+                    <th className="px-4 py-2 text-white bg-purple-400">Nombre</th>
+                    {/* Agrega más encabezados según tus necesidades */}
+                  </tr>
+                </thead>
+                <tbody>
+                  {solicitudesData.archivos.map((archivo) => (
+                    <tr key={archivo.id} className="bg-white">
+                      <td className="px-4 py-2 border-t">{archivo.id}</td>
+                      <td className="px-4 py-2 border-t">{archivo.nombre}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <p className="mt-4">Sin solicitudes de archivos.</p>
+          )}
+        {/* </div> */}
+
+        {solicitudesData.prematriculas &&
+        solicitudesData.prematriculas.length > 0 ? (
+          <div className="mt-8">
+            <h2 className="mb-2 text-xl font-semibold">Tabla de Prematrículas</h2>
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr>
+                  <th className="px-4 py-2 text-white bg-purple-400">ID</th>
+                  <th className="px-4 py-2 text-white bg-purple-400">Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                {solicitudesData.prematriculas.map((prematricula) => (
+                  <tr key={prematricula.id} className="bg-white">
+                    <td className="px-4 py-2 border-t">{prematricula.id}</td>
+                    <td className="px-4 py-2 border-t">{prematricula.estado ? "Aceptada" : "Esperando"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p className="mt-4">Sin solicitudes de prematrículas.</p>
+        )}
+      </div>
     </div>
   );
 }

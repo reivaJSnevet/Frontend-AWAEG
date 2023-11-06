@@ -6,7 +6,7 @@ export const separador = (notas) => {
 
     notas.forEach(nota => {
         const { periodo } = nota;
-        const {nombre} = nota.clase.materia;
+        const {nombre} = nota.materia;
         
         // Verificar si ya existe la clave para esa materia y periodo, si no existe, crearla
         if (!notasSeparadas[nombre]) {
