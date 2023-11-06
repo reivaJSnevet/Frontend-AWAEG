@@ -21,40 +21,47 @@ const ListRoles = () => {
   }, []);
 
   return (
-    <div className="h-[50vh] p-4 md:p-8 bg-purple-400 rounded-lg shadow-lg ">
-    <div className="overflow-x-auto">
-      <table className="w-full bg-white rounded-lg">
-        <thead className="text-white bg-purple-200">
-          <tr>
-            <th className="py-2">ID</th>
-            <th className="py-2">Nombre</th>
-            <th className="py-2">Nivel de Privilegio</th>
-            <th className="hidden py-2 md:table-cell">Descripción</th>
-            <th className="py-2">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {roles.map((rol) => (
-            <tr key={rol.id} className="text-gray-700 border-b">
-              <td className="px-4 py-2">{rol.id}</td>
-              <td className="px-4 py-2">{rol.nombre}</td>
-              <td className="px-4 py-2">{rol.nivelPrivilegio}</td>
-              <td className="hidden px-4 py-2 md:table-cell">{rol.descripcion}</td>
-              <td className="flex items-center px-4 py-2">
-                <Link to={`actualizar/${rol.id}`} className="mr-4 text-purple-500 hover:text-yellow-500">
-                  <IoMdCreate />
-                </Link>
-                <Link to={`borrar/${rol.id}`} className="text-purple-500 hover:text-yellow-500">
-                  <IoIosTrash />
-                </Link>
-              </td>
+    <div className="h-[50vh] p-4 md:p-8 bg-purple-300 rounded-lg shadow-lg ">
+      <div className="overflow-x-auto">
+        <table className="w-full bg-white rounded-lg">
+          <thead className="text-white bg-purple-600">
+            <tr>
+              <th className="py-2">ID</th>
+              <th className="py-2">Nombre</th>
+              <th className="py-2">Nivel de Privilegio</th>
+              <th className="py-2 hidden md:table-cell">Descripción</th>
+              <th className="py-2">Acciones</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {roles.map((rol) => (
+              <tr key={rol.id} className="text-gray-700 border-b">
+                <td className="px-4 py-2">{rol.id}</td>
+                <td className="px-4 py-2">{rol.nombre}</td>
+                <td className="px-4 py-2">{rol.nivelPrivilegio}</td>
+                <td className="px-4 py-2 hidden md:table-cell">
+                  {rol.descripcion}
+                </td>
+                <td className="flex items-center px-4 py-2">
+                  <Link
+                    to={`actualizar/${rol.id}`}
+                    className="mr-4 text-purple-500 hover:text-yellow-500"
+                  >
+                    <IoMdCreate />
+                  </Link>
+                  <Link
+                    to={`borrar/${rol.id}`}
+                    className="text-purple-500 hover:text-yellow-500"
+                  >
+                    <IoIosTrash />
+                  </Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
-  
   );
 };
 

@@ -134,6 +134,7 @@ const AddHorario = () => {
         </div>
       </form>
     </div>
+
   );
 };
 

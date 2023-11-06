@@ -12,8 +12,9 @@ const AddGrupo = () => {
     turno: false,
     funcionarioId: "",
   });
-
   const [funcionarios, setFuncionarios] = useState([]);
+
+  const [errorMessages, setErrorMessages] = useState({});
 
   useEffect(() => {
     const fetchFuncionarios = async () => {
@@ -94,44 +95,60 @@ const AddGrupo = () => {
   };
 
   return (
-    <div>
-      <h2>Agregar Grupo</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>seccion:</label>
+    <div className="p-8 bg-purple-500 rounded-lg shadow-lg">
+      <h2 className="mb-4 text-2xl text-white">Agregar Grupo</h2>
+      <form className="space-y-4" onSubmit={handleSubmit}>
+        <div className="flex flex-col">
+          <label className="text-white">Seccion:</label>
           <input
             type="text"
             name="seccion"
             value={formulario.seccion}
             onChange={handleInputChange}
+            className="p-2 border border-white rounded"
           />
+          {errorMessages.seccion && (
+            <p className="text-yellow-500">{errorMessages.seccion}</p>
+          )}
         </div>
-        <div>
-          <label>Ciclo:</label>
+        <div className="flex flex-col">
+          <label className="text-white">Ciclo:</label>
           <input
             type="text"
             name="ciclo"
             value={formulario.ciclo}
             onChange={handleInputChange}
+            className="p-2 border border-white rounded"
           />
+          {errorMessages.ciclo && (
+            <p className="text-yellow-500">{errorMessages.ciclo}</p>
+          )}
         </div>
-        <div>
-          <label>Grado:</label>
+        <div className="flex flex-col">
+          <label className="text-white">Grado:</label>
           <input
             type="text"
             name="grado"
             value={formulario.grado}
             onChange={handleInputChange}
+            className="p-2 border border-white rounded"
           />
+          {errorMessages.grado && (
+            <p className="text-yellow-500">{errorMessages.grado}</p>
+          )}
         </div>
-        <div>
-          <label>Aula:</label>
+        <div className="flex flex-col">
+          <label className="text-white">Aula:</label>
           <input
             type="text"
             name="aula"
             value={formulario.aula}
             onChange={handleInputChange}
+            className="p-2 border border-white rounded"
           />
+          {errorMessages.aula && (
+            <p className="text-yellow-500">{errorMessages.aula}</p>
+          )}
         </div>
         <div>
           <label>Cantidad de Estudiantes:</label>
@@ -140,6 +157,7 @@ const AddGrupo = () => {
             name="cantAlumno"
             value={formulario.cantAlumno}
             onChange={handleInputChange}
+            className="p-2 border border-white rounded"
           />
           <label>Turno:</label>
           <select

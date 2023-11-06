@@ -16,6 +16,8 @@ const CrearClase = () => {
   const [selectedMateria, setSelectedMateria] = useState("");
   const [turno, setTurno] = useState("mañana");
 
+  const [errorMessages, setErrorMessages] = useState({});
+
   const diasSemana = ["lunes", "martes", "miércoles", "jueves", "viernes"];
 
   useEffect(() => {
@@ -29,7 +31,7 @@ const CrearClase = () => {
       };
       fetchData();
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
   }, []);
 
@@ -118,14 +120,11 @@ const CrearClase = () => {
   };
 
   return (
-    <div>
-      <h2>Crear Clase</h2>
-      <button onClick={handleToggleTurno}>
-        Cambiar Turno: {turno.charAt(0).toUpperCase() + turno.slice(1)}
-      </button>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Profesor:</label>
+    <div className="p-8 bg-purple-500 rounded-lg shadow-lg">
+      <h2 className="mb-4 text-2xl text-white">Agregar Clases</h2>
+      <form className="space-y-4" onSubmit={handleSubmit}>
+        <div className="flex flex-col">
+          <label className="text-white">Profesor:</label>
           <select
             value={selectedProfesor}
             onChange={(e) => setSelectedProfesor(e.target.value)}
@@ -142,8 +141,8 @@ const CrearClase = () => {
             ))}
           </select>
         </div>
-        <div>
-          <label>Materia:</label>
+        <div className="flex flex-col">
+          <label className="text-white">Materia:</label>
           <select
             value={selectedMateria}
             onChange={(e) => setSelectedMateria(e.target.value)}
@@ -197,9 +196,98 @@ const CrearClase = () => {
             readOnly
           />
         </div>
-        <button type="submit">Crear</button>
+
+        <button
+          type="submit"
+          className="px-4 py-2 text-purple-800 bg-yellow-500 rounded hover:bg-yellow-400"
+        >
+          Agregar Funcionario
+        </button>
       </form>
     </div>
+
+    // <div>
+    //   <h2>Crear Clase</h2>
+    //   <button onClick={handleToggleTurno}>
+    //     Cambiar Turno: {turno.charAt(0).toUpperCase() + turno.slice(1)}
+    //   </button>
+    //   <form onSubmit={handleSubmit}>
+    //     <div>
+    //       <label>Profesor:</label>
+    //       <select
+    //         value={selectedProfesor}
+    //         onChange={(e) => setSelectedProfesor(e.target.value)}
+    //       >
+    //         <option value="">Seleccione un profesor</option>
+    //         {profesores.map((profesor) => (
+    //           <option key={profesor.id} value={profesor.id}>
+    //             {profesor.nombre +
+    //               " " +
+    //               profesor.apellido1 +
+    //               " " +
+    //               profesor.apellido2}
+    //           </option>
+    //         ))}
+    //       </select>
+    //     </div>
+    //     <div>
+    //       <label>Materia:</label>
+    //       <select
+    //         value={selectedMateria}
+    //         onChange={(e) => setSelectedMateria(e.target.value)}
+    //       >
+    //         <option value="">Seleccione una materia</option>
+    //         {materias.map((materia) => (
+    //           <option key={materia.id} value={materia.id}>
+    //             {materia.nombre}
+    //           </option>
+    //         ))}
+    //       </select>
+    //     </div>
+    //     <div>
+    //       <label>Día:</label>
+    //       <select value={dia} onChange={(e) => setDia(e.target.value)}>
+    //         <option value="">Seleccione un día</option>
+    //         {diasSemana.map((dia) => (
+    //           <option key={dia} value={dia}>
+    //             {dia}
+    //           </option>
+    //         ))}
+    //       </select>
+    //     </div>
+    //     <div>
+    //       <label>Lección:</label>
+    //       <select
+    //         value={selectedLeccion}
+    //         onChange={(e) => setSelectedLeccion(e.target.value)}
+    //       >
+    //         <option value="">Seleccione una lección</option>
+    //         {[1, 2, 3, 4, 5, 6, 7].map((numero) => (
+    //           <option key={numero} value={numero}>
+    //             {convertirANumeroRomano(numero)}
+    //           </option>
+    //         ))}
+    //       </select>
+    //     </div>
+    //     <div>
+    //       <label>Hora de Entrada:</label>
+    //       <input
+    //         type="text"
+    //         value={calcularHoraInicio(selectedLeccion)}
+    //         readOnly
+    //       />
+    //     </div>
+    //     <div>
+    //       <label>Hora de Salida:</label>
+    //       <input
+    //         type="text"
+    //         value={calcularHoraSalida(selectedLeccion)}
+    //         readOnly
+    //       />
+    //     </div>
+    //     <button type="submit">Crear</button>
+    //   </form>
+    // </div>
   );
 };
 

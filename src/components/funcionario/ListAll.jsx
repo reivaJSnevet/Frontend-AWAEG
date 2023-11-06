@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
+import { IoMdCreate, IoIosTrash } from "react-icons/io";
 import { Link } from "react-router-dom";
-import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const ListFuncionarios = () => {
-    const api = useAxiosPrivate();
+  const api = useAxiosPrivate();
   const [funcionarios, setFuncionarios] = useState([]);
   const [selectedFuncionario, setSelectedFuncionario] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -11,13 +12,13 @@ const ListFuncionarios = () => {
   useEffect(() => {
     // Realiza una solicitud GET para obtener todos los funcionarios
     api
-      .get('/funcionarios')
+      .get("/funcionarios")
       .then((response) => {
         // Actualiza el estado con los funcionarios obtenidos
         setFuncionarios(response.data);
       })
       .catch((error) => {
-        console.error('Error fetching funcionarios:', error);
+        console.error("Error al obtener los funcionarios:", error);
       });
   }, []);
 
@@ -96,6 +97,6 @@ const ListFuncionarios = () => {
       )}
   </div>
   );
-}
+};
 
 export default ListFuncionarios;

@@ -9,7 +9,8 @@ const ListUsuarios = () => {
 
   useEffect(() => {
     // Realiza una solicitud GET para obtener todos los usuarios
-    api.get("/usuarios")
+    api
+      .get("/usuarios")
       .then((response) => {
         // Actualiza el estado con los usuarios obtenidos
         setUsuarios(response.data);
@@ -20,7 +21,7 @@ const ListUsuarios = () => {
   }, []); // El [] como segundo argumento asegura que este efecto se ejecute solo una vez al montar el componente
 
   return (
-    <div className="max-h-screen p-8 overflow-y-auto bg-purple-500 rounded-lg shadow-lg">
+    <div className="h-[60vh] p-8 overflow-y-auto bg-purple-500 rounded-lg shadow-lg">
       <table className="w-full bg-white rounded-lg">
         <thead className="text-white bg-purple-700">
           <tr>
@@ -43,7 +44,10 @@ const ListUsuarios = () => {
                 >
                   <IoMdCreate />
                 </Link>
-                <Link to={`borrar/${usuario.id}`} className="text-purple-500 hover:text-yellow-500">
+                <Link
+                  to={`borrar/${usuario.id}`}
+                  className="text-purple-500 hover:text-yellow-500"
+                >
                   <IoIosTrash />
                 </Link>
               </td>
