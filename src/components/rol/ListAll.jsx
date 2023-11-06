@@ -21,15 +21,15 @@ const ListRoles = () => {
   }, []);
 
   return (
-    <div className="h-[50vh] p-4 md:p-8 bg-purple-500 rounded-lg shadow-lg ">
+    <div className="h-[50vh] p-4 md:p-8 bg-purple-400 rounded-lg shadow-lg ">
     <div className="overflow-x-auto">
       <table className="w-full bg-white rounded-lg">
-        <thead className="text-white bg-purple-500">
+        <thead className="text-white bg-purple-200">
           <tr>
             <th className="py-2">ID</th>
             <th className="py-2">Nombre</th>
             <th className="py-2">Nivel de Privilegio</th>
-            <th className="py-2 hidden md:table-cell">Descripción</th>
+            <th className="hidden py-2 md:table-cell">Descripción</th>
             <th className="py-2">Acciones</th>
           </tr>
         </thead>
@@ -39,7 +39,7 @@ const ListRoles = () => {
               <td className="px-4 py-2">{rol.id}</td>
               <td className="px-4 py-2">{rol.nombre}</td>
               <td className="px-4 py-2">{rol.nivelPrivilegio}</td>
-              <td className="px-4 py-2 hidden md:table-cell">{rol.descripcion}</td>
+              <td className="hidden px-4 py-2 md:table-cell">{rol.descripcion}</td>
               <td className="flex items-center px-4 py-2">
                 <Link to={`actualizar/${rol.id}`} className="mr-4 text-purple-500 hover:text-yellow-500">
                   <IoMdCreate />

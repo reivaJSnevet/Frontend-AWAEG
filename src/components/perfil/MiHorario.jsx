@@ -12,6 +12,7 @@ function Horario() {
     const fetchData = async () => {
         try {
             const response = await api.get(`estudiantes/horario/${auth.personaId}`);
+            console.log(response.data);
             const horario = response.data[0];
             setHorario(horario);
         } catch (error) {

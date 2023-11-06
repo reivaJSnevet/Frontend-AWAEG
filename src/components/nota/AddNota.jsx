@@ -5,143 +5,178 @@ import useAuth from "../../hooks/useAuth";
 const AddNota = () => {
   const api = useAxiosPrivate();
   const { auth } = useAuth();
-  const personaId = auth?.personaId || 0;
+  const personaId = auth?.personaId || null;
+  const [secciones, setSecciones] = useState([]);
+  const [materias, setMaterias] = useState([]);
   const [estudiantes, setEstudiantes] = useState([]);
-  const [clases, setClases] = useState([]);
-  const [nota, setNota] = useState({
+  const [selectedSeccion, setSelectedSeccion] = useState("");
+  const [selectedMateria, setSelectedMateria] = useState("");
+  const [selectedPeriodo, setSelectedPeriodo] = useState("");
+  const [notas, setNotas] = useState([]);
+
+  /*   const [notas, setNotas] = useState({
     calificacion: "",
-    periodo: "",
-    fechaSubida: "",
+    periodo: selectedPeriodo,
     funcionarioId: personaId,
-    claseId: "",
     estudianteId: "",
-  });
+    materiaId: "",
+  }); */
 
   useEffect(() => {
-    const fetchEstudiantes = async () => {
-      try {
-        const responseEst = await api.get(`clases/estudiantes/${712345678}`);
-        const responseClas = await api.get(`/notas/Clases/${712345678}`);
-        setClases(responseClas.data);
-        setEstudiantes(responseEst.data);
-        
-      } catch (error) {
-        console.error("Error trayendo los estudiantes:", error);
-      }
+    const fetchSecciones = async () => {
+      const responseSecciones = await api.get(
+        `grupos/funcionario/${personaId}`
+      );
+      const responseMaterias = await api.get(
+        `clases/funcionarios/${personaId}`
+      );
+
+      setSecciones(responseSecciones.data);
+      setMaterias(responseMaterias.data);
     };
+
+    fetchSecciones();
+  }, [api, personaId]);
+
+  // useEffect para imprimir   en la consola cuando la sección cambie
+  useEffect(() => {
+    const fetchEstudiantes = async () => {
+      console.log("Hola, sección cambiada:", selectedSeccion);
+      const responseEstudiantes = await api.get(`grupos/${selectedSeccion}`);
+      setEstudiantes(responseEstudiantes.data[1].estudiantes);
+    };
+
+
+    setNotas([]);
     fetchEstudiantes();
+  }, [selectedSeccion, api]);
 
-  }, []);
-
-  console.log("clases", clases);
-  console.log("estudiantes", estudiantes);
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setNota((prevNota) => ({
-      ...prevNota,
-      [name]: value,
-    }));
+  const handleSelectChange = (event) => {
+    setSelectedMateria(event.target.value);
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleNotaChange = (e, estudianteId) => {
+    const nuevaNota = {
+      estudianteId: estudianteId,
+      calificacion: e.target.value,
+      periodo: selectedPeriodo,
+      materiaId: selectedMateria,
+      funcionarioId: personaId,
+    };
 
-    // Verificar que los campos estén completos
-    if (!nota.calificacion || !nota.periodo || !nota.fechaSubida) {
-      alert("Por favor, complete todos los campos.");
-      return;
+    const notaExistenteIndex = notas.findIndex(
+      (nota) => nota.estudianteId === estudianteId
+    );
+
+    if (notaExistenteIndex !== -1) {
+      const nuevasNotas = [...notas];
+      nuevasNotas[notaExistenteIndex] = nuevaNota;
+      setNotas(nuevasNotas);
+    } else {
+      setNotas([...notas, nuevaNota]);
     }
+  };
 
+  const handleEnviarNotas = async () => {
     try {
-      // Realizar la solicitud POST a través de la instancia de Axios
-      await api.post("/Notas", nota);
-
-      // Limpiar el formulario después de enviar los datos
-      setNota({
-        calificacion: "",
-        periodo: "",
-        fechaSubida: "",
-      });
-
-      alert("Nota agregada exitosamente.");
+      const post = await api.post("notas", notas);
+      console.log(post);
+  
+      // Limpiar el estado notas después de un envío exitoso
+      setNotas([]);
+  
+      // Aquí puedes realizar cualquier otra operación con las notas, como enviarlas a través de una solicitud de API.
     } catch (error) {
-      console.error("Error al agregar la Nota:", error);
-      alert("Hubo un error al agregar la Nota. Por favor, inténtelo de nuevo.");
+      console.error("Error al enviar las notas:", error);
+      // Manejar el error de acuerdo a los requisitos de tu aplicación
     }
+  };
+
+  const obtenerNotaParaEstudiante = (estudianteId) => {
+    const notaEstudiante = notas.find((nota) => nota.estudianteId === estudianteId);
+    return notaEstudiante ? notaEstudiante.calificacion : "";
   };
 
   return (
     <div>
-      <h2>Agregar Nota</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Calificación:</label>
-          <input
-            type="text"
-            name="calificacion"
-            value={nota.calificacion}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label>Periodo:</label>
-          <input
-            type="text"
-            name="periodo"
-            value={nota.periodo}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label>Fecha de Subida:</label>
-          <input
-            type="text"
-            name="fechaSubida"
-            value={nota.fechaSubida}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label>Clase:</label>
-          <select
-            name="claseId"
-            value={nota.claseId}
-            onChange={handleInputChange}
-          >
-            <option value="" disabled>
-              Seleccione una clase
+      {/* Dropdown para seleccionar la sección */}
+      <div>
+        <label>Selecciona una sección:</label>
+        <select
+          onChange={(e) => setSelectedSeccion(e.target.value)}
+          value={selectedSeccion}
+        >
+          <option value="">-- Selecciona --</option>
+          {secciones.map((seccion, index) => (
+            <option key={index} value={seccion.seccion}>
+              {seccion.seccion}
             </option>
-            {clases.map((clase) => (
-              <option key={clase.id} value={clase.id}>
-                {clase.nombre}{" "}
-                {/* Reemplaza 'nombre' con la propiedad correcta del objeto de clase */}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label>Estudiante:</label>
-          <select
-            name="estudianteId"
-            value={nota.estudianteId}
-            onChange={handleInputChange}
-          >
-            <option value="" disabled>
-              Seleccione un estudiante
+          ))}
+        </select>
+      </div>
+
+      {/* Dropdown para seleccionar la materia */}
+
+      <div>
+        <label>Selecciona una materia:</label>
+        <select value={selectedMateria} onChange={handleSelectChange}>
+          <option value="">-- Selecciona --</option>
+          {materias.map((materia, index) => (
+            <option key={index} value={materia.id}>
+              {materia.nombre}
             </option>
-            {estudiantes.map((estudiante) => (
-              <option key={estudiante.id} value={estudiante.id}>
-                {estudiante.nombre}{" "}
-                {/* Reemplaza 'nombre' con la propiedad correcta del objeto de estudiante */}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <button type="submit">Agregar Nota</button>
-        </div>
-      </form>
+          ))}
+        </select>
+      </div>
+
+      <div>
+        <label>Selecciona un periodo:</label>
+        <select
+          value={selectedPeriodo}
+          onChange={(e) => setSelectedPeriodo(e.target.value)}
+        >
+          <option value="">-- Selecciona --</option>
+          <option value="primero">Primero</option>
+          <option value="segundo">Segundo</option>
+          <option value="tercero">Tercero</option>
+        </select>
+      </div>
+
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Nota</th>
+            </tr>
+          </thead>
+          <tbody>
+            {selectedSeccion !== "" ? (
+              estudiantes.map((estudiante, index) => (
+                <tr key={index}>
+                  <td>{estudiante.nombre}</td>
+                  <td>{estudiante.apellido1}</td>
+                  <td>
+                    <input
+                      type="number"
+                      name="nota"
+                      id="nota"
+                      value={obtenerNotaParaEstudiante(estudiante.id)}
+                      onChange={(e) => handleNotaChange(e, estudiante.id)}
+                    />
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="3">Seleccione una seccion para calificar.</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+        <button onClick={handleEnviarNotas}>Enviar Notas</button>
+      </div>
     </div>
   );
 };
