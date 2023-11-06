@@ -25,22 +25,6 @@ function Estudiante() {
         <Outlet />
       </div>
     </div>
-
-
-        // <div className="roles-container">
-        //   <div className="roles-content">
-        //     <nav className="roles-tabs">
-        //       <ul>
-        //           <li><Link to="../estudiantes">Ver todo</Link></li>
-        //           <li><Link to="crear">Crear</Link></li>
-        //           <li><Link to="buscar">Buscar</Link></li>
-        //           <li><Link to="actualizar">Actualizar</Link></li>
-        //           <li><Link to="borrar">Borrar</Link></li>
-        //       </ul>
-        //     </nav>
-        //     <Outlet />
-        //   </div>
-        // </div>
       );
 }
 

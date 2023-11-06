@@ -1,21 +1,21 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import api from "../../services/api.config";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const UpdateGrupo = () => {
-  const { seccion: encodedSeccion } = useParams();
-  const seccion = decodeURIComponent(encodedSeccion);
-
+    const api = useAxiosPrivate();
+    const {paramId} = useParams();
+    
   const [formData, setFormData] = useState({
     seccion: "",
     ciclo: "",
     grado: "",
     aula: "",
-    cantAlumno: 0,
+    cantAlumno: "",
     turno: false,
+    funcionarioId: "",
   });
   const [funcionarios, setFuncionarios] = useState([]);
-  const [selectedProfesorId, setSelectedProfesorId] = useState(null);
 
   useEffect(() => {
     const fetchFuncionarios = async () => {
@@ -33,11 +33,12 @@ const UpdateGrupo = () => {
   }, []);
 
   useEffect(() => {
-    if (seccion) {
+    if (paramId) {
       const fetchData = async () => {
         try {
-          const response = await api.get(`grupos/${encodedSeccion}`);
-          setFormData(response.data);
+          const response = await api.get(`grupos/${paramId}`);
+          setFormData(response.data[1]);
+          console.log(response.data[1]);
         } catch (error) {
           console.error(
             "Error fetching grupo:",
@@ -47,7 +48,7 @@ const UpdateGrupo = () => {
       };
       fetchData();
     }
-  }, [seccion, encodedSeccion]);
+  }, [paramId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -131,27 +132,30 @@ const UpdateGrupo = () => {
         <div>
           <label>Turno:</label>
           <select name="turno" value={formData.turno} onChange={handleChange}>
+          <option value="" disabled>
+                Seleccione un profesor
+              </option>
             <option value={false}>Mañana</option>
             <option value={true}>Tarde</option>
           </select>
         </div>
         <div>
-          <label>Profesor:</label>
-          <select
-            name="profesor"
-            value={selectedProfesorId}
-            onChange={(e) => setSelectedProfesorId(e.target.value)}
-          >
-            <option value="" disabled>
-              Seleccione un profesor
-            </option>
-            {funcionarios.map((funcionario) => (
-              <option key={funcionario.id} value={funcionario.id}>
-                {funcionario.nombre} {funcionario.apellido1}{" "}
-                {funcionario.apellido2}
+        <label>Profesor:</label>
+            <select
+              name="funcionarioId"
+              value={formData.funcionarioId}
+              onChange={handleChange}
+            >
+              <option value="" disabled>
+                Seleccione un profesor
               </option>
-            ))}
-          </select>
+              {funcionarios.map((funcionario) => (
+                <option key={funcionario.id} value={funcionario.id}>
+                  {funcionario.nombre} {funcionario.apellido1}{" "}
+                  {funcionario.apellido2}
+                </option>
+              ))}
+            </select>
         </div>
         <button type="submit">Update</button>
       </form>

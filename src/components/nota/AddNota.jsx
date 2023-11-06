@@ -1,158 +1,183 @@
-import { useState } from "react";
-import api from "../../services/api.config.js";
+import { useEffect, useState } from "react";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import useAuth from "../../hooks/useAuth";
 
 const AddNota = () => {
-  const [calificacion, setCalificacion] = useState("");
-  const [periodo, setPeriodo] = useState(0);
-  const [fechaSubida, setFechaSubida] = useState("");
-  const [errorMessages, setErrorMessages] = useState({});
+  const api = useAxiosPrivate();
+  const { auth } = useAuth();
+  const personaId = auth?.personaId || null;
+  const [secciones, setSecciones] = useState([]);
+  const [materias, setMaterias] = useState([]);
+  const [estudiantes, setEstudiantes] = useState([]);
+  const [selectedSeccion, setSelectedSeccion] = useState("");
+  const [selectedMateria, setSelectedMateria] = useState("");
+  const [selectedPeriodo, setSelectedPeriodo] = useState("");
+  const [notas, setNotas] = useState([]);
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    if (name === "calificacion") {
-      setCalificacion(value);
-    } else if (name === "periodo") {
-      setPeriodo(value);
-    } else if (name === "fechaSubida") {
-      setFechaSubida(value);
+  /*   const [notas, setNotas] = useState({
+    calificacion: "",
+    periodo: selectedPeriodo,
+    funcionarioId: personaId,
+    estudianteId: "",
+    materiaId: "",
+  }); */
+
+  useEffect(() => {
+    const fetchSecciones = async () => {
+      const responseSecciones = await api.get(
+        `grupos/funcionario/${personaId}`
+      );
+      const responseMaterias = await api.get(
+        `clases/funcionarios/${personaId}`
+      );
+
+      setSecciones(responseSecciones.data);
+      setMaterias(responseMaterias.data);
+    };
+
+    fetchSecciones();
+  }, [api, personaId]);
+
+  // useEffect para imprimir   en la consola cuando la sección cambie
+  useEffect(() => {
+    const fetchEstudiantes = async () => {
+      console.log("Hola, sección cambiada:", selectedSeccion);
+      const responseEstudiantes = await api.get(`grupos/${selectedSeccion}`);
+      setEstudiantes(responseEstudiantes.data[1].estudiantes);
+    };
+
+
+    setNotas([]);
+    fetchEstudiantes();
+  }, [selectedSeccion, api]);
+
+  const handleSelectChange = (event) => {
+    setSelectedMateria(event.target.value);
+  };
+
+  const handleNotaChange = (e, estudianteId) => {
+    const nuevaNota = {
+      estudianteId: estudianteId,
+      calificacion: e.target.value,
+      periodo: selectedPeriodo,
+      materiaId: selectedMateria,
+      funcionarioId: personaId,
+    };
+
+    const notaExistenteIndex = notas.findIndex(
+      (nota) => nota.estudianteId === estudianteId
+    );
+
+    if (notaExistenteIndex !== -1) {
+      const nuevasNotas = [...notas];
+      nuevasNotas[notaExistenteIndex] = nuevaNota;
+      setNotas(nuevasNotas);
+    } else {
+      setNotas([...notas, nuevaNota]);
     }
   };
 
-  const validateForm = () => {
-    const errors = {};
-
-    if (!calificacion) {
-      errors.calificacion = "La calificacion es obligatoria";
-    }
-
-    if (!periodo) {
-      errors.periodo = "El periodo es obligatorio";
-    }
-
-    if (!fechaSubida) {
-      errors.fechaSubida = "La fecha de subida es obligatorio";
-    }
-
-    setErrorMessages(errors);
-    return Object.keys(errors).length === 0;
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    // Verificar que los campos estén completos
-    if (!validateForm()) {
-      return;
-    }
-
+  const handleEnviarNotas = async () => {
     try {
-      // Realizar la solicitud POST a través de la instancia de Axios
-      await api.post("/Notas", {
-        calificacion,
-        periodo,
-        fechaSubida,
-      });
-
-      // Limpiar el formulario después de enviar los datos
-      setCalificacion("");
-      setPeriodo("");
-      setFechaSubida("");
-
-      alert("Nota agregada exitosamente.");
+      const post = await api.post("notas", notas);
+      console.log(post);
+  
+      // Limpiar el estado notas después de un envío exitoso
+      setNotas([]);
+  
+      // Aquí puedes realizar cualquier otra operación con las notas, como enviarlas a través de una solicitud de API.
     } catch (error) {
-      console.error("Error al agregar el Nota:", error);
-      alert("Hubo un error al agregar el Nota. Por favor, inténtelo de nuevo.");
+      console.error("Error al enviar las notas:", error);
+      // Manejar el error de acuerdo a los requisitos de tu aplicación
     }
+  };
+
+  const obtenerNotaParaEstudiante = (estudianteId) => {
+    const notaEstudiante = notas.find((nota) => nota.estudianteId === estudianteId);
+    return notaEstudiante ? notaEstudiante.calificacion : "";
   };
 
   return (
-    <div className="p-8 bg-purple-500 rounded-lg shadow-lg">
-      <h2 className="mb-4 text-2xl text-white">Agregar Nota</h2>
-      <form className="space-y-4" onSubmit={handleSubmit}>
-        <div className="flex flex-col">
-          <label className="text-white">Calificacion:</label>
-          <input
-            type="text"
-            name="calificacion"
-            value={calificacion}
-            onChange={handleInputChange}
-            className="p-2 border border-white rounded"
-          />
-          {errorMessages.calificacion && (
-            <p className="text-yellow-500">{errorMessages.calificacion}</p>
-          )}
-        </div>
-        <div className="flex flex-col">
-          <label className="text-white">Periodo:</label>
-          <input
-            type="text"
-            name="periodo"
-            value={periodo}
-            onChange={handleInputChange}
-            className="p-2 border border-white rounded"
-          />
-          {errorMessages.periodo && (
-            <p className="text-yellow-500">{errorMessages.periodo}</p>
-          )}
-        </div>
-        <div className="flex flex-col">
-          <label className="text-white">Fecha de Subida:</label>
-          <input
-            type="text"
-            name="fechaSubida"
-            value={fechaSubida}
-            onChange={handleInputChange}
-            className="p-2 border border-white rounded"
-          />
-          {errorMessages.fechaSubida && (
-            <p className="text-yellow-500">{errorMessages.fechaSubida}</p>
-          )}
-        </div>
-
-        <button
-          type="submit"
-          className="px-4 py-2 text-purple-800 bg-yellow-500 rounded hover:bg-yellow-400"
+    <div>
+      {/* Dropdown para seleccionar la sección */}
+      <div>
+        <label>Selecciona una sección:</label>
+        <select
+          onChange={(e) => setSelectedSeccion(e.target.value)}
+          value={selectedSeccion}
         >
-          Agregar Nota
-        </button>
-      </form>
-    </div>
+          <option value="">-- Selecciona --</option>
+          {secciones.map((seccion, index) => (
+            <option key={index} value={seccion.seccion}>
+              {seccion.seccion}
+            </option>
+          ))}
+        </select>
+      </div>
 
-    // <div>
-    //   <h2>Agregar Nota</h2>
-    //   <form onSubmit={handleSubmit}>
-    //     <div>
-    //       <label>calificacion:</label>
-    //       <input
-    //         type="text"
-    //         name="calificacion"
-    //         value={calificacion}
-    //         onChange={handleInputChange}
-    //       />
-    //     </div>
-    //     <div>
-    //       <label>Periodo:</label>
-    //       <input
-    //         type="text"
-    //         name="periodo"
-    //         value={periodo}
-    //         onChange={handleInputChange}
-    //       />
-    //     </div>
-    //     <div>
-    //       <label>Fecha de Subida:</label>
-    //       <input
-    //         type="text"
-    //         name="fechaSubida"
-    //         value={fechaSubida}
-    //         onChange={handleInputChange}
-    //       />
-    //     </div>
-    //     <div>
-    //       <button type="submit">Agregar Nota</button>
-    //     </div>
-    //   </form>
-    // </div>
+      {/* Dropdown para seleccionar la materia */}
+
+      <div>
+        <label>Selecciona una materia:</label>
+        <select value={selectedMateria} onChange={handleSelectChange}>
+          <option value="">-- Selecciona --</option>
+          {materias.map((materia, index) => (
+            <option key={index} value={materia.id}>
+              {materia.nombre}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div>
+        <label>Selecciona un periodo:</label>
+        <select
+          value={selectedPeriodo}
+          onChange={(e) => setSelectedPeriodo(e.target.value)}
+        >
+          <option value="">-- Selecciona --</option>
+          <option value="primero">Primero</option>
+          <option value="segundo">Segundo</option>
+          <option value="tercero">Tercero</option>
+        </select>
+      </div>
+
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Nota</th>
+            </tr>
+          </thead>
+          <tbody>
+            {selectedSeccion !== "" ? (
+              estudiantes.map((estudiante, index) => (
+                <tr key={index}>
+                  <td>{estudiante.nombre}</td>
+                  <td>{estudiante.apellido1}</td>
+                  <td>
+                    <input
+                      type="number"
+                      name="nota"
+                      id="nota"
+                      value={obtenerNotaParaEstudiante(estudiante.id)}
+                      onChange={(e) => handleNotaChange(e, estudiante.id)}
+                    />
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="3">Seleccione una seccion para calificar.</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+        <button onClick={handleEnviarNotas}>Enviar Notas</button>
+      </div>
+    </div>
   );
 };
 

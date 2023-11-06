@@ -1,20 +1,29 @@
-import React, { useState } from "react";
-import api from "../../services/api.config";
+import { useState } from "react";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const GetUsuarioById = () => {
-  const [usuarioId, setUsuarioId] = useState('');
-  const [usuarioinfo, setUsuarioInfo] = useState(null);
-  const [errorMessage, setErrorMessage] = useState('');
+  const api = useAxiosPrivate();
+  const [formData, setFormData] = useState({
+    usuarioId: '',
+    usuarioInfo: null,
+    errorMessage: ''
+  });
 
   const handleInputChange = (event) => {
     const inputValue = event.target.value;
 
     // Verifica si el valor ingresado es un número
     if (/^\d+$/.test(inputValue) || inputValue === '') {
-      setUsuarioId(inputValue);
-      setErrorMessage(''); // Limpia el mensaje de error si es válido
+      setFormData({
+        ...formData,
+        usuarioId: inputValue,
+        errorMessage: '' // Limpia el mensaje de error si es válido
+      });
     } else {
-      setErrorMessage('Ingrese solo números');
+      setFormData({
+        ...formData,
+        errorMessage: 'Ingrese solo números'
+      });
     }
   }
 
@@ -22,17 +31,23 @@ const GetUsuarioById = () => {
     event.preventDefault();
 
     // Realiza una solicitud GET para obtener el usuario por ID
-    api.get(`/usuarios/${usuarioId}`)
+    api.get(`/usuarios/${formData.usuarioId}`)
       .then((response) => {
         // Actualiza el estado con la información del usuario
-        setUsuarioInfo(response.data);
-        setErrorMessage(''); // Limpia el mensaje de error si se encuentra el usuario
+        setFormData({
+          ...formData,
+          usuarioInfo: response.data,
+          errorMessage: '' // Limpia el mensaje de error si se encuentra el usuario
+        });
       })
       .catch((error) => {
         console.error('Error al obtener el usuario por ID:', error);
         // Puedes manejar errores aquí, por ejemplo, mostrar un mensaje de error
-        setUsuarioInfo(null); // Limpia la información del usuario si no se encuentra
-        setErrorMessage('No se encontró un usuario con esa ID.');
+        setFormData({
+          ...formData,
+          usuarioInfo: null, // Limpia la información del usuario si no se encuentra
+          errorMessage: 'No se encontró un usuario con esa ID.'
+        });
       });
   }
 
@@ -44,7 +59,7 @@ const GetUsuarioById = () => {
           <label>ID del Usuario:</label>
           <input
             type="text"
-            value={usuarioId}
+            value={formData.usuarioId}
             onChange={handleInputChange}
           />
         </div>
@@ -52,13 +67,13 @@ const GetUsuarioById = () => {
           <button type="submit">Obtener Usuario</button>
         </div>
       </form>
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-      {usuarioinfo && (
+      {formData.errorMessage && <p style={{ color: 'red' }}>{formData.errorMessage}</p>}
+      {formData.usuarioInfo && (
         <div>
           <h3>Información del Usuario</h3>
-          <p>Nombre: {usuarioinfo.nombre}</p>
-          <p>Correo: {usuarioinfo.correo}</p>
-          <p>Rol: {usuarioinfo.role.nombre}</p> 
+          <p>Nombre: {formData.usuarioInfo.nombre}</p>
+          <p>Correo: {formData.usuarioInfo.correo}</p>
+          <p>Rol: {formData.usuarioInfo.role.nombre}</p>
         </div>
       )}
     </div>

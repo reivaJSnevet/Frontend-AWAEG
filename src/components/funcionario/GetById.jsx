@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import api from '../../services/api.config.js';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 const GetFuncionarioById = () => {
+    const api = useAxiosPrivate();
   const [funcionarioId, setFuncionarioId] = useState(''); // Estado para almacenar el ID ingresado
   const [funcionarioInfo, setFuncionarioInfo] = useState(null); // Estado para almacenar la información del funcionario
 
@@ -22,7 +23,7 @@ const GetFuncionarioById = () => {
         console.error('Error al obtener el funcionario por ID:', error);
         // Puedes manejar errores aquí, por ejemplo, mostrar un mensaje de error
       });
-  }
+    }
 
   return (
     <div>

@@ -62,6 +62,27 @@ import NotFound from "../pages/errors/NotFound";
 import PersistLogin from "../components/auth/PersistLogin";
 import Home from "../pages/home/Home";
 import ListAllCitas from "../components/cita/ListAllCitas";
+import UpdateRol from "../components/rol/UpdateRole";
+import CategoriaInsumo from "../pages/categoriaInsumo/CategoriaInsumo";
+import AddCategoria from "../components/categoriaInsumo/AddCategoria";
+import ListAllCategorias from "../components/categoriaInsumo/ListAllCategorias";
+import GetCategoriaById from "../components/categoriaInsumo/GetCategoriaById";
+import DeleteCategoria from "../components/categoriaInsumo/DeleteCategoria";
+import UpdateCategoria from "../components/categoriaInsumo/UpdateCategoria";
+import InsumoInstitucional from "../pages/insumoInstitucional/InsumoInstitucional";
+import AddInstitucional from "../components/insumoInstitucional/AddInstitucional";
+import ListAllInstitucional from "../components/insumoInstitucional/ListAllInstitucional";
+import DeleteInstitucional from "../components/insumoInstitucional/DeleteInstitucional";
+import GetInstitucionalById from "../components/insumoInstitucional/GetInstitucionalById";
+import UpdateInstitucional from "../components/insumoInstitucional/UpdateInstitucional";
+import AddEstudiantil from "../components/insumoEstudiantil/AddEstudiantil";
+import ListAllEstudiantil from "../components/insumoEstudiantil/ListAllEstudiantil";
+import InsumoEstudiantil from "../pages/insumoEstudiantil/InsumoEstudiantil";
+import GetEstudiantilById from "../components/insumoEstudiantil/GetEstudiantilById";
+import UpdateEstudiantil from "../components/insumoEstudiantil/UpdateEstudiantil";
+import DeleteEstudiantil from "../components/insumoEstudiantil/DeleteEstudiantil";
+import Cita from "../pages/cita/Cita";
+import Solicitud from "../components/solicitud/Solicitud";
 
 const routes = (
   <>
@@ -91,6 +112,7 @@ const routes = (
             <Route index element={<ListRoles />} />
             <Route path="crear" element={<AddRol />} />
             <Route path="buscar" element={<GetRolById />} />
+            <Route path="actualizar/:paramId" element={<UpdateRol />} />
             <Route path="borrar/:paramId" element={<DeleteRolById />} />
           </Route>
 
@@ -154,8 +176,40 @@ const routes = (
             <Route path="borrar/:paramId" element={<DeleteUsuarioById />} />
           </Route>
 
-          <Route path="citas/" element={<AddCita />} />
-          <Route path="citas/lista" element={<ListAllCitas />} />
+          <Route path="categoriaInsumo/" element={<CategoriaInsumo />}>
+            <Route index element={<ListAllCategorias/>} />
+            <Route path="crear" element={<AddCategoria/>} />
+            <Route path="buscar" element={<GetCategoriaById/>} />
+            <Route path="actualizar/:paramId" element={<UpdateCategoria/>} />
+            <Route path="borrar/:paramId" element={<DeleteCategoria/>} /> 
+          </Route>
+
+          <Route path="insumoInstitucional" element={<InsumoInstitucional />}>
+            <Route index element={<ListAllInstitucional/>} />
+            <Route path="crear" element={<AddInstitucional/>} />
+            <Route path="buscar" element={<GetInstitucionalById/>} />
+            <Route path="actualizar/:paramId" element={<UpdateInstitucional/>} />
+            <Route path="borrar/:paramId" element={<DeleteInstitucional/>} />  
+          </Route>
+
+          <Route path="insumoEstudiantil" element={<InsumoEstudiantil />}>
+            <Route index element={<ListAllEstudiantil/>} />
+            <Route path="crear" element={<AddEstudiantil/>} />
+            <Route path="buscar" element={<GetEstudiantilById/>} />
+            <Route path="actualizar/:paramId" element={<UpdateEstudiantil/>} />
+            <Route path="borrar/:paramId" element={<DeleteEstudiantil/>} />
+          </Route>
+
+          <Route path="citas/" element={<Cita />}>
+            <Route index element={<ListAllCitas />} />
+            <Route path="crear" element={<AddCita />} />
+          </Route>
+
+          <Route path="solicitudes" element={<Solicitud />}>
+
+
+          </Route>
+          
         </Route>
       </Route>
     </Route>

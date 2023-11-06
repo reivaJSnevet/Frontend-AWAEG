@@ -1,7 +1,9 @@
 import { useState } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import useAuth from "../../hooks/useAuth";
 
 function SubirArchivo() {
+    const { auth } = useAuth();
     const api = useAxiosPrivate();
   const [file, setFile] = useState(null);
 
@@ -13,6 +15,7 @@ function SubirArchivo() {
     try {
       const formData = new FormData();
       formData.append("archivo", file);
+        formData.append("funcionarioId", auth.personaId);
 
       const response = await api.post("/archivo", formData, {
         headers: {

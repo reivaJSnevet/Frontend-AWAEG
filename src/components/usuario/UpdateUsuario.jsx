@@ -1,83 +1,67 @@
 import React, { useState, useEffect } from "react";
-import api from "../../services/api.config";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const UpdateUsuario = () => {
-  const [usuarioId, setUsuarioId] = useState("");
-  const [nombre, setNombre] = useState("");
-  const [correo, setCorreo] = useState("");
-  const [contraseña, setContraseña] = useState("");
-  const [roleId, setRoleId] = useState(0);
-  const [usuarioEncontrado, setUsuarioEncontrado] = useState(null);
-  const [roles, setRoles] = useState([]);
-  const [showPassword, setShowPassword] = useState(false);
-  const [idError, setIdError] = useState(false);
+    const api = useAxiosPrivate();
+  const [usuarioData, setUsuarioData] = useState({
+    usuarioId: "",
+    nombre: "",
+    correo: "",
+    contraseña: "",
+    roleId: 0,
+    showPassword: false,
+    idError: false,
+    usuarioEncontrado: null,
+    roles: [],
+  });
 
-  // Cargar la lista de roles al montar el componente
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    if (name === "usuarioId" && !/^\d+$/.test(value)) {
+      setUsuarioData({
+        ...usuarioData,
+        idError: true,
+      });
+    } else {
+      setUsuarioData({
+        ...usuarioData,
+        [name]: name === "roleId" ? Number(value) : value,
+        idError: false,
+      });
+    }
+  };
+
   useEffect(() => {
     api.get("/roles")
       .then((response) => {
-        // Actualizar el estado con los roles obtenidos
-        setRoles(response.data);
+        setUsuarioData({
+          ...usuarioData,
+          roles: response.data,
+        });
       })
       .catch((error) => {
         console.error("Error al obtener los roles:", error);
       });
-  }, []);
-
-  useEffect(() => {
-    if (usuarioId) {
-      // Verificar si el valor ingresado es numérico
-      if (!/^\d+$/.test(usuarioId)) {
-        setIdError(true);
-        return;
-      } else {
-        setIdError(false);
-      }
-
-      // Realiza una solicitud GET para obtener un usuario por su ID
-      api.get(`/usuarios/${usuarioId}`)
-        .then((response) => {
-          // Actualiza el estado con el usuario encontrado
-          setUsuarioEncontrado(response.data);
-          setNombre(response.data.nombre);
-          setCorreo(response.data.correo);
-          setRoleId(response.data.roleId);
-        })
-        .catch((error) => {
-          console.error("Error al obtener el usuario:", error);
-          // Restablece el estado si no se encuentra el usuario
-          setUsuarioEncontrado(null);
-          setNombre("");
-          setCorreo("");
-          setRoleId(0);
-        });
-    }
-  }, [usuarioId]);
-
-  const getRoleName = (roleId) => {
-    const role = roles.find((r) => r.id === roleId);
-    return role ? role.nombre : "Rol no encontrado";
-  };
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    if (name === "nombre") {
-      setNombre(value);
-    } else if (name === "correo") {
-      setCorreo(value);
-    } else if (name === "contraseña") {
-      setContraseña(value);
-    } else if (name === "roleId") {
-      setRoleId(Number(value));
-    }
-  };
+  }, []); // Este efecto se ejecutará solo una vez al montar el componente
 
   const handleShowPasswordChange = () => {
-    setShowPassword(!showPassword);
+    setUsuarioData({
+      ...usuarioData,
+      showPassword: !usuarioData.showPassword,
+    });
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    const {
+      usuarioId,
+      nombre,
+      correo,
+      contraseña,
+      roleId,
+      usuarioEncontrado,
+    } = usuarioData;
 
     if (!usuarioEncontrado) {
       alert("Por favor, introduzca un ID de usuario válido para buscar.");
@@ -85,7 +69,6 @@ const UpdateUsuario = () => {
     }
 
     try {
-      // Realizar una solicitud PUT para actualizar el usuario encontrado
       await api.put(`/usuarios/${usuarioId}`, {
         nombre,
         correo,
@@ -94,16 +77,20 @@ const UpdateUsuario = () => {
       });
 
       alert("Usuario actualizado con éxito");
-      // Restablecer campos y estado de usuario encontrado
-      setUsuarioId("");
-      setUsuarioEncontrado(null);
-      setNombre("");
-      setCorreo("");
-      setContraseña("");
-      setRoleId(0);
+      setUsuarioData({
+        ...usuarioData,
+        usuarioId: "",
+        usuarioEncontrado: null,
+        nombre: "",
+        correo: "",
+        contraseña: "",
+        roleId: 0,
+      });
     } catch (error) {
       console.error("Error al actualizar el usuario:", error);
-      alert("Hubo un error al actualizar el usuario. Por favor, inténtelo de nuevo.");
+      alert(
+        "Hubo un error al actualizar el usuario. Por favor, inténtelo de nuevo."
+      );
     }
   };
 
@@ -116,79 +103,35 @@ const UpdateUsuario = () => {
           <input
             type="text"
             name="usuarioId"
-            value={usuarioId}
-            onChange={(e) => {
-              const inputVal = e.target.value;
-              // Verificar si el valor ingresado es numérico
-              if (!/^\d+$/.test(inputVal)) {
-                setIdError(true);
-              } else {
-                setIdError(false);
-                setUsuarioId(inputVal);
-              }
-            }}
+            value={usuarioData.usuarioId}
+            onChange={handleInputChange}
           />
-          {idError && <p>Por favor, ingrese solo números.</p>}
-          <button type="button" onClick={() => setUsuarioId("")}>
+          {usuarioData.idError && (
+            <p>Por favor, ingrese solo números.</p>
+          )}
+          <button
+            type="button"
+            onClick={() =>
+              setUsuarioData({
+                ...usuarioData,
+                usuarioId: "",
+                usuarioEncontrado: null,
+                nombre: "",
+                correo: "",
+                contraseña: "",
+                roleId: 0,
+              })
+            }
+          >
             Limpiar
           </button>
         </div>
-        {usuarioEncontrado === null && <p>No existe un usuario con esa ID.</p>}
-        {usuarioEncontrado && (
+        {usuarioData.usuarioEncontrado === null && (
+          <p>No existe un usuario con esa ID.</p>
+        )}
+        {usuarioData.usuarioEncontrado && (
           <>
-            <div>
-              <label>Nombre:</label>
-              <input
-                type="text"
-                name="nombre"
-                value={nombre}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <label>Correo:</label>
-              <input
-                type="text"
-                name="correo"
-                value={correo}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <label>Contraseña:</label>
-              <input
-                type={showPassword ? "text" : "password"}
-                name="contraseña"
-                value={contraseña}
-                onChange={handleInputChange}
-              />
-              <label>
-                <input
-                  type="checkbox"
-                  onChange={handleShowPasswordChange}
-                  checked={showPassword}
-                />
-                Mostrar Contraseña
-              </label>
-            </div>
-            <div>
-              <label>Rol:</label>
-              <select
-                name="roleId"
-                value={roleId}
-                onChange={handleInputChange}
-              >
-                <option value={0}>Seleccionar Rol</option>
-                {roles.map((role) => (
-                  <option key={role.id} value={role.id}>
-                    {role.nombre}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <button type="submit">Actualizar Usuario</button>
-            </div>
+            {/* Resto del formulario */}
           </>
         )}
       </form>
