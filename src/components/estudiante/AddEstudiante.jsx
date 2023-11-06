@@ -377,5 +377,5 @@ const handleInputChange = (event, target) => {
     </div>
   );
 };
-
+}
 export default AddEstudiante;

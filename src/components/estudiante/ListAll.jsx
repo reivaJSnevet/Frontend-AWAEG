@@ -72,8 +72,6 @@ const ListEstudiantes = () => {
                 >
                   <IoIosTrash />
                 </Link>
-
-              <td className="list-roles-td">
                 <button
                   onClick={() => openModal(estudiante)}
                   className="text-blue-500 underline cursor-pointer"
