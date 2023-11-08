@@ -127,16 +127,8 @@ function Sidebar() {
             </div>
         </Link>
 
-        {/* image */}
-        <div className="">
-          <Link to="">
-            <img
-              src="/logo-removebg-preview.png"
-              alt="Image"
-              style={{ width: "100px", height: "auto" }}
-            />
-          </Link>
-        </div>
+
+       
 
         <div>
           <button
