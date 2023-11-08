@@ -1,10 +1,17 @@
-import React, { useState } from "react";
-import api from "../../services/api.config";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const DeleteUsuarioById = () => {
+    const api = useAxiosPrivate();
+    const { paramId } = useParams();
   const [usuarioId, setUsuarioId] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+
+  useEffect(() => {
+    setUsuarioId(paramId);
+  }, []);
 
   const handleInputChange = (event) => {
     const inputValue = event.target.value;
@@ -34,9 +41,6 @@ const DeleteUsuarioById = () => {
           setTimeout(() => {
             setSuccessMessage('');
           }, 5000);
-
-          // Recarga la página (puedes considerar otras opciones, como redireccionar)
-          window.location.reload();
         })
         .catch((error) => {
           if (error.response && error.response.status === 404) {

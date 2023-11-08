@@ -1,86 +1,68 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const UpdateUsuario = () => {
-    const api = useAxiosPrivate();
+  const api = useAxiosPrivate();
+  const { paramId } = useParams();
+
   const [usuarioData, setUsuarioData] = useState({
     usuarioId: "",
     nombre: "",
     correo: "",
     contraseña: "",
     roleId: 0,
-    showPassword: false,
-    idError: false,
-    usuarioEncontrado: null,
-    roles: [],
   });
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    if (name === "usuarioId" && !/^\d+$/.test(value)) {
-      setUsuarioData({
-        ...usuarioData,
-        idError: true,
-      });
-    } else {
-      setUsuarioData({
-        ...usuarioData,
-        [name]: name === "roleId" ? Number(value) : value,
-        idError: false,
-      });
-    }
-  };
+  const [roles, setRoles] = useState([]);
 
   useEffect(() => {
-    api.get("/roles")
+    // Cargar roles
+    api
+      .get("/roles")
       .then((response) => {
-        setUsuarioData({
-          ...usuarioData,
-          roles: response.data,
-        });
+        setRoles(response.data);
       })
       .catch((error) => {
         console.error("Error al obtener los roles:", error);
       });
-  }, []); // Este efecto se ejecutará solo una vez al montar el componente
+  }, []); // Dependencia vacía para cargar roles solo una vez al montar el componente
 
-  const handleShowPasswordChange = () => {
+  useEffect(() => {
+    // Cargar datos del usuario si paramId está presente
+    if (paramId) {
+      api
+        .get(`/usuarios/${paramId}`)
+        .then((response) => {
+          setUsuarioData(response.data);
+        })
+        .catch((error) => {
+          console.error("Error al obtener el usuario:", error);
+        });
+    }
+  }, [paramId]); // Cargar datos del usuario cuando paramId cambia
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
     setUsuarioData({
       ...usuarioData,
-      showPassword: !usuarioData.showPassword,
+      [name]: value,
     });
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const {
-      usuarioId,
-      nombre,
-      correo,
-      contraseña,
-      roleId,
-      usuarioEncontrado,
-    } = usuarioData;
-
-    if (!usuarioEncontrado) {
-      alert("Por favor, introduzca un ID de usuario válido para buscar.");
-      return;
-    }
-
     try {
-      await api.put(`/usuarios/${usuarioId}`, {
-        nombre,
-        correo,
-        contraseña,
-        roleId,
-      });
+      // Enviar solicitud de actualización
+      await api.put(`/usuarios/${paramId}`, usuarioData);
 
+      console.log(usuarioData);
+
+      // Resetear el estado después de una actualización exitosa
       alert("Usuario actualizado con éxito");
       setUsuarioData({
-        ...usuarioData,
         usuarioId: "",
-        usuarioEncontrado: null,
         nombre: "",
         correo: "",
         contraseña: "",
@@ -95,47 +77,51 @@ const UpdateUsuario = () => {
   };
 
   return (
-    <div>
-      <h2>Actualizar Usuario por ID</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>ID de Usuario:</label>
-          <input
-            type="text"
-            name="usuarioId"
-            value={usuarioData.usuarioId}
-            onChange={handleInputChange}
-          />
-          {usuarioData.idError && (
-            <p>Por favor, ingrese solo números.</p>
-          )}
-          <button
-            type="button"
-            onClick={() =>
-              setUsuarioData({
-                ...usuarioData,
-                usuarioId: "",
-                usuarioEncontrado: null,
-                nombre: "",
-                correo: "",
-                contraseña: "",
-                roleId: 0,
-              })
-            }
-          >
-            Limpiar
-          </button>
-        </div>
-        {usuarioData.usuarioEncontrado === null && (
-          <p>No existe un usuario con esa ID.</p>
-        )}
-        {usuarioData.usuarioEncontrado && (
-          <>
-            {/* Resto del formulario */}
-          </>
-        )}
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label>Nombre:</label>
+        <input
+          type="text"
+          name="nombre"
+          value={usuarioData.nombre}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div>
+        <label>Correo:</label>
+        <input
+          type="email"
+          name="correo"
+          value={usuarioData.correo}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div>
+        <label>Contraseña:</label>
+        <input
+          type="password"
+          name="contraseña"
+          value={usuarioData.contraseña}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div>
+        <label>Rol:</label>
+        <select
+          name="roleId"
+          value={usuarioData.roleId}
+          onChange={handleInputChange}
+        >
+          <option value={0}>Seleccionar Rol</option>
+          {roles.map((rol) => (
+            <option key={rol.id} value={rol.id}>
+              {rol.nombre}
+            </option>
+          ))}
+        </select>
+      </div>
+      <button type="submit">Actualizar Usuario</button>
+    </form>
   );
 };
 

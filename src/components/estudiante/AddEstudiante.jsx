@@ -3,6 +3,7 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const AddEstudiante = () => {
   const api = useAxiosPrivate();
+
   const [estudiante, setEstudiante] = useState({
     id: "",
     nombre: "",
@@ -24,8 +25,6 @@ const AddEstudiante = () => {
 
   const [secciones, setSecciones] = useState([]);
 
-  const [errorMessages, setErrorMessages] = useState({});
-
   useEffect(() => {
     const fetchSecciones = async () => {
       try {
@@ -41,63 +40,8 @@ const AddEstudiante = () => {
     fetchSecciones();
   }, []);
 
-  const validateForm = () => {
-    const errors = {};
-
-    if (!id) {
-      errors.id = "La ID es obligatoria";
-    } else if (!/^(?:[1-8]|1558)\d{8}$/.test(id)) {
-      errors.id = "La ID debe seguir el formato de cedulas costarricenses";
-    }
-
-    if (!nombre) {
-      errors.nombre = "El nombre es obligatorio";
-    }
-
-    if (!apellido1) {
-      errors.apellido1 = "El apellido1 es obligatorio";
-    }
-
-    if (!apellido2) {
-      errors.apellido2 = "El apellido2 es obligatorio";
-    }
-    if (!fechaNacimiento) {
-      errors.fechaNacimiento = "La fecha de Nacimineto es obligatoria";
-    }
-    if (!sexo) {
-      errors.sexo = "El sexo es obligatorio";
-    }
-    if (!direccion) {
-      errors.direccion = "La direccion es obligatoria";
-    }
-    if (!seccion) {
-      errors.seccion = "La seccion es obligatoria";
-    }
-
-    setErrorMessages(errors);
-    return Object.keys(errors).length === 0;
-  };
-
-  //Cambiar esto
-const handleInputChange = (event, target) => {
+  const handleInputChange = (event, target) => {
     const { name, value } = event.target;
-    if (name === "id") {
-      setId(value);
-    } else if (name === "nombre") {
-      setNombre(value);
-    } else if (name === "apellido1") {
-      setApellido1(value);
-    } else if (name === "apellido2") {
-      setApellido2(value);
-    } else if (name === "fechaNacimiento") {
-      setFechaNacimiento(value);
-    } else if (name === "sexo") {
-      setSexo(value);
-    } else if (name === "direccion") {
-      setDireccion(value);
-    } else if (name === "seccion") {
-      setSeccion(value);
-
 
     if (target === "estudiante") {
       setEstudiante({
@@ -121,15 +65,6 @@ const handleInputChange = (event, target) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // console.log(id, nombre, apellido1, apellido2, fechaNacimiento, sexo, direccion);
-
-    // Verificar que los campos estén completos
-    if (!validateForm()) {
-      return;
-    }
-
-      alert("Estudiante agregado exitosamente.");
-
     try {
         
       // Realizar la solicitud POST para el encargado
@@ -164,7 +99,6 @@ const handleInputChange = (event, target) => {
   };
 
   return (
-
     <div className="flex flex-col items-center justify-center bg-purple-400">
       <div className="p-8 mt-5 mb-5 bg-white rounded-lg shadow-md">
         <h2 className="mb-2 text-2xl font-bold text-purple-400">
@@ -377,5 +311,5 @@ const handleInputChange = (event, target) => {
     </div>
   );
 };
-}
+
 export default AddEstudiante;

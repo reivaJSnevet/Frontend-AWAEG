@@ -47,8 +47,8 @@ const UpdateEstudiante = () => {
       };
       fetchData();
     }
-    console.log(formData);
-    console.log(encargado);
+    /* console.log(formData);
+    console.log(encargado); */
   }, [paramId]);
 
   useEffect(() => {
