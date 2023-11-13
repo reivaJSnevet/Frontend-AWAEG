@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import { generarContraseña } from "../../services/generadorContraseña.js";
+import { generarNombreUsuario } from "../../services/generadorNombreUsuario.js";
 
 const AddEstudiante = () => {
   const api = useAxiosPrivate();
-
+  const [nombres, setNombres] = useState([""]);
   const [estudiante, setEstudiante] = useState({
     id: "",
     nombre: "",
@@ -23,6 +25,14 @@ const AddEstudiante = () => {
     apellido2: "",
   });
 
+  const [usuario, setUsuario] = useState({
+    nombre: "",
+    correo: "",
+    contraseña: "",
+    roleId: 4,
+    id: "",
+  });
+
   const [secciones, setSecciones] = useState([]);
 
   useEffect(() => {
@@ -37,6 +47,19 @@ const AddEstudiante = () => {
         );
       }
     };
+
+    const fetchUsuarios = async () => {
+      try {
+        const response = await api.get("usuarios");
+        setNombres(response.data.map((usuario) => usuario.nombre));
+      } catch (error) {
+        console.error(
+          "Error fetching usuarios:",
+          error.response?.data || error.message
+        );
+      }
+    };
+    fetchUsuarios();
     fetchSecciones();
   }, []);
 
@@ -60,18 +83,48 @@ const AddEstudiante = () => {
           encargadoId: value,
         });
       }
+    } else if (target === "usuario") {
+      setUsuario({
+        ...usuario,
+        [name]: value,
+      });
     }
+  };
+
+  const asignarUsuario = async () => {
+    const nombreUsuario = await generarNombreUsuario(
+      estudiante.nombre,
+      nombres
+    );
+    const contraseña = generarContraseña();
+
+    setUsuario({
+      ...usuario,
+      nombre: nombreUsuario,
+      contraseña: contraseña,
+      id: estudiante.id,
+    });
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-        
+      // Realizar la creacion autmatica del usuario
+      await asignarUsuario();
+
+      console.log("Usuario: ", usuario);
+      console.log("Encargado: ", encargado);
+      console.log("Estudiante: ", estudiante);
+
       // Realizar la solicitud POST para el encargado
       await api.post("/encargados", encargado);
 
       // Realizar la solicitud POST para el estudiante
       await api.post("/estudiantes", estudiante);
+
+      // Realizar la solicitud POST para el usuario
+
+      await api.post("/usuarios", usuario);
 
       // Limpiar el formulario después de enviar los datos
       setEstudiante({
@@ -93,7 +146,15 @@ const AddEstudiante = () => {
         apellido2: "",
       });
 
+      setUsuario({
+        nombre: "",
+        correo: "",
+        contraseña: "",
+        roleId: 4,
+      });
     } catch (error) {
+        api.delete(`/estudiantes/${estudiante.id}`);
+        api.delete(`/encargados/${encargado.id}`);
       console.error("Error al agregar el Estudiante y Encargado:", error);
     }
   };
@@ -297,6 +358,18 @@ const AddEstudiante = () => {
                 />
               </div>
             </div>
+            <label className="block mb-2 text-sm font-semibold text-gray-600">
+              Correo Encargado:
+            </label>
+            <input
+              type="text"
+              name="correo"
+              value={usuario.correo}
+              onChange={(e) => {
+                handleInputChange(e, "usuario");
+              }}
+              className="w-full p-2 border rounded"
+            />
           </div>
           <div className="flex justify-center">
             <button
@@ -306,7 +379,7 @@ const AddEstudiante = () => {
               Agregar Estudiante y Encargado
             </button>
           </div>
-        </form>  
+        </form>
       </div>
     </div>
   );
