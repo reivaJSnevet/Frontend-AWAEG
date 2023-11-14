@@ -767,12 +767,12 @@
             "method": "GET",
             "sortNum": 320000,
             "created": "2023-10-11T08:22:53.537Z",
-            "modified": "2023-10-11T08:24:02.455Z",
+            "modified": "2023-11-12T20:58:36.469Z",
             "headers": [],
             "params": [],
             "auth": {
                 "type": "bearer",
-                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21icmUiOiJMdWlzIiwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTcwMTI2MjcsImV4cCI6MTY5NzAxMjc0N30.MoMdjc7m8h7T5VO9PW0FjcdXpF5irbeMASRMZhXpfsM"
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTk4MjI3MDUsImV4cCI6MTY5OTkwOTEwNX0.AOCa1RaGoW4WoJL0pcv6D0O2Tn5-GTC6JCEgj5tkArg"
             },
             "tests": []
         },

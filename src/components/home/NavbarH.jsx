@@ -10,9 +10,9 @@ const NavbarH = () => {
 
   return (
     <div className="w-screen h-[80px] z-10 bg-purple-400 fixed drop-shadow-lg">
-      <div className="px-2 flex justify-between items-center w-full h-full">
+      <div className="flex items-center justify-between w-full h-full px-2">
         <div className="flex items-center">
-          <h1 className="text-3xl font-bold mr-4 sm:text-4xl">AWAEG</h1>
+          <h1 className="mr-4 text-3xl font-bold sm:text-4xl">AWAEG</h1>
           <ul className="hidden md:flex">
             <li className="p-4 duration-500">
               <Link to="/inicio">Inicio</Link>
@@ -29,18 +29,17 @@ const NavbarH = () => {
           </ul>
         </div>
 
-        <div className="hidden md:flex pr-4">
+        <div className="hidden pr-4 md:flex">
           <Link to="/login">
             <button
-              className="text-black border-none bg-transparent mr-4 px-8 py-3 border-indigo-600 
-                hover:bg-indigo-600 hover:text-white rounded-md"
+              className="px-8 py-3 mr-4 text-black bg-transparent border-indigo-600 border-none rounded-md hover:bg-indigo-600 hover:text-white"
             >
               Iniciar Seción
             </button>
           </Link>
         </div>
 
-        <div className="md:hidden mr-4" onClick={handleClick}>
+        <div className="mr-4 md:hidden" onClick={handleClick}>
           {nav ? <GrClose className="w-5" /> : <GrMenu className="w-5" />}
         </div>
       </div>
@@ -61,11 +60,9 @@ const NavbarH = () => {
         <div className="flex flex-col my-4">
           <Link to="/login">
             <button
-              className="text-black border-none bg-indigo-500  px-8 py-3
-             border-indigo-600 
-                hover:bg-indigo-600  hover:text-white rounded-md"
+              className="px-8 py-3 text-black bg-indigo-500 border-indigo-600 border-none rounded-md hover:bg-indigo-600 hover:text-white"
             >
-              Iniciar Seción
+              Iniciar Sesión
             </button>
           </Link>
         </div>
