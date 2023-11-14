@@ -63,7 +63,7 @@ const AddEstudiante = () => {
     fetchSecciones();
   }, []);
 
-  const handleInputChange = (event, target) => {
+  const handleInputChange = async (event, target) => {
     const { name, value } = event.target;
 
     if (target === "estudiante") {
@@ -88,6 +88,8 @@ const AddEstudiante = () => {
         ...usuario,
         [name]: value,
       });
+
+      await asignarUsuario();
     }
   };
 
@@ -110,7 +112,6 @@ const AddEstudiante = () => {
     event.preventDefault();
     try {
       // Realizar la creacion autmatica del usuario
-      await asignarUsuario();
 
       console.log("Usuario: ", usuario);
       console.log("Encargado: ", encargado);
@@ -123,7 +124,6 @@ const AddEstudiante = () => {
       await api.post("/estudiantes", estudiante);
 
       // Realizar la solicitud POST para el usuario
-
       await api.post("/usuarios", usuario);
 
       // Limpiar el formulario después de enviar los datos
@@ -153,8 +153,22 @@ const AddEstudiante = () => {
         roleId: 4,
       });
     } catch (error) {
-        api.delete(`/estudiantes/${estudiante.id}`);
-        api.delete(`/encargados/${encargado.id}`);
+      api
+        .delete(`/estudiantes/${estudiante.id}`)
+        .then(() => {
+          console.log("integrity");
+        })
+        .catch((error) => {
+          error.response?.data || error.message;
+        });
+      api
+        .delete(`/encargados/${encargado.id}`)
+        .then(() => {
+          console.log("integrity");
+        })
+        .catch(() => {
+          error.response?.data || error.message;
+        });
       console.error("Error al agregar el Estudiante y Encargado:", error);
     }
   };
