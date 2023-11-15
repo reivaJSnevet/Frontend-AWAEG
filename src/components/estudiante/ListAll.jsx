@@ -33,33 +33,33 @@ const ListEstudiantes = () => {
   };
 
   return (
-    <div className="h-[60vh] p-8 overflow-y-auto bg-purple-500 rounded-lg shadow-lg">
-      <table className="w-full bg-white rounded-lg">
-        <thead className="text-white bg-purple-700">
+    <div className="h-[60vh] p-4 overflow-y-auto bg-purple-300 rounded-lg shadow-lg">
+      <table className="w-full bg-white rounded-lg font-serif font-thin border-collapse overflow-hidden shadow text-left">
+        <thead className="text-white bg-purple-600">
           <tr>
-            <th className="px-2">ID</th>
-            <th className="py-2">Nombre</th>
-            <th className="py-2">Primer Apellido</th>
-            <th className="py-2">Segundo Apellido</th>
-            <th className="py-2">Fecha de Nacimiento</th>
-            <th className="py-2">Edad</th>
-            <th className="py-2">Género</th>
-            <th className="py-2">Acciones</th>
+            <th className="p-2">ID</th>
+            <th className="p-2">Nombre</th>
+            <th className="p-2">Primer Apellido</th>
+            <th className="p-2">Segundo Apellido</th>
+            <th className="p-2">Fecha de Nacimiento</th>
+            <th className="p-2">Edad</th>
+            <th className="p-2">Género</th>
+            <th className="p-2">Acciones</th>
           </tr>
         </thead>
         <tbody>
           {estudiantes.map((estudiante) => (
-            <tr key={estudiante.id} className="text-gray-700 border-b">
-              <td className="px-4 py-2">{estudiante.id}</td>
-              <td className="px-4 py-2">{estudiante.nombre}</td>
-              <td className="px-4 py-2">{estudiante.apellido1}</td>
-              <td className="px-4 py-2">{estudiante.apellido2}</td>
-              <td className="px-4 py-2">{estudiante.fechaNacimiento}</td>
-              <td className="px-4 py-2">{estudiante.edad}</td>
-              <td className="px-4 py-2">
+            <tr key={estudiante.id} className=" text-gray-700 border-b hover:bg-purple-100 text-left">
+              <td className="p-[15px]">{estudiante.id}</td>
+              <td className="p-[15px]">{estudiante.nombre}</td>
+              <td className="p-[15px]">{estudiante.apellido1}</td>
+              <td className="p-[15px]">{estudiante.apellido2}</td>
+              <td className="p-[15px]">{estudiante.fechaNacimiento}</td>
+              <td className="p-[15px]">{estudiante.edad}</td>
+              <td className="p-[15px]">
                 {estudiante.sexo === false ? "Mujer" : "Hombre"}
               </td>
-              <td className="flex items-center px-4 py-2">
+              <td className="flex items-center p-[15px]">
                 <Link
                   to={`actualizar/${estudiante.id}`}
                   className="mr-4 text-purple-500 hover:text-yellow-500"
@@ -68,7 +68,7 @@ const ListEstudiantes = () => {
                 </Link>
                 <Link
                   to={`borrar/${estudiante.id}`}
-                  className="text-purple-500 hover:text-yellow-500"
+                  className="mr-4 text-purple-500 hover:text-yellow-500"
                 >
                   <IoIosTrash />
                 </Link>

@@ -27,48 +27,56 @@ const GetGrupoById = () => {
   }
 
   return (
-    <div>
-      <h2>Obtener Grupo por ID</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="relative max-w-md p-6 mx-auto mt-10 overflow-hidden bg-purple-600 rounded-lg shadow-lg">
+      <h2 className="relative mb-4 text-2xl font-bold text-white">Obtener Grupo por ID</h2>
+      <form onSubmit={handleSubmit} className="relative space-y-4">
         <div>
-          <label>Seccion del Grupo:</label>
+          <label className="text-white">Sección del Grupo:</label>
           <input
             type="text"
             value={grupoId}
             onChange={handleInputChange}
+            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
           />
         </div>
         <div>
-          <button type="submit">Obtener Grupo</button>
+          <button
+            type="submit"
+            className="w-full p-2 text-white bg-slate-950 rounded-md hover:bg-slate-950 focus:outline-none focus:ring focus:ring-purple-300"
+          >
+            Obtener Grupo
+          </button>
         </div>
       </form>
       {grupoInfo && (
-        <div className='mt-5'>
-          <h3 className='font-semibold'>Información del Grupo</h3>
-          <p>seccion: {grupoInfo.seccion}</p>
-          <p>Grado: {grupoInfo.ciclo}</p>
+        <div className="mt-5">
+          <h3 className="font-semibold">Información del Grupo</h3>
+          <p>Sección: {grupoInfo.seccion}</p>
+          <p>Ciclo: {grupoInfo.ciclo}</p>
           <p>Grado: {grupoInfo.grado}</p>
           <p>Aula: {grupoInfo.aula}</p>
           <p>Cantidad de Estudiantes: {grupoInfo.cantAlumno}</p>
-          <p>turno: {grupoInfo.turno === false ? "mañana" : "tarde"}</p>
-          <div className='mt-2'>
-          <h2 className='font-semibold'>Detalles del Grupo</h2>
-          <p>Funcionario: {grupoInfo.funcionario.nombre} {grupoInfo.funcionario.apellido1}</p>
-          <h3 className='font-semibold'>Estudiantes del Grupo:</h3>
-          <ul>
-            {grupoInfo.estudiantes.map((estudiante) => (
-              <li key={estudiante.id}>
-                {estudiante.nombre} {estudiante.apellido1} {estudiante.apellido2}
-              </li>
-            ))}
-          </ul>
+          <p>Turno: {grupoInfo.turno ? 'Tarde' : 'Mañana'}</p>
+          <div className="mt-2">
+            <h2 className="font-semibold">Detalles del Grupo</h2>
+            <p>
+              Funcionario: {grupoInfo.funcionario.nombre}{' '}
+              {grupoInfo.funcionario.apellido1}
+            </p>
+            <h3 className="font-semibold">Estudiantes del Grupo:</h3>
+            <ul>
+              {grupoInfo.estudiantes.map((estudiante) => (
+                <li key={estudiante.id}>
+                  {estudiante.nombre} {estudiante.apellido1}{' '}
+                  {estudiante.apellido2}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-        </div>
-        
-        
       )}
     </div>
   );
-}
+};
 
 export default GetGrupoById;

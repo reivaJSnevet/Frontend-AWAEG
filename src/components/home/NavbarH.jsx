@@ -9,8 +9,8 @@ const NavbarH = () => {
   };
 
   return (
-    <div className="w-screen h-[80px] z-10 bg-purple-400 fixed drop-shadow-lg">
-      <div className="flex items-center justify-between w-full h-full px-2">
+    <div className="w-screen h-[80px] z-10" style={{ backgroundColor: "#1e1b4b", color: "white" }}>
+    <div className="flex items-center justify-between w-full h-full px-2">
         <div className="flex items-center">
           <h1 className="mr-4 text-3xl font-bold sm:text-4xl">AWAEG</h1>
           <ul className="hidden md:flex">
@@ -30,14 +30,14 @@ const NavbarH = () => {
         </div>
 
         <div className="hidden pr-4 md:flex">
-          <Link to="/login">
-            <button
-              className="px-8 py-3 mr-4 text-black bg-transparent border-indigo-600 border-none rounded-md hover:bg-indigo-600 hover:text-white"
-            >
-              Iniciar Seción
-            </button>
-          </Link>
-        </div>
+  <Link to="/login">
+    <button
+      className="px-8 py-3 mr-4 text-white bg-transparent border-indigo-600 border-none rounded-md hover:bg-indigo-600 hover:text-white"
+    >
+      Iniciar Sesión
+    </button>
+  </Link>
+</div>
 
         <div className="mr-4 md:hidden" onClick={handleClick}>
           {nav ? <GrClose className="w-5" /> : <GrMenu className="w-5" />}

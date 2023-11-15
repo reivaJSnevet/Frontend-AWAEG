@@ -72,9 +72,9 @@ function ListAllCitas() {
   }, [rol, api, auth.personaId]);
 
   return (
-    <div className="p-4 bg-purple-200 rounded-lg shadow-lg md:p-8">
+    <div className="p-4 bg-slate-950 rounded-lg shadow-lg md:p-8">
       <div className="flex flex-col md:flex-row">
-        <div className="order-1 w-full p-4 overflow-x-auto bg-purple-400 rounded md:w-1/2 md:order-1 md:rounded-l-none">
+        <div className="order-1 w-full p-4 overflow-x-auto bg-purple-600 rounded md:w-1/2 md:order-1 md:rounded-l-none">
           <h2 className="mb-4 text-lg font-semibold text-white">
             Listado de Citas
           </h2>
@@ -110,10 +110,10 @@ function ListAllCitas() {
           </table>
         </div>
         <div className="order-2 w-full p-4 mt-4 overflow-x-auto bg-white rounded md:w-1/2 md:order-2 md:rounded-r-none md:mt-0">
-          <h2 className="mb-4 text-lg font-semibold text-purple-400">
+          <h2 className="mb-4 text-lg font-semibold text-slate-950">
             Mis Citas
           </h2>
-          <table className="w-full text-purple-400">
+          <table className="w-full text-purple-600">
             <thead>
               <tr>
                 <th>Fecha y Hora</th>
