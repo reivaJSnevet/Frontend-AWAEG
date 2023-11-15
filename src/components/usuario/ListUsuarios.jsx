@@ -21,23 +21,23 @@ const ListUsuarios = () => {
   }, []); // El [] como segundo argumento asegura que este efecto se ejecute solo una vez al montar el componente
 
   return (
-    <div className="h-[60vh] p-8 overflow-y-auto bg-purple-500 rounded-lg shadow-lg">
-      <table className="w-full bg-white rounded-lg">
-        <thead className="text-white bg-purple-700">
+    <div className="h-[60vh] p-4 overflow-y-auto bg-purple-300 rounded-lg shadow-lg">
+      <table className="w-full bg-white rounded-lg font-serif font-thin border-collapse overflow-hidden shadow text-left">
+        <thead className="text-white bg-purple-600">
           <tr>
-            <th className="py-2">Nombre</th>
-            <th className="py-2">Correo</th>
-            <th className="py-2">Rol</th>
-            <th className="py-2">Acciones</th>
+            <th className="p-2">Nombre</th>
+            <th className="p-2">Correo</th>
+            <th className="p-2">Rol</th>
+            <th className="p-2">Acciones</th>
           </tr>
         </thead>
         <tbody>
           {usuarios.map((usuario) => (
-            <tr key={usuario.id} className="text-gray-700 border-b">
-              <td className="px-4 py-2">{usuario.nombre}</td>
-              <td className="px-4 py-2">{usuario.correo}</td>
-              <td className="px-4 py-2">{usuario.role.nombre}</td>
-              <td className="flex items-center px-4 py-2">
+            <tr key={usuario.id} className="text-gray-700 border-b hover:bg-purple-100 text-left ">
+              <td className="p-[15px]">{usuario.nombre}</td>
+              <td className="p-[15px]">{usuario.correo}</td>
+              <td className="p-[15px]">{usuario.role.nombre}</td>
+              <td className="flex items-center p-[15px]">
                 <Link
                   to={`actualizar/${usuario.id}`}
                   className="mr-4 text-purple-500 hover:text-yellow-500"

@@ -22,8 +22,7 @@ const Ubicacion = () => {
           opción, te garantizamos un acceso sencillo y directo.¡Esperamos verte
           pronto en nuestras instalaciones!
         </p>
-
-        <Box w="100%" bg={"purple.400"} p={8}>
+        <Box w="100%" bg="gray.600" p={8}>
           <AspectRatio ratio={16 / 9}>
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3926.059080284865!2d-85.56947898833504!3d10.256818989819811!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f9fcbb4f575cec9%3A0xfad83aeba0dc0896!2sEscuela%20Guayabal!5e0!3m2!1ses!2scr!4v1697520363753!5m2!1ses!2scr" />
           </AspectRatio>

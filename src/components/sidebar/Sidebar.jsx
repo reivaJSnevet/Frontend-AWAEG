@@ -34,7 +34,7 @@ function Sidebar() {
   return (
     <>
       <div
-        className={`xl:h-[100vh] overflow-y-auto fixed xl:static rounded-r-3xl w-[80%] md:w-[40%] lg:w-[30%] xl:w-auto h-full top-0 bg-purple-400 p-5 flex flex-col justify-between z-50 ${
+        className={`xl:h-[100vh] overflow-y-auto fixed xl:static rounded-r-3xl shadow-lg w-[80%] md:w-[40%] lg:w-[30%] xl:w-auto h-full top-0 bg-slate-500 p-5 flex flex-col justify-between z-50 ${
           showMenu ? "left-0" : "-left-full"
         } transition-all`}
       >
@@ -45,10 +45,10 @@ function Sidebar() {
         <Link to="roles" className="link-item">
           <div className="flex items-center gap-4 p-4 font-semibold text-white transition-colors rounded-lg hover:bg-purple-600">
             {" "}
-            <GrConfigure /> Roles{" "}
+            <GrConfigure color="#FFFFFF" /> Roles{" "}
           </div>
         </Link>
-        <Link to="usuarios" className="link-item">
+        <Link to="usuarios" className="link-item"style={{ color: "white" }}>
           <div className="flex items-center gap-4 p-4 font-semibold text-white transition-colors rounded-lg hover:bg-purple-600">
             {" "}
             <GrUser /> Usuario{" "}

@@ -6,7 +6,7 @@ import Header from "../../components/sidebar/Header";
 
 function PanelAdmin() {
   return (
-    <div className="min-h-screen grid grid-cols-1 xl:grid-cols-6">
+    <div className="min-h-screen grid grid-cols-1 xl:grid-cols-6 bg-slate-100">
         <Sidebar />
       {/*         <Users /> */}
       <div className="xl:col-span-5 ">

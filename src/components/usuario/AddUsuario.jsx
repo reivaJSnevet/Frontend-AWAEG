@@ -102,55 +102,63 @@ const AddUsuario = () => {
   };
 
   return (
-    <div className="p-8 bg-purple-500 rounded-lg shadow-lg">
-      <h2 className="mb-4 text-2xl text-white">Agregar Usuario</h2>
+    <div className="max-w-md p-8 mx-auto mt-10 bg-purple-600 rounded-lg shadow-lg">
+      <h2 className="mb-6 text-2xl font-bold text-white">Agregar Usuario</h2>
       <form className="space-y-4" onSubmit={handleSubmit}>
-        <div className="flex flex-col">
-          <label className="text-white">Nombre:</label>
+        <div>
+          <label className="block mb-1 text-sm font-medium text-white">
+            Nombre:
+          </label>
           <input
             type="text"
             name="nombre"
             value={nombre}
             onChange={handleInputChange}
-            className="p-2 border border-white rounded"
+            className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
           />
           {errorMessages.nombre && (
             <p className="text-yellow-500">{errorMessages.nombre}</p>
           )}
         </div>
-        <div className="flex flex-col">
-          <label className="text-white">Correo:</label>
+        <div>
+          <label className="block mb-1 text-sm font-medium text-white">
+            Correo:
+          </label>
           <input
             type="text"
             name="correo"
             value={correo}
             onChange={handleInputChange}
-            className="p-2 border border-white rounded"
+            className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
           />
           {errorMessages.correo && (
             <p className="text-yellow-500">{errorMessages.correo}</p>
           )}
         </div>
-        <div className="flex flex-col">
-          <label className="text-white">Contraseña:</label>
+        <div>
+          <label className="block mb-1 text-sm font-medium text-white">
+            Contraseña:
+          </label>
           <input
             type="text"
             name="contraseña"
             value={contraseña}
             onChange={handleInputChange}
-            className="p-2 border border-white rounded"
+            className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
           />
           {errorMessages.contraseña && (
             <p className="text-yellow-500">{errorMessages.contraseña}</p>
           )}
         </div>
-        <div className="flex flex-col">
-          <label className="text-white">Rol:</label>
+        <div>
+          <label className="block mb-1 text-sm font-medium text-white">
+            Rol:
+          </label>
           <select
             name="roleId"
             value={roleId}
             onChange={handleInputChange}
-            className="p-2 border border-white rounded"
+            className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
           >
             <option value="">Seleccione un rol</option>
             {roles.map((role) => (
@@ -177,7 +185,7 @@ const AddUsuario = () => {
         </div>
         <button
           type="submit"
-          className="px-4 py-2 text-purple-800 bg-yellow-500 rounded hover:bg-yellow-400"
+          className="w-full p-2 text-white bg-slate-950 rounded-md hover:bg-slate-950 focus:outline-none focus:ring focus:ring-gray-700"
         >
           Agregar Usuario
         </button>

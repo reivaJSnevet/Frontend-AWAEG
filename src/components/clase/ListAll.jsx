@@ -22,41 +22,41 @@ const ListAll = () => {
   }, []);
 
   return (
-    <div className="h-[60vh] p-8 overflow-y-auto bg-purple-500 rounded-lg shadow-lg">
-      <table className="w-full bg-white rounded-lg">
-        <thead className="text-white bg-purple-700">
+    <div className="h-[60vh] p-4 overflow-y-auto bg-purple-300 rounded-lg shadow-lg">
+      <table className="w-full bg-white rounded-lg font-serif font-thin border-collapse overflow-hidden shadow text-left">
+        <thead className="text-white bg-purple-600">
           <tr>
-            <th className="px-2">Id-Clase</th>
-            <th className="py-2">Profesor</th>
-            <th className="py-2">Materia</th>
-            <th className="py-2">Día</th>
-            <th className="py-2">Lección</th>
-            <th className="py-2">Hora de Inicio</th>
-            <th className="py-2">Hora de Salida</th>
-            <th className="py-2">Acciones</th>
+            <th className="p-2">Id-Clase</th>
+            <th className="p-2">Profesor</th>
+            <th className="p-2">Materia</th>
+            <th className="p-2">Día</th>
+            <th className="p-2">Lección</th>
+            <th className="p-2">Hora de Inicio</th>
+            <th className="p-2">Hora de Salida</th>
+            <th className="p-2">Acciones</th>
           </tr>
         </thead>
         <tbody>
           {clases.map((clase) => (
-            <tr key={clase.id} className="text-gray-700 border-b">
-              <td className="px-4 py-2">{clase.id}</td>
-              <td className="list-roles-td">
+            <tr key={clase.id} className="text-gray-700 border-b hover:bg-purple-100 text-left">
+              <td className="p-[15px]">{clase.id}</td>
+              <td className="p-[15px]">
                 {clase.funcionario.nombre +
                   " " +
                   clase.funcionario.apellido1 +
                   " " +
                   clase.funcionario.apellido2}
               </td>
-              <td className="list-roles-td">{clase.materia.nombre}</td>
-              <td className="list-roles-td">{clase.dia}</td>
-              <td className="list-roles-td">{clase.leccion}</td>
-              <td className="list-roles-td">
+              <td className="p-[15px]">{clase.materia.nombre}</td>
+              <td className="p-[15px]">{clase.dia}</td>
+              <td className="p-[15px]">{clase.leccion}</td>
+              <td className="p-[15px]">
                 {convertirAFormato12Horas(clase.horaInicio)}
               </td>
-              <td className="list-roles-td">
+              <td className="p-[15px]">
                 {convertirAFormato12Horas(clase.horaSalida)}
               </td>
-              <td className="flex items-center px-4 py-2">
+              <td className="flex items-center p-[15px]">
                 <Link
                   to={`actualizar/${clase.id}`}
                   className="mr-4 text-purple-500 hover:text-yellow-500"

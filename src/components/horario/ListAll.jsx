@@ -19,20 +19,20 @@ const ListHorarios = () => {
   }, []);
 
   return (
-    <div className="h-[60vh] p-8 overflow-y-auto bg-purple-500 rounded-lg shadow-lg">
-      <table className="w-full bg-white rounded-lg">
-        <thead className="text-white bg-purple-700">
+    <div className="h-[60vh] p-4 overflow-y-auto bg-purple-300 rounded-lg shadow-lg">
+      <table className="w-full bg-white rounded-lg font-serif font-thin border-collapse overflow-hidden shadow text-left">
+        <thead className="text-white bg-purple-600">
           <tr>
-            <th className="px-2">ID</th>
-            <th className="py-2">Horario Provisional</th>
-            <th className="py-2">Estado del horario</th>
-            <th className="py-2">Acciones</th>
+            <th className="p-2">ID</th>
+            <th className="p-2">Horario Provisional</th>
+            <th className="p-2">Estado del horario</th>
+            <th className="p-2">Acciones</th>
           </tr>
         </thead>
         <tbody>
           {horarios.map((horario) => (
-            <tr key={horario.id} className="text-gray-700 border-b">
-              <td className="px-4 py-2">{horario.id}</td>
+            <tr key={horario.id} className="text-gray-700 border-b hover:bg-purple-100 text-left">
+              <td className="p-[15px]">{horario.id}</td>
               <td className="list-roles-td">
                 {horario.provisional === false ? "No" : "Sí"}
               </td>
@@ -40,7 +40,7 @@ const ListHorarios = () => {
                 {horario.habilitado === false ? "Deshabilitado" : "Habilitado"}
               </td>
 
-              <td className="flex items-center px-4 py-2">
+              <td className="flex items-center p-[15px]">
                 <Link
                   to={`actualizar/${horario.id}`}
                   className="mr-4 text-purple-500 hover:text-yellow-500"

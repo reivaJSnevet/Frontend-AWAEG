@@ -40,18 +40,24 @@ const DeleteFuncionarioById = () => {
   };
 
   return (
-    <div>
-      <h2>Eliminar Funcionario por ID</h2>
-      <form onSubmit={handleDelete}>
+    <div className="relative max-w-md p-6 mx-auto mt-10 overflow-hidden bg-purple-600 rounded-lg shadow-lg">
+      <h2 className="relative mb-4 text-2xl font-bold text-white">Eliminar Funcionario por ID</h2>
+      <form onSubmit={handleDelete} className="relative space-y-4">
         <div>
-          <label>ID del Funcionario a Eliminar:</label>
+          <label className="text-white">ID del Funcionario a Eliminar:</label>
           <input
             type="text"
             value={funcionarioId}
             onChange={handleInputChange}
+            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
           />
         </div>
-        <button type="submit">Eliminar Funcionario</button>
+        <button
+          type="submit"
+          className="w-full p-2 text-white bg-slate-950 rounded-md hover:bg-slate-950 focus:outline-none focus:ring focus:ring-purple-300"
+        >
+          Eliminar Funcionario
+        </button>
       </form>
     </div>
   );

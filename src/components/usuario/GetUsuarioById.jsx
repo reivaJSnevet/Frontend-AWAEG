@@ -52,32 +52,38 @@ const GetUsuarioById = () => {
   }
 
   return (
-    <div>
-      <h2>Obtener Usuario por ID</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="relative max-w-md p-6 mx-auto mt-10 overflow-hidden bg-purple-600 rounded-lg shadow-lg">
+      <h2 className="relative mb-4 text-2xl font-bold text-white">Obtener Usuario por ID</h2>
+      {formData.errorMessage && <p style={{ color: 'red' }}>{formData.errorMessage}</p>}
+      <form onSubmit={handleSubmit} className="relative space-y-4">
         <div>
-          <label>ID del Usuario:</label>
+          <label className="block mb-1 text-sm font-medium text-white">ID del Usuario:</label>
           <input
             type="text"
             value={formData.usuarioId}
             onChange={handleInputChange}
+            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
           />
         </div>
         <div>
-          <button type="submit">Obtener Usuario</button>
+          <button
+            type="submit"
+            className="w-full p-2 text-white bg-slate-950 rounded-md hover:bg-slate-950 focus:outline-none focus:ring focus:ring-purple-300"
+          >
+            Obtener Usuario
+          </button>
         </div>
       </form>
-      {formData.errorMessage && <p style={{ color: 'red' }}>{formData.errorMessage}</p>}
       {formData.usuarioInfo && (
-        <div>
-          <h3>Información del Usuario</h3>
-          <p>Nombre: {formData.usuarioInfo.nombre}</p>
-          <p>Correo: {formData.usuarioInfo.correo}</p>
-          <p>Rol: {formData.usuarioInfo.role.nombre}</p>
+        <div className="mt-4">
+          <h3 className="mb-2 text-lg font-semibold text-white">Información del Usuario</h3>
+          <p className="text-slate-950">Nombre: {formData.usuarioInfo.nombre}</p>
+          <p className="text-slate-950">Correo: {formData.usuarioInfo.correo}</p>
+          <p className="text-slate-950">Rol: {formData.usuarioInfo.role.nombre}</p>
         </div>
       )}
     </div>
   );
-}
+};
 
 export default GetUsuarioById;
