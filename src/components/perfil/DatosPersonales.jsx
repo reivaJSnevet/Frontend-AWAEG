@@ -48,7 +48,7 @@ function DatosPersonales() {
       maxW="650px" // Establece el ancho máximo a 650px
     /*   minW="650px" */ // Establece el ancho mínimo a 650px
       w="100%" // Establece el ancho al 100% del contenedor padre
-      className="flex flex-col items-center justify-center p-6 text-white bg-purple-400 rounded-lg shadow-lg rounded-tr-3xl"
+      className="flex flex-col items-center justify-center p-6 text-white bg-purple-600 rounded-lg shadow-lg rounded-tr-3xl"
     >
       <div className="w-full max-w-md p-6 bg-purple-200 rounded-lg shadow-md">
         <Card>

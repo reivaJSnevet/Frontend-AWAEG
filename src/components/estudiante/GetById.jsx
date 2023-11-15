@@ -25,36 +25,42 @@ const GetEstudianteById = () => {
   }
 
   return (
-    <div>
-      <h2>Obtener Estudiante por ID</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="relative max-w-md p-6 mx-auto mt-10 overflow-hidden bg-purple-600 rounded-lg shadow-lg">
+      <h2 className="relative mb-4 text-2xl font-bold text-white">Obtener Estudiante por ID</h2>
+      <form onSubmit={handleSubmit} className="relative space-y-4">
         <div>
-          <label>ID del Estudiante:</label>
+          <label className="block mb-1 text-sm font-medium text-white">ID del Estudiante:</label>
           <input
             type="text"
             value={estudianteId}
             onChange={handleInputChange}
+            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
           />
         </div>
         <div>
-          <button type="submit">Obtener Estudiante</button>
+          <button
+            type="submit"
+            className="w-full p-2 text-white bg-slate-950 rounded-md hover:bg-slate-950 focus:outline-none focus:ring focus:ring-purple-300"
+          >
+            Obtener Estudiante
+          </button>
         </div>
       </form>
       {estudianteInfo && (
-        <div>
-          <h3>Información del Estudiante</h3>
-          <p>Nombre: {estudianteInfo.id}</p>
+        <div className="mt-4">
+          <h3 className="mb-2 text-lg font-semibold text-white">Información del Estudiante</h3>
+          <p>ID: {estudianteInfo.id}</p>
           <p>Nombre: {estudianteInfo.nombre}</p>
           <p>Primer Apellido: {estudianteInfo.apellido1}</p>
           <p>Segundo Apellido: {estudianteInfo.apellido2}</p>
           <p>fecha de Nacimiento: {estudianteInfo.fechNacimiento}</p>
           <p>Edad: {estudianteInfo.edad}</p>
-          <p>Sexo: {estudianteInfo.sexo ? "Hombre" : "Mujer"}</p>
+          <p>Sexo: {estudianteInfo.sexo ? 'Hombre' : 'Mujer'}</p>
           <p>direccion: {estudianteInfo.direccion}</p>
         </div>
       )}
     </div>
   );
-}
+};
 
 export default GetEstudianteById;

@@ -59,7 +59,7 @@ const AddRol = () => {
   };
 
   return (
-    <div className="max-w-md p-8 mx-auto mt-10 bg-purple-300 rounded-lg shadow-lg">
+    <div className="max-w-md p-8 mx-auto mt-10 bg-purple-600 rounded-lg shadow-lg">
       <h2 className="mb-6 text-2xl font-bold text-white">Agregar Rol</h2>
       {mensaje && <div className="mb-4 text-gray-200">{mensaje}</div>}
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -68,44 +68,44 @@ const AddRol = () => {
             Nombre:
           </label>
           <input
-            type="text"
-            name="nombre"
-            value={nombre}
-            onChange={handleInputChange}
-            className="w-full p-2 bg-transparent border border-white rounded-md focus:outline-none focus:ring focus:ring-white"
-          />
+          type="text"
+          name="nombre"
+          value={nombre}
+          onChange={handleInputChange}
+          className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
+        />
         </div>
         <div>
           <label className="block mb-1 text-sm font-medium text-white">
             Nivel de Privilegio:
           </label>
-          <input
-            type="number"
-            name="nivelPrivilegio"
-            value={nivelPrivilegio}
-            onChange={handleInputChange}
-            className="w-full p-2 bg-transparent border border-white rounded-md focus:outline-none focus:ring focus:ring-white"
-          />
+        <input
+          type="number"
+          name="nivelPrivilegio"
+          value={nivelPrivilegio}
+          onChange={handleInputChange}
+          className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
+        />
         </div>
         <div>
           <label className="block mb-1 text-sm font-medium text-white">
             Descripción:
           </label>
-          <input
-            type="text"
-            name="descripcion"
-            value={descripcion}
-            onChange={handleInputChange}
-            className="w-full p-2 bg-transparent border border-white rounded-md focus:outline-none focus:ring focus:ring-white"
-          />
+        <input
+          type="text"
+          name="descripcion"
+          value={descripcion}
+          onChange={handleInputChange}
+          className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
+        />
         </div>
         <div>
-          <button
-            type="submit"
-            className="w-full p-2 text-purple-500 bg-white rounded-md hover:bg-gray-100 focus:outline-none focus:ring focus:ring-gray-200"
-          >
-            Agregar Rol
-          </button>
+        <button
+  type="submit"
+  className="w-full p-2 text-white bg-slate-950  rounded-md hover:bg-slate-950  focus:outline-none focus:ring focus:ring-gray-700"
+>
+  Agregar Rol
+</button>
         </div>
       </form>
     </div>

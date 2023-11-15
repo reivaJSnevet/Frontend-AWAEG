@@ -23,7 +23,7 @@ function Solicitud() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-purple-400">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-purple-600">
       <div className="w-full max-w-md p-6 m-4 bg-purple-200 rounded-lg shadow-md">
         <h1 className="mb-4 text-2xl font-bold">Solicitudes</h1>
 

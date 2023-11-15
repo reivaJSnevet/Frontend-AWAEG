@@ -35,10 +35,8 @@ const Informacion = () => {
               <GrCertificate className="w-16 p-4 bg-indigo-600 text-white text-6xl rounded-lg mt-[-4rem]" />
               <h3 className="font-bold text-2xl my-6">Misión</h3>
               <p className="text-gray-600 text-xl">
-                is simply dummy text of the printing and typesetting industry.
-                Lorem Ipsum has been the industry's standard dummy text ever
-                since the 1500s, when an unknown printer took a galley of type
-                and scrambled it to make a type specimen book.
+              Somos una institución que contribuye a mejorar la calidad de vida de nuestros estudiantes, con los más altos estándares de excelencia.
+
               </p>
             </div>
           </div>
@@ -47,10 +45,7 @@ const Informacion = () => {
               <GrCompliance className="w-16 p-4 bg-indigo-600 text-white text-6xl rounded-lg mt-[-4rem]" />
               <h3 className="font-bold text-2xl my-6">Visión</h3>
               <p className="text-gray-600 text-xl">
-                is simply dummy text of the printing and typesetting industry.
-                Lorem Ipsum has been the industry's standard dummy text ever
-                since the 1500s, when an unknown printer took a galley of type
-                and scrambled it to make a type specimen book.
+              Ser una Institución reconocida por tener personal altamente calificado y orientado a satisfacer las necesidades de nuestros estudiantes, que brinde apoyo profesional, calidez humana y un destacado liderazgo en educación
               </p>
             </div>
           </div>
@@ -59,10 +54,15 @@ const Informacion = () => {
               <GrWorkshop className="w-16 p-4 bg-indigo-600 text-white text-6xl rounded-lg mt-[-4rem]" />
               <h3 className="font-bold text-2xl my-6">Enfoque Educativo</h3>
               <p className="text-gray-600 text-xl">
-                is simply dummy text of the printing and typesetting industry.
-                Lorem Ipsum has been the industry's standard dummy text ever
-                since the 1500s, when an unknown printer took a galley of type
-                and scrambled it to make a type specimen book.
+<p>Descubre lo que te espera al unirte a nosotros:</p>
+
+<ul>
+  <li>_Explora tu Potencial</li>
+  <li>_Apoyo Inquebrantable</li>
+  <li>_Innovación en la Enseñanza</li>
+  <li>_Comunidad en Crecimiento</li>
+  <li>_Preparación para el Futuro</li>
+</ul>
               </p>
             </div>
           </div>

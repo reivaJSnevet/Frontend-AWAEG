@@ -19,25 +19,25 @@ const ListNotas = () => {
   }, []);
 
   return (
-    <div className="h-[60vh] p-8 overflow-y-auto bg-purple-500 rounded-lg shadow-lg">
-      <table className="w-full bg-white rounded-lg">
-        <thead className="text-white bg-purple-700">
+    <div className="h-[60vh] p-4 overflow-y-auto bg-purple-300 rounded-lg shadow-lg">
+      <table className="w-full bg-white rounded-lg font-serif font-thin border-collapse overflow-hidden shadow text-left">
+        <thead className="text-white bg-purple-600">
           <tr>
-            <th className="px-2">Id</th>
-            <th className="py-2">Calificacion</th>
-            <th className="py-2">Periodo</th>
-            <th className="py-2">Fecha de Subida</th>
-            <th className="py-2">Acciones</th>
+            <th className="p-2">Id</th>
+            <th className="p-2">Calificacion</th>
+            <th className="p-2">Periodo</th>
+            <th className="p-2">Fecha de Subida</th>
+            <th className="p-2">Acciones</th>
           </tr>
         </thead>
         <tbody>
           {notas.map((nota) => (
-            <tr key={nota.id} className="text-gray-700 border-b">
-              <td className="list-roles-td">{nota.id}</td>
-              <td className="list-roles-td">{nota.calificacion}</td>
-              <td className="list-roles-td">{nota.periodo}</td>
-              <td className="list-roles-td">{nota.fechaSubida}</td>
-              <td className="flex items-center px-4 py-2">
+            <tr key={nota.id} className="text-gray-700 border-b hover:bg-purple-100 text-left">
+              <td className="p-[15px]">{nota.id}</td>
+              <td className="p-[15px]">{nota.calificacion}</td>
+              <td className="p-[15px]">{nota.periodo}</td>
+              <td className="p-[15px]">{nota.fechaSubida}</td>
+              <td className="flex items-center p-[15px]">
                 <Link
                   to={`actualizar/${nota.id}`}
                   className="mr-4 text-purple-500 hover:text-yellow-500"

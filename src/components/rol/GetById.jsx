@@ -34,8 +34,8 @@ const GetRoleById = () => {
   };
 
   return (
-    <div className="relative max-w-md p-6 mx-auto mt-10 overflow-hidden bg-purple-300 rounded-lg shadow-lg">
-      <h2 className="relative mb-4 text-2xl font-bold text-purple-800">Obtener Rol por ID</h2>
+    <div className="relative max-w-md p-6 mx-auto mt-10 overflow-hidden bg-purple-600 rounded-lg shadow-lg">
+      <h2 className="relative mb-4 text-2xl font-bold text-white">Obtener Rol por ID</h2>
       {error && <div className="mt-2 text-black">{error}</div>}
       <form onSubmit={handleSubmit} className="relative space-y-4">
         <div>
@@ -50,7 +50,7 @@ const GetRoleById = () => {
         <div>
           <button
             type="submit"
-            className="w-full p-2 text-white bg-purple-600 rounded-md hover:bg-purple-700 focus:outline-none focus:ring focus:ring-purple-300"
+            className="w-full p-2 text-white bg-slate-950  rounded-md hover:bg-slate-950  focus:outline-none focus:ring focus:ring-purple-300"
           >
             Obtener Rol
           </button>

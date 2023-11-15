@@ -4,7 +4,7 @@ import { GrFacebook, GrMap, GrPhone, GrMailOption } from "react-icons/gr";
 
 const Footer = () => {
   return (
-    <div className="w-full mt-24 bg-purple-400 text-gray300 py-y px-2">
+    <div className="w-full mt-24" style={{ backgroundColor: "#1e1b4b", color: "white", padding: "2rem 1rem" }}>
       <div className="max-w-[1240px] mx-auto grid md:grid-cols-2 border-b-2 border-gray-600 py-8">
         <div>
           <h6 className="font-bold uppercase pt-2">Equipo Desarrollador</h6>
@@ -19,32 +19,32 @@ const Footer = () => {
           <h6 className="font-bold uppercase pt-2">Contactos</h6>
           <ul>
             <li className="p-4 py-1 items-center">
-              <GrMap /> Santa Cruz, Guanacaste
+              <GrMap color="white"/> Santa Cruz, Guanacaste
             </li>
             <li className="p-4 py-1 items-center">
-              <GrPhone />
+              <GrPhone color="white"/>
               +506 2680-4790
             </li>
             <li className="p-4 py-1 items-center">
-              <GrFacebook />
+              <GrFacebook color="white" />
               Escuela Guayabal
             </li>
             <li className="p-4 py-1 items-center">
               {" "}
-              <GrMailOption /> Correo Electronico:esc.guayabal@mep.go.cr
+              <GrMailOption color="white"/> Correo Electronico: esc.guayabal@mep.go.cr
             </li>
           </ul>
         </div>
       </div>
-
+  
       <div className="p-2 max-w-[1240px] m-auto sm:flex-row text-center">
         <p>
-          2023 Todos los derechos reservado, Diseñado por Estudiantes de la
+          2023 Todos los derechos reservados, Diseñado por Estudiantes de la
           Universidad Nacional
         </p>
       </div>
     </div>
-  );
+  );  
 };
 
 export default Footer;

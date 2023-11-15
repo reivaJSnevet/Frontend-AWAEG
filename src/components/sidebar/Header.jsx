@@ -1,9 +1,9 @@
-
+import { Link} from "react-router-dom";
 
 const Header= () => {
   return (
-    <header className="h-[10vh] md:[7vh] border-b bg-transparent p-8">header
-     {/* <div className="">
+    <header className="h-[10vh] md:[7vh] border-b bg-slate-100 px-1 flex justify-end shadow-lg">
+     <div className="">
           <Link to="">
             <img
               src="/logo-removebg-preview.png"
@@ -11,7 +11,7 @@ const Header= () => {
               style={{ width: "100px", height: "auto" }}
             />
           </Link>
-        </div> */}
+        </div>
     </header>
   );
 }

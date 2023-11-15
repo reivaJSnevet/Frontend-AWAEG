@@ -24,7 +24,7 @@ function Perfil() {
             className="px-4 py-2 mt-4 text-xs font-bold text-black bg-yellow-500 rounded hover:bg-yellow-700"
             onClick={toggleModal}
           >
-            Preamtricular
+            Prematricular
           </button>
           {isModalOpen && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
@@ -44,7 +44,7 @@ function Perfil() {
         </div>
 
         {/* Parte inferior del grid (Título y Contenido) */}
-        <div className="p-4 mx-auto text-white bg-purple-400 rounded-lg shadow-lg md:col-span-12 md:row-span-1">
+        <div className="p-4 mx-auto text-white bg-purple-600 rounded-lg shadow-lg md:col-span-12 md:row-span-1">
           <h2 className="mb-4 text-2xl ">Perfil de Estudiante</h2>
           {/* Outlet para las rutas hijas */}
           <Outlet />
