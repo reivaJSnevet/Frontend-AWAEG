@@ -1,5 +1,5 @@
 import axios from "axios";
-const URL = "https://backend-awaeg-production.up.railway.app/api/";
+const URL = "https://swaegapi.azurewebsites.net/api/";
 
 
 export default axios.create({
