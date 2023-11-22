@@ -47,54 +47,59 @@ function AddEstudiantil() {
 
 
   return (
-    <div>
-        <h2>Añadir Insumo Estudiantil</h2>
-        <form onSubmit={handleSubmit}>
+    <div className="max-w-md p-8 mx-auto mt-10 bg-purple-600 rounded-lg shadow-lg">
+        <h2 className="mb-6 text-2xl font-bold text-white">Añadir Insumo Estudiantil</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-                <label>Nombre:</label>
+                <label className="block mb-1 text-sm font-medium text-white">Nombre:</label>
                 <input
                     type="text"
                     name="nombreInsumoEst"
                     value={estudiantil.nombreInsumoEst}
                     onChange={handleChange}
                     required
+                     className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
                 />
             </div>
             <div>
-                <label>Disponible:</label>
-                <select name="disponible" onChange={handleChange}>
+                <label className="block mb-1 text-sm font-medium text-white">Disponible:</label>
+                <select name="disponible" onChange={handleChange}
+                 className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600">
                     <option value="">Selecciona una opción</option>
                     <option value={true}>Disponible</option>
                     <option value={false}>No Disponible</option>
                 </select>
             </div>
             <div>
-                <label>Cantidad:</label>
+                <label className="block mb-1 text-sm font-medium text-white">Cantidad:</label>
                 <input
                     type="number"
                     name="cantidad"
                     value={estudiantil.cantidad}
                     onChange={handleChange}
                     required
+                     className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
                 />
             </div>
             <div>
-                <label>Descripcion:</label>
+                <label className="block mb-1 text-sm font-medium text-white">Descripcion:</label>
                 <input
                     type="text"
                     name="descripcion"
                     value={estudiantil.descripcion}
                     onChange={handleChange}
                     required
+                     className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
                 />
             </div>
             <div>
-                <label>Categoria:</label>
+                <label className="block mb-1 text-sm font-medium text-white">Categoria:</label>
                 <select
                     name="cateInsumoId"
                     value={estudiantil.cateInsumoId}
                     onChange={handleChange}
                     required
+                     className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
                 >
                     <option value="">-- Seleccione una categoria --</option>
                     {categorias.map((categoria) => (
@@ -105,7 +110,7 @@ function AddEstudiantil() {
                 </select>
             </div>
             <div>
-                <button type="submit">Añadir Insumo Estudiantil</button>
+                <button className="w-full p-2 text-white bg-purple-300  rounded-md hover:bg-[#F7A834]  focus:outline-none focus:ring focus:ring-gray-700" type="submit">Añadir Insumo Estudiantil</button>
             </div>
         </form>
     </div>

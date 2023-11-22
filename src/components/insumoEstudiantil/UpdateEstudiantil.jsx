@@ -59,54 +59,59 @@ function UpdateEstudiantil() {
 
 
   return (
-    <div>
-        <h2>Actualizar Insumo Estudiantil</h2>
+    <div  className="p-8 bg-purple-400 rounded shadow-lg">
+        <h2 className="mb-6 text-3xl font-semibold text-white">Actualizar Insumo Estudiantil</h2>
         <form onSubmit={handleSubmit}>
-            <div>
-                <label>Nombre:</label>
+            <div className="mb-4">
+                <label className="block mb-2 text-sm font-semibold text-white">Nombre:</label>
                 <input
                     type="text"
                     name="nombreInsumoEst"
                     value={formData.nombreInsumoEst}
                     onChange={handleChange}
                     required
+                    className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
                 />
             </div>
             <div>
-            <label>Disponible:</label>
-                <select name="disponible" value={formData.disponible} onChange={handleChange}>
+            <label className="block mb-2 text-sm font-semibold text-white">Disponible:</label>
+                <select
+                className="w-full p-2 border rounded focus:outline-none focus:border-purple-400" name="disponible" value={formData.disponible} onChange={handleChange}>
                     <option value="">Selecciona una opción</option>
                     <option value={true}>Disponible</option>
                     <option value={false}>No Disponible</option>
                 </select>
             </div>
             <div>
-                <label>Cantidad:</label>
+                <label className="block mb-2 text-sm font-semibold text-white">Cantidad:</label>
                 <input
                     type="number"
                     name="cantidad"
                     value={formData.cantidad}
                     onChange={handleChange}
                     required
+                    className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
                 />
             </div>
             <div>
-                <label>Descripcion:</label>
+                <label className="block mb-2 text-sm font-semibold text-white">Descripcion:</label>
                 <input
                     type="text"
                     name="descripcion"
                     value={formData.descripcion}
                     onChange={handleChange}
                     required
+                    className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
                 />
             </div>
             <div>
-                <label>Categoria:</label>
+                <label className="block mb-2 text-sm font-semibold text-white">Categoria:</label>
                 <select
                     name="cateInsumoId"
                     value={formData.cateInsumoId}
                     onChange={handleChange}
                     required
+                    className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
                 >
                     <option value="">--Seleccione una categoria--</option>
                     {categorias.map((categoria) => (
@@ -116,8 +121,8 @@ function UpdateEstudiantil() {
                     ))}
                 </select>
             </div>
-            <div>
-                <button type="submit">Actualizar Insumo Estudiantil</button>
+            <div className="py-4">
+                <button className="w-full p-2 text-white bg-purple-300  rounded-md hover:bg-[#F7A834]  focus:outline-none focus:ring focus:ring-gray-700" type="submit">Actualizar Insumo Estudiantil</button>
             </div>
         </form>
     </div>

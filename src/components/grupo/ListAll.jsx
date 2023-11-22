@@ -32,7 +32,7 @@ const ListGrupos = () => {
       <table className="w-full bg-white rounded-lg font-serif font-thin border-collapse overflow-hidden shadow text-left">
         <thead className="text-white bg-purple-600">
           <tr>
-            <th className="p-2">Seccion</th>
+            <th className="p-2">Sección</th>
             <th className="p-2">Ciclo</th>
             <th className="p-2">Grado</th>
             <th className="p-2">Aula</th>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import Swal from "sweetalert2";
 
 const UpdateEstudiante = () => {
   const api = useAxiosPrivate();
@@ -97,146 +98,185 @@ const UpdateEstudiante = () => {
     e.preventDefault();
 
     try {
-      const response = await api.put(
-        `estudiantes/${paramId || formData.id}`,
-        formData
-      );
-      const responseEncargado = await api.put(
-        `encargados/${encargado.id}`,
-        encargado
-      );
+      await api.put(`estudiantes/${paramId || formData.id}`, formData);
+      await api.put(`encargados/${encargado.id}`, encargado);
 
-      console.log("Update successful:", response.data);
-      console.log("Update successful:", responseEncargado.data);
+      Swal.fire({
+        icon: "success",
+        title: "Éxito",
+        text: "El estudiante se actualizó exitosamente.",
+      });
     } catch (error) {
-      console.error(
-        "Error during operation:",
-        error.response?.data || error.message
-      );
+     
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Hubo un error al actualizar el estudiante. Por favor, inténtelo de nuevo.",
+      });
     }
   };
 
   return (
-    <div className="container flex flex-col mx-auto md:flex-row">
-      <div className="md:w-1/2">
-        <h2>Update Estudiante</h2>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label>ID: </label>
-            <input
-              type="text"
-              name="id"
-              value={formData.id}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label>Nombre: </label>
-            <input
-              type="text"
-              name="nombre"
-              value={formData.nombre}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label>Pimer Apellido: </label>
-            <input
-              type="text"
-              name="apellido1"
-              value={formData.apellido1}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label>Segundo Apellido: </label>
-            <input
-              type="text"
-              name="apellido2"
-              value={formData.apellido2}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label>Fecha Nacimiento: </label>
-            <input
-              type="date"
-              name="fechaNacimiento"
-              value={formData.fechaNacimiento}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label>Sexo: </label>
-            <select name="sexo" value={formData.sexo} onChange={handleChange}>
-              <option value={0} disabled>
-                Select one
-              </option>
-              <option value={false}>Mujer</option>
-              <option value={true}>Hombre</option>
-            </select>
-          </div>
-
-          <div>
-            <label>Dirección: </label>
-            <input
-              type="text"
-              name="direccion"
-              value={formData.direccion}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label>Sección: </label>
-            <select
-              name="seccion"
-              value={formData.seccion}
-              onChange={handleChange}
-              required
-            >
-              s
-              <option value="" disabled>
-                Select one
-              </option>
-              {secciones.map((seccion, index) => (
-                <option key={index} value={seccion}>
-                  {seccion}
-                </option>
-              ))}
-            </select>
-          </div>
-          <h3>Encargado</h3>
-          <div>
-            <label>Nombre: </label>
-            <input
-              type="text"
-              name="nombreEncargado"
-              value={encargado.nombre}
-              onChange={handleChangeEncargado}
-              required
-            />
-          </div>
-          <button type="submit">Update</button>
-        </form>
-      </div>
-      <div className="md:w-1/2">
-        <h2>Uusario</h2>
-        <div>
-          <label>ID: </label>
+    <div className="p-8 bg-purple-400 rounded shadow-lg">
+      <h2 className="mb-6 text-3xl font-semibold text-white">
+        Update Estudiante
+      </h2>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-semibold text-white">
+            ID:{" "}
+          </label>
           <input
             type="text"
             name="id"
-            value={formData.usuarioId}
+            value={formData.id}
             onChange={handleChange}
+            className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
             required
           />
-          </div>
+        </div>
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-semibold text-white">
+            Nombre:{" "}
+          </label>
+          <input
+            type="text"
+            name="nombre"
+            value={formData.nombre}
+            onChange={handleChange}
+            className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-semibold text-white">
+            Pimer Apellido:{" "}
+          </label>
+          <input
+            type="text"
+            name="apellido1"
+            value={formData.apellido1}
+            onChange={handleChange}
+            className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-semibold text-white">
+            Segundo Apellido:{" "}
+          </label>
+          <input
+            type="text"
+            name="apellido2"
+            value={formData.apellido2}
+            onChange={handleChange}
+            className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-semibold text-white">
+            Fecha Nacimiento:{" "}
+          </label>
+          <input
+            type="date"
+            name="fechaNacimiento"
+            value={formData.fechaNacimiento}
+            onChange={handleChange}
+            className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-semibold text-white">
+            Sexo:{" "}
+          </label>
+          <select
+            name="sexo"
+            value={formData.sexo}
+            onChange={handleChange}
+            className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
+          >
+            <option value={0} disabled>
+              Select one
+            </option>
+            <option value={false}>Mujer</option>
+            <option value={true}>Hombre</option>
+          </select>
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-semibold text-white">
+            Dirección:{" "}
+          </label>
+          <input
+            type="text"
+            name="direccion"
+            value={formData.direccion}
+            onChange={handleChange}
+            className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-semibold text-white">
+            Sección:{" "}
+          </label>
+          <select
+            name="seccion"
+            value={formData.seccion}
+            onChange={handleChange}
+            className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
+            required
+          >
+            s
+            <option value="" disabled>
+              Seleciona una sección
+            </option>
+            {secciones.map((seccion, index) => (
+              <option key={index} value={seccion}>
+                {seccion}
+              </option>
+            ))}
+          </select>
+        </div>
+        <h3 className="text-white mb-2">Encargado</h3>
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-semibold text-white">
+            Nombre:{" "}
+          </label>
+          <input
+            type="text"
+            name="nombreEncargado"
+            value={encargado.nombre}
+            onChange={handleChangeEncargado}
+            className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
+            required
+          />
+        </div>
+        <button
+          className="w-full p-2 text-white bg-purple-300  rounded-md hover:bg-[#F7A834]  focus:outline-none focus:ring focus:ring-gray-700"
+          type="submit"
+        >
+          Update
+        </button>
+      </form>
+
+      <div className="md:w-1/2">
+        <h2>Usuario</h2>
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-semibold text-white">
+            ID:{" "}
+          </label>
+          <input
+            type="text"
+            name="id"
+            value={formData.encargadoId}
+            onChange={handleChangeEncargado}
+            className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
+            required
+          />
+        </div>
       </div>
     </div>
   );

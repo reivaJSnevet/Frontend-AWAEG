@@ -130,7 +130,7 @@ const AddHorario = () => {
         </table>
 
         <div>
-          <button type="submit">Agregar horario</button>
+          <button className="w-full p-2 text-white bg-purple-300  rounded-md hover:bg-[#F7A834]  focus:outline-none focus:ring focus:ring-gray-700" type="submit">Agregar horario</button>
         </div>
       </form>
     </div>

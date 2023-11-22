@@ -1,6 +1,7 @@
 import { useState, useEffect} from "react";
 import { useParams } from "react-router-dom";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import Swal from "sweetalert2";
 
 const DeleteFuncionarioById = () => {
     const api = useAxiosPrivate();
@@ -22,21 +23,54 @@ const DeleteFuncionarioById = () => {
   const handleDelete = (event) => {
     event.preventDefault();
 
-    // Realiza una solicitud DELETE para eliminar un Funcionario por ID
-    api
-      .delete(`/funcionarios/${funcionarioId}`)
-      .then(() => {
-        // Maneja el éxito, por ejemplo, mostrando un mensaje de éxito
-        alert("Funcionario eliminado con éxito.");
-        // Limpia el campo de entrada después de eliminar el funcionario
-        setFuncionarioId("");
-        // Recarga la página
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.error("Error al eliminar el Funcionario por ID:", error);
-        // Puedes manejar errores aquí, por ejemplo, mostrando un mensaje de error
-      });
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Esta acción eliminará el funcionario. ¿Estás seguro de que deseas continuar?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Usuario confirmó la eliminación
+        api.delete(`/funcionarios/${funcionarioId}`)
+          .then(() => {
+            Swal.fire(
+              'Eliminado',
+              'El funcionario ha sido eliminado con éxito.',
+              'success'
+            );
+            setFuncionarioId('');
+            window.location.reload();
+          })
+          .catch((error) => {
+            console.error('Error al eliminar el funcionario por ID:', error);
+            Swal.fire(
+              'Error',
+              'Hubo un error al eliminar el funcionario. Por favor, inténtelo de nuevo.',
+              'error'
+            );
+          });
+      }
+    });
+    // // Realiza una solicitud DELETE para eliminar un Funcionario por ID
+    // api
+    //   .delete(`/funcionarios/${funcionarioId}`)
+    //   .then(() => {
+    //     // Maneja el éxito, por ejemplo, mostrando un mensaje de éxito
+    //     alert("Funcionario eliminado con éxito.");
+    //     // Limpia el campo de entrada después de eliminar el funcionario
+    //     setFuncionarioId("");
+    //     // Recarga la página
+    //     window.location.reload();
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error al eliminar el Funcionario por ID:", error);
+        
+    //     // Puedes manejar errores aquí, por ejemplo, mostrando un mensaje de error
+    //   });
   };
 
   return (
@@ -49,12 +83,13 @@ const DeleteFuncionarioById = () => {
             type="text"
             value={funcionarioId}
             onChange={handleInputChange}
+            disabled
             className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
           />
         </div>
         <button
           type="submit"
-          className="w-full p-2 text-white bg-slate-950 rounded-md hover:bg-slate-950 focus:outline-none focus:ring focus:ring-purple-300"
+          className="w-full p-2 text-white bg-purple-300  rounded-md hover:bg-[#F7A834]  focus:outline-none focus:ring focus:ring-gray-700"
         >
           Eliminar Funcionario
         </button>

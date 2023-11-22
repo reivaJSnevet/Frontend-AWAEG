@@ -94,16 +94,16 @@ const ListFuncionarios = () => {
             Cerrar
           </button>
           <h2 className="mb-4 text-xl font-bold">Detalles del Funcionario</h2>
-          <p>Cedula: {selectedFuncionario.id}</p>
-          <p>Nombre: {selectedFuncionario.nombre}</p>
-          <p>Primer Apellido: {selectedFuncionario.apellido1}</p>
-          <p>Segundo Apellido: {selectedFuncionario.apellido2}</p>
-          <p>Fecha de Nacimiento: {selectedFuncionario.fechaNacimiento}</p>
-          <p>Edad: {selectedFuncionario.edad}</p>
-          <p>Sexo: {selectedFuncionario.sexo ? "Mujer" : "Hombre"}</p>
+          <p className="block mb-2 text-sm font-semibold text-black">Cedula: {selectedFuncionario.id}</p>
+          <p className="block mb-2 text-sm font-semibold text-black">Nombre: {selectedFuncionario.nombre}</p>
+          <p className="block mb-2 text-sm font-semibold text-black">Primer Apellido: {selectedFuncionario.apellido1}</p>
+          <p className="block mb-2 text-sm font-semibold text-black">Segundo Apellido: {selectedFuncionario.apellido2}</p>
+          <p className="block mb-2 text-sm font-semibold text-black">Fecha de Nacimiento: {selectedFuncionario.fechaNacimiento}</p>
+          <p className="block mb-2 text-sm font-semibold text-black">Edad: {selectedFuncionario.edad}</p>
+          <p className="block mb-2 text-sm font-semibold text-black">Sexo: {selectedFuncionario.sexo ? "Mujer" : "Hombre"}</p>
           {selectedFuncionario.usuarioId ? (
-            <p>Usuario Id: {selectedFuncionario.usuarioId}</p>
-          ) : <p>Usuario Id: sin usuario asigando</p>}
+            <p className="block mb-2 text-sm font-semibold text-black">Usuario Id: {selectedFuncionario.usuarioId}</p>
+          ) : <p className="block mb-2 text-sm font-semibold text-black">Usuario Id: sin usuario asigando</p>}
         </div>
       </div>
     )}

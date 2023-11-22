@@ -41,7 +41,7 @@ const GetFuncionarioById = () => {
           <div>
             <button
               type="submit"
-              className="w-full p-2 text-white bg-slate-950 rounded-md hover:bg-slate-950 focus:outline-none focus:ring focus:ring-purple-300"
+              className="w-full p-2 text-white bg-purple-300  rounded-md hover:bg-[#F7A834]  focus:outline-none focus:ring focus:ring-gray-700"
             >
               Obtener Funcionario
             </button>

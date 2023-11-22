@@ -1,18 +1,18 @@
-import { useState, useEffect } from 'react';
-import api from '../../services/api.config.js';
-import { useParams } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import api from "../../services/api.config.js";
+import { useParams } from "react-router-dom";
 
 const UpdateClase = () => {
   const { id } = useParams();
   const [clase, setClase] = useState({
-    dia: '',
-    horaInicio: '',
-    horaSalida: '',
-    leccion: ''
+    dia: "",
+    horaInicio: "",
+    horaSalida: "",
+    leccion: "",
   });
 
   useEffect(() => {
-    if(!id) return;
+    if (!id) return;
     const fetchClase = async () => {
       try {
         const response = await api.get(`/clases/${id}`);
@@ -28,7 +28,7 @@ const UpdateClase = () => {
     const { name, value } = e.target;
     setClase((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -36,33 +36,71 @@ const UpdateClase = () => {
     e.preventDefault();
     try {
       await api.put(`/clases/${id}`, clase);
-      alert('Clase actualizada con éxito.');
+      alert("Clase actualizada con éxito.");
     } catch (error) {
-      alert('Error al actualizar la clase.');
+      alert("Error al actualizar la clase.");
     }
   };
 
   return (
-    <div>
-      <h2>Actualizar Clase</h2>
+    <div className="p-8 bg-purple-400 rounded shadow-lg">
+      <h2 className="mb-6 text-3xl font-semibold text-white">
+        Actualizar Clase
+      </h2>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Día:</label>
-          <input type="text" name="dia" value={clase.dia} onChange={handleInputChange} />
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-semibold text-white">
+            Día:
+          </label>
+          <input
+            type="text"
+            name="dia"
+            value={clase.dia}
+            onChange={handleInputChange}
+            className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
+            required
+          />
         </div>
-        <div>
-          <label>Hora de Inicio:</label>
-          <input type="time" name="horaInicio" value={clase.horaInicio} onChange={handleInputChange} />
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-semibold text-white">
+            Hora de Inicio:
+          </label>
+          <input
+            type="time"
+            name="horaInicio"
+            value={clase.horaInicio}
+            onChange={handleInputChange}
+            className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
+            required
+          />
         </div>
-        <div>
-          <label>Hora de Salida:</label>
-          <input type="time" name="horaSalida" value={clase.horaSalida} onChange={handleInputChange} />
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-semibold text-white">
+            Hora de Salida:
+          </label>
+          <input
+            type="time"
+            name="horaSalida"
+            value={clase.horaSalida}
+            onChange={handleInputChange}
+            className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
+            required
+          />
         </div>
-        <div>
-          <label>Lección:</label>
-          <input type="text" name="leccion" value={clase.leccion} onChange={handleInputChange} />
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-semibold text-white">
+            Lección:
+          </label>
+          <input
+            type="text"
+            name="leccion"
+            value={clase.leccion}
+            onChange={handleInputChange}
+            className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
+            required
+          />
         </div>
-        <button type="submit">Actualizar</button>
+        <button  className="w-full p-2 text-white bg-purple-300  rounded-md hover:bg-[#F7A834]  focus:outline-none focus:ring focus:ring-gray-700" type="submit">Actualizar</button>
       </form>
     </div>
   );

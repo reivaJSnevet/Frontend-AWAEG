@@ -120,14 +120,18 @@ const CrearClase = () => {
   };
 
   return (
-    <div className="p-8 bg-purple-500 rounded-lg shadow-lg">
-      <h2 className="mb-4 text-2xl text-white">Agregar Clases</h2>
+    <div className="max-w-md p-8 mx-auto mt-10 bg-purple-600 rounded-lg shadow-lg">
+      <h2 className="mb-6 text-2xl font-bold text-white">Agregar Clases</h2>
+      <button className="w-full p-2 text-white bg-purple-300  rounded-md hover:bg-[#F7A834]  focus:outline-none focus:ring focus:ring-gray-700" onClick={handleToggleTurno}>
+         Cambiar Turno: {turno.charAt(0).toUpperCase() + turno.slice(1)}
+       </button>
       <form className="space-y-4" onSubmit={handleSubmit}>
-        <div className="flex flex-col">
-          <label className="text-white">Profesor:</label>
+        <div>
+          <label className="block mb-1 text-sm font-medium text-white">Profesor:</label>
           <select
             value={selectedProfesor}
             onChange={(e) => setSelectedProfesor(e.target.value)}
+             className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
           >
             <option value="">Seleccione un profesor</option>
             {profesores.map((profesor) => (
@@ -141,11 +145,12 @@ const CrearClase = () => {
             ))}
           </select>
         </div>
-        <div className="flex flex-col">
-          <label className="text-white">Materia:</label>
+        <div>
+          <label className="block mb-1 text-sm font-medium text-white">Materia:</label>
           <select
             value={selectedMateria}
             onChange={(e) => setSelectedMateria(e.target.value)}
+             className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
           >
             <option value="">Seleccione una materia</option>
             {materias.map((materia) => (
@@ -156,8 +161,9 @@ const CrearClase = () => {
           </select>
         </div>
         <div>
-          <label>Día:</label>
-          <select value={dia} onChange={(e) => setDia(e.target.value)}>
+          <label className="block mb-1 text-sm font-medium text-white">Día:</label>
+          <select value={dia} onChange={(e) => setDia(e.target.value)}
+           className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600">
             <option value="">Seleccione un día</option>
             {diasSemana.map((dia) => (
               <option key={dia} value={dia}>
@@ -167,10 +173,11 @@ const CrearClase = () => {
           </select>
         </div>
         <div>
-          <label>Lección:</label>
+          <label className="block mb-1 text-sm font-medium text-white">Lección:</label>
           <select
             value={selectedLeccion}
             onChange={(e) => setSelectedLeccion(e.target.value)}
+             className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
           >
             <option value="">Seleccione una lección</option>
             {[1, 2, 3, 4, 5, 6, 7].map((numero) => (
@@ -181,25 +188,27 @@ const CrearClase = () => {
           </select>
         </div>
         <div>
-          <label>Hora de Entrada:</label>
+          <label className="block mb-1 text-sm font-medium text-white">Hora de Entrada:</label>
           <input
             type="text"
             value={calcularHoraInicio(selectedLeccion)}
             readOnly
+             className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
           />
         </div>
         <div>
-          <label>Hora de Salida:</label>
+          <label className="block mb-1 text-sm font-medium text-white">Hora de Salida:</label>
           <input
             type="text"
             value={calcularHoraSalida(selectedLeccion)}
             readOnly
+             className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
           />
         </div>
 
         <button
           type="submit"
-          className="px-4 py-2 text-purple-800 bg-yellow-500 rounded hover:bg-yellow-400"
+          className="w-full p-2 text-white bg-purple-300  rounded-md hover:bg-[#F7A834]  focus:outline-none focus:ring focus:ring-gray-700"
         >
           Agregar Funcionario
         </button>
