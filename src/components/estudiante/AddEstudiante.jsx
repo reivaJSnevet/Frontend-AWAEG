@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { generarContraseña } from "../../services/generadorContraseña.js";
 import { generarNombreUsuario } from "../../services/generadorNombreUsuario.js";
+import Swal from "sweetalert2";
 
 const AddEstudiante = () => {
   const api = useAxiosPrivate();
@@ -152,6 +153,11 @@ const AddEstudiante = () => {
         contraseña: "",
         roleId: 4,
       });
+      Swal.fire({
+        icon: "success",
+        title: "Éxito",
+        text: "El estudiante se agregó exitosamente.",
+      });
     } catch (error) {
       api
         .delete(`/estudiantes/${estudiante.id}`)
@@ -170,6 +176,11 @@ const AddEstudiante = () => {
           error.response?.data || error.message;
         });
       console.error("Error al agregar el Estudiante y Encargado:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Hubo un error al agregar el funcionario. Por favor, inténtelo de nuevo.",
+      });
     }
   };
 
@@ -388,7 +399,7 @@ const AddEstudiante = () => {
           <div className="flex justify-center">
             <button
               type="submit"
-              className="px-4 py-2 text-white transition duration-300 bg-purple-400 rounded hover:bg-purple-200"
+              className="w-full p-2 text-white bg-purple-300  rounded-md hover:bg-[#F7A834]  focus:outline-none focus:ring focus:ring-gray-700"
             >
               Agregar Estudiante y Encargado
             </button>

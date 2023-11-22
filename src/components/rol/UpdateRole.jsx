@@ -1,19 +1,20 @@
-import { useState, useEffect } from 'react';
-import useAxiosPrivate from '../../hooks/useAxiosPrivate';
-import { useParams } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const UpdateRol = () => {
-    const api = useAxiosPrivate();
+  const api = useAxiosPrivate();
   const { paramId } = useParams();
   const [rol, setRol] = useState({
-    id: '',
-    nombre: '',
+    id: "",
+    nombre: "",
     nivelPrivilegio: 0,
-    descripcion: ''
+    descripcion: "",
   });
 
   useEffect(() => {
-    if(!paramId) return;
+    if (!paramId) return;
     const fetchRol = async () => {
       try {
         const response = await api.get(`/roles/${paramId}`);
@@ -29,7 +30,7 @@ const UpdateRol = () => {
     const { name, value } = e.target;
     setRol((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -37,9 +38,18 @@ const UpdateRol = () => {
     e.preventDefault();
     try {
       await api.put(`/roles/${paramId}`, rol);
-      alert('Clase actualizada con éxito.');
+
+      Swal.fire({
+        icon: "success",
+        title: "Éxito",
+        text: "El rol se actualizó exitosamente.",
+      });
     } catch (error) {
-      alert('Error al actualizar la clase.');
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Hubo un error al actualizar el rol. Por favor, inténtelo de nuevo.",
+      });
     }
   };
 
@@ -48,7 +58,9 @@ const UpdateRol = () => {
       <h2 className="mb-6 text-3xl font-semibold text-white">Actualizar Rol</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label className="block mb-2 text-sm font-semibold text-white">Nombre del Rol:</label>
+          <label className="block mb-2 text-sm font-semibold text-white">
+            Nombre del Rol:
+          </label>
           <input
             type="text"
             name="nombre"
@@ -60,7 +72,9 @@ const UpdateRol = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block mb-2 text-sm font-semibold text-white">Nivel de Privilegio:</label>
+          <label className="block mb-2 text-sm font-semibold text-white">
+            Nivel de Privilegio:
+          </label>
           <input
             type="number"
             name="nivelPrivilegio"
@@ -72,7 +86,9 @@ const UpdateRol = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block mb-2 text-sm font-semibold text-white">Descripción:</label>
+          <label className="block mb-2 text-sm font-semibold text-white">
+            Descripción:
+          </label>
           <textarea
             name="descripcion"
             value={rol.descripcion}
@@ -83,7 +99,10 @@ const UpdateRol = () => {
           />
         </div>
 
-        <button type="submit" className="px-4 py-2 text-white bg-purple-200 rounded hover:bg-purple-600">
+        <button
+          type="submit"
+          className="w-full p-2 text-white bg-purple-300  rounded-md hover:bg-[#F7A834]  focus:outline-none focus:ring focus:ring-gray-700"
+        >
           Actualizar
         </button>
       </form>

@@ -95,75 +95,76 @@ const AddGrupo = () => {
   };
 
   return (
-    <div className="p-8 bg-purple-500 rounded-lg shadow-lg">
-      <h2 className="mb-4 text-2xl text-white">Agregar Grupo</h2>
+    <div className="max-w-md p-8 mx-auto mt-10 bg-purple-600 rounded-lg shadow-lg">
+      <h2 className="mb-6 text-2xl font-bold text-white">Agregar Grupo</h2>
       <form className="space-y-4" onSubmit={handleSubmit}>
-        <div className="flex flex-col">
-          <label className="text-white">Seccion:</label>
+        <div>
+          <label className="block mb-1 text-sm font-medium text-white">Seccion:</label>
           <input
             type="text"
             name="seccion"
             value={formulario.seccion}
             onChange={handleInputChange}
-            className="p-2 border border-white rounded"
+            className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
           />
           {errorMessages.seccion && (
             <p className="text-yellow-500">{errorMessages.seccion}</p>
           )}
         </div>
-        <div className="flex flex-col">
-          <label className="text-white">Ciclo:</label>
+        <div>
+          <label className="block mb-1 text-sm font-medium text-white">Ciclo:</label>
           <input
             type="text"
             name="ciclo"
             value={formulario.ciclo}
             onChange={handleInputChange}
-            className="p-2 border border-white rounded"
+            className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
           />
           {errorMessages.ciclo && (
             <p className="text-yellow-500">{errorMessages.ciclo}</p>
           )}
         </div>
-        <div className="flex flex-col">
-          <label className="text-white">Grado:</label>
+        <div>
+          <label className="block mb-1 text-sm font-medium text-white">Grado:</label>
           <input
             type="text"
             name="grado"
             value={formulario.grado}
             onChange={handleInputChange}
-            className="p-2 border border-white rounded"
+            className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
           />
           {errorMessages.grado && (
             <p className="text-yellow-500">{errorMessages.grado}</p>
           )}
         </div>
-        <div className="flex flex-col">
-          <label className="text-white">Aula:</label>
+        <div>
+          <label className="block mb-1 text-sm font-medium text-white">Aula:</label>
           <input
             type="text"
             name="aula"
             value={formulario.aula}
             onChange={handleInputChange}
-            className="p-2 border border-white rounded"
+            className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
           />
           {errorMessages.aula && (
             <p className="text-yellow-500">{errorMessages.aula}</p>
           )}
         </div>
         <div>
-          <label>Cantidad de Estudiantes:</label>
+          <label className="block mb-1 text-sm font-medium text-white">Cantidad de Estudiantes:</label>
           <input
             type="number"
             name="cantAlumno"
             value={formulario.cantAlumno}
             onChange={handleInputChange}
-            className="p-2 border border-white rounded"
+            className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
           />
-          <label>Turno:</label>
+          <label className="block mb-1 text-sm font-medium text-white">Turno:</label>
           <select
             name="turno"
             value={formulario.turno ? "tarde" : "mañana"}
             onChange={handleInputChange}
+             className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
           >
             <option value="" disabled>
                 Seleccione un turno
@@ -172,11 +173,12 @@ const AddGrupo = () => {
             <option value="tarde">Tarde</option>
           </select>
           <div>
-            <label>Profesor:</label>
+            <label className="block mb-1 text-sm font-medium text-white">Profesor:</label>
             <select
               name="funcionarioId"
               value={formulario.funcionarioId}
               onChange={handleInputChange}
+               className="w-full p-2 mb-4 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
             >
               <option value="" disabled>
                 Seleccione un profesor
@@ -189,7 +191,7 @@ const AddGrupo = () => {
               ))}
             </select>
           </div>
-          <button type="submit">Agregar Grupo</button>
+          <button className="w-full p-2 text-white bg-purple-300  rounded-md hover:bg-[#F7A834]  focus:outline-none focus:ring focus:ring-gray-700" type="submit">Agregar Grupo</button>
         </div>
       </form>
     </div>

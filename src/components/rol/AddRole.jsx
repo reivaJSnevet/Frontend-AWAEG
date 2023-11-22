@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Swal from "sweetalert2"; // Importa SweetAlert
+
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const AddRol = () => {
@@ -50,13 +52,24 @@ const AddRol = () => {
       setNivelPrivilegio(0);
       setDescripcion("");
       setMensaje("Rol agregado exitosamente.");
+
+      Swal.fire({
+        icon: "success",
+        title: "Éxito",
+        text: "El rol se agregó exitosamente.",
+      });
     } catch (error) {
       console.error("Error al agregar el rol:", error);
-      setMensaje(
-        "Hubo un error al agregar el rol. Por favor, inténtelo de nuevo."
-      );
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Hubo un error al agregar el rol. Por favor, inténtelo de nuevo.",
+      });
+
+     
     }
   };
+
 
   return (
     <div className="max-w-md p-8 mx-auto mt-10 bg-purple-600 rounded-lg shadow-lg">
@@ -102,7 +115,7 @@ const AddRol = () => {
         <div>
         <button
   type="submit"
-  className="w-full p-2 text-white bg-slate-950  rounded-md hover:bg-slate-950  focus:outline-none focus:ring focus:ring-gray-700"
+  className="w-full p-2 text-white bg-purple-300  rounded-md hover:bg-[#F7A834]  focus:outline-none focus:ring focus:ring-gray-700"
 >
   Agregar Rol
 </button>

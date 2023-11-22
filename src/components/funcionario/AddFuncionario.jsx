@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { generarContraseña } from "../../services/generadorContraseña.js";
 import { generarNombreUsuario } from "../../services/generadorNombreUsuario.js";
+import Swal from "sweetalert2";
 
 const AddFuncionario = () => {
   const api = useAxiosPrivate();
@@ -108,79 +109,91 @@ const AddFuncionario = () => {
         id: "",
       });
 
-      alert("Funcionario agregado exitosamente.");
+      Swal.fire({
+        icon: "success",
+        title: "Éxito",
+        text: "El funcionario se agregó exitosamente.",
+      });
     } catch (error) {
       await api.delete(`/funcionarios/${funcionarioData.id}`);
-      console.error("Error al agregar el funcionario:", error);
-      alert(
-        "Hubo un error al agregar el funcionario. Por favor, inténtelo de nuevo."
-      );
+      console.log(funcionarioData);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Hubo un error al agregar el funcionario. Por favor, inténtelo de nuevo.",
+      });
     }
   };
 
   return (
-    <div>
-      <h2>Agregar Funcionario</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="max-w-md p-8 mx-auto mt-10 bg-purple-600 rounded-lg shadow-lg">
+      <h2 className="mb-6 text-2xl font-bold text-white">Agregar Funcionario</h2>
+      <form className="space-y-4" onSubmit={handleSubmit}>
         <div>
-          <label>Id:</label>
+          <label className="block mb-1 text-sm font-medium text-white" >Id:</label>
           <input
             type="text"
             name="id"
             value={funcionarioData.id}
             onChange={handleInputChange}
+            className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600" 
           />
         </div>
         <div>
-          <label>Nombre:</label>
+          <label className="block mb-1 text-sm font-medium text-white" >Nombre:</label>
           <input
             type="text"
             name="nombre"
             value={funcionarioData.nombre}
             onChange={handleInputChange}
+            className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600" 
           />
         </div>
         <div>
-          <label>Primer Apellido:</label>
+          <label className="block mb-1 text-sm font-medium text-white" >Primer Apellido:</label>
           <input
             type="text"
             name="apellido1"
             value={funcionarioData.apellido1}
             onChange={handleInputChange}
+            className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600" 
           />
         </div>
         <div>
-          <label>Segundo Apellido:</label>
+          <label className="block mb-1 text-sm font-medium text-white" >Segundo Apellido:</label>
           <input
             type="text"
             name="apellido2"
             value={funcionarioData.apellido2}
             onChange={handleInputChange}
+            className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600" 
           />
         </div>
         <div>
-          <label>Fecha Nacimiento:</label>
+          <label className="block mb-1 text-sm font-medium text-white" >Fecha Nacimiento:</label>
           <input
             type="date"
             name="fechaNacimiento"
             value={funcionarioData.fechaNacimiento}
             onChange={handleInputChange}
+            className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600" 
           />
         </div>
         <div className="mb-4">
-          <label className="block mb-2 text-sm font-semibold text-gray-600">
+          <label className="block mb-2 text-sm font-semibold text-white">
             Sexo:
           </label>
           <select
             name="sexo"
             value={funcionarioData.sexo.toString()}
             onChange={handleInputChange}
+            className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600" 
           >
             <option value="true">Hombre</option>
             <option value="false">Mujer</option>
           </select>
-          <label className="block mb-2 text-sm font-semibold text-gray-600">
-            Correo Encargado:
+          <label className="block mb-2 text-sm font-semibold text-white">
+            Correo Funcionario:
           </label>
           <input
             type="text"
@@ -189,12 +202,13 @@ const AddFuncionario = () => {
             onChange={(e) => {
               handleInputChange(e, "usuario");
             }}
-            className="w-full p-2 border rounded"
+            
+            className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600" 
           />
         </div>
 
         <div>
-          <button type="submit">Agregar Funcionario</button>
+          <button className="w-full p-2 text-white bg-purple-300  rounded-md hover:bg-[#F7A834]  focus:outline-none focus:ring focus:ring-gray-700" type="submit">Agregar Funcionario</button>
         </div>
       </form>
     </div>

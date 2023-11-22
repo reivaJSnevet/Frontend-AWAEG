@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import Swal from "sweetalert2";
 
 const UpdateFuncionario = () => {
-    const api = useAxiosPrivate();
+  const api = useAxiosPrivate();
   const { paramId } = useParams();
 
   const [formData, setFormData] = useState({
@@ -69,81 +70,108 @@ const UpdateFuncionario = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validateForm()) {
-      return;
-    }
-
     try {
-      const response = await api.put(
-        `funcionarios/${paramId || formData.id}`,
-        formData
-      );
-      console.log("Update successful:", response.data);
+      if (!validateForm()) {
+        return;
+      }
+
+      await api.put(`funcionarios/${paramId || formData.id}`, formData);
+
+      Swal.fire({
+        icon: "success",
+        title: "Éxito",
+        text: "El funcionario se actualizó exitosamente.",
+      });
     } catch (error) {
-      console.error(
-        "Error updating funcionario:",
-        error.response?.data || error.message
-      );
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Hubo un error al actualizar el funcionario. Por favor, inténtelo de nuevo.",
+      });
     }
   };
 
   return (
-    <div className="update-funcionario">
-      <h2>Update Funcionario</h2>
+    <div className="p-8 bg-purple-400 rounded shadow-lg">
+      <h2 className="mb-6 text-3xl font-semibold text-white">
+        Update Funcionario
+      </h2>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>ID:</label>
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-semibold text-white">
+            ID:
+          </label>
           <input
             type="text"
             name="id"
             value={formData.id}
             onChange={handleChange}
+            className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
             required
           />
         </div>
-        <div>
-          <label>Nombre:</label>
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-semibold text-white">
+            Nombre:
+          </label>
           <input
             type="text"
             name="nombre"
             value={formData.nombre}
             onChange={handleChange}
+            className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
             required
           />
         </div>
-        <div>
-          <label>Apellido 1:</label>
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-semibold text-white">
+            Apellido 1:
+          </label>
           <input
             type="text"
             name="apellido1"
             value={formData.apellido1}
             onChange={handleChange}
+            className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
             required
           />
         </div>
-        <div>
-          <label>Apellido 2:</label>
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-semibold text-white">
+            Apellido 2:
+          </label>
           <input
             type="text"
             name="apellido2"
             value={formData.apellido2}
             onChange={handleChange}
+            className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
             required
           />
         </div>
-        <div>
-          <label>Fecha Nacimiento:</label>
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-semibold text-white">
+            Fecha Nacimiento:
+          </label>
           <input
             type="date"
             name="fechaNacimiento"
             value={formData.fechaNacimiento}
             onChange={handleChange}
+            className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
             required
           />
         </div>
-        <div>
-          <label>Sexo:</label>
-          <select name="sexo" value={formData.sexo} onChange={handleChange}>
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-semibold text-white">
+            Sexo:
+          </label>
+          <select
+            className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
+            name="sexo"
+            value={formData.sexo}
+            onChange={handleChange}
+          >
             <option value={null} disabled>
               Select one
             </option>
@@ -151,7 +179,12 @@ const UpdateFuncionario = () => {
             <option value={false}>Female</option>
           </select>
         </div>
-        <button type="submit">Update</button>
+        <button
+          className="w-full p-2 text-white bg-purple-300  rounded-md hover:bg-[#F7A834]  focus:outline-none focus:ring focus:ring-gray-700"
+          type="submit"
+        >
+          Update
+        </button>
       </form>
     </div>
   );

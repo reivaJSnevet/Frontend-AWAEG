@@ -40,7 +40,7 @@ function ListAllCategorias() {
             <tr key={categoria.id} className="text-gray-700 border-b hover:bg-purple-100 text-left">
               <td className="p-[15px]">{categoria.id}</td>
               <td className="p-[15px]">{categoria.nombreCateInsumo}</td>
-              <td className="p-[15px]">{categoria.descripcionCateInsumo}</td><td className="hidden px-4 py-2 md:table-cell">{categoria.descripcion}</td>
+              <td className="p-[15px]">{categoria.descripcionCateInsumo }</td><td className="hidden px-4 py-2 md:table-cell">{categoria.descripcionCateInsumo}</td>
               <td className="flex items-center p-[15px]">
                 <Link to={`actualizar/${categoria.id}`} className="mr-4 text-purple-500 hover:text-yellow-500">
                   <IoMdCreate />

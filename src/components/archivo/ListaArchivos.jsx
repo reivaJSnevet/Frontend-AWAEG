@@ -42,8 +42,8 @@ function ListaArchivos() {
   };
 
   return (
-    <div className="px-4 py-8 bg-slate-500  rounded-lg shadow-lg">
-    <h2 className="mb-4 text-white font-bold">Lista de Archivos</h2>
+    <div className="max-w-md p-8 mx-auto mt-10 bg-purple-600 rounded-lg shadow-lg">
+    <h2 className="mb-6 text-2xl font-bold text-white">Lista de Archivos</h2>
     {archivos.length === 0 ? (
         <div className="bg-purple-600 p-14 rounded-t-2xl">
       <p className="p-10 mb-8 text-2xl font-bold bg-white rounded-md rounded-tr-xl">Sin tarea</p>
@@ -55,7 +55,7 @@ function ListaArchivos() {
           <li key={index} className="flex items-center justify-between py-2 border-b border-yellow-300">
             <span>{archivo}</span>
             <button 
-              className="px-3 py-1 ml-2 text-white bg-yellow-500 rounded hover:bg-yellow-400"
+              className="w-full p-2 text-white bg-purple-300  rounded-md hover:bg-[#F7A834]  focus:outline-none focus:ring focus:ring-gray-700"
               onClick={() => handleDescargarArchivo(archivo)}
             >
               Descargar
