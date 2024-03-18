@@ -1,5 +1,5 @@
 import Home from "../pages/home/Home";
-import Login from "../pages/login/login";
+import Login from "../pages/login/Login";
 import { Route } from "react-router-dom";
 import PersistLogin from "../components/auth/PersistLogin";
 import RequireAuth from "../components/auth/RequireAuth";
