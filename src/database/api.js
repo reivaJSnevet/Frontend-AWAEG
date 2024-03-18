@@ -1,5 +1,5 @@
 import axios from "axios";
-const URL = "http://localhost:3000/api/";
+const URL = "http://backend-awaeg-production.up.railway.app/api/";
 
 
 export default axios.create({
