@@ -58,54 +58,59 @@ function UpdateInstitucional() {
 
 
   return (
-    <div>
-        <h2>Actualizar Insumo Institucional</h2>
+    <div className="p-8 bg-purple-400 rounded shadow-lg">
+        <h2 className="mb-6 text-3xl font-semibold text-white">Actualizar Insumo Institucional</h2>
         <form onSubmit={handleSubmit}>
-            <div>
-                <label>Nombre:</label>
+            <div  className="mb-4">
+                <label className="block mb-2 text-sm font-semibold text-white">Nombre:</label>
                 <input
                     type="text"
                     name="nombreInsumoInst"
                     value={formData.nombreInsumoInst}
                     onChange={handleChange}
                     required
+                    className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
                 />
             </div>
-            <div>
-                <label>Disponible:</label>
-                <select name="disponible" value={formData.disponible} onChange={handleChange}>
+            <div className="mb-4">
+                <label className="block mb-2 text-sm font-semibold text-white">Disponible:</label>
+                <select
+                className="w-full p-2 border rounded focus:outline-none focus:border-purple-400" name="disponible" value={formData.disponible} onChange={handleChange}>
                     <option value="">Selecciona una opción</option>
                     <option value={true}>Disponible</option>
                     <option value={false}>No Disponible</option>
                 </select>
             </div>
-            <div>
-                <label>Cantidad:</label>
+            <div className="mb-4">
+                <label className="block mb-2 text-sm font-semibold text-white">Cantidad:</label>
                 <input
                     type="number"
                     name="cantidad"
                     value={formData.cantidad}
                     onChange={handleChange}
                     required
+                    className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
                 />
             </div>
-            <div>
-                <label>Descripción:</label>
+            <div className="mb-4">
+                <label className="block mb-2 text-sm font-semibold text-white">Descripción:</label>
                 <input
                     type="text"
                     name="descripcion"
                     value={formData.descripcion}
                     onChange={handleChange}
                     required
+                    className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
                 />
             </div>
-            <div>
-                <label>Categoría:</label>
+            <div className="mb-4">
+                <label className="block mb-2 text-sm font-semibold text-white">Categoría:</label>
                 <select
                     name="cateInsumoId"
                     value={formData.cateInsumoId}
                     onChange={handleChange}
                     required
+                    className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
                 >
                     <option value="">--Seleccione una categoría--</option>
                     {categorias.map((categoria) => (
@@ -116,7 +121,7 @@ function UpdateInstitucional() {
                 </select>
             </div>
             <div>
-                <button type="submit" className="">Actualizar Insumo Institucional</button>
+                <button  type="submit" className="w-full p-2 text-white bg-purple-300  rounded-md hover:bg-[#F7A834]  focus:outline-none focus:ring focus:ring-gray-700">Actualizar Insumo Institucional</button>
             </div>
         </form>
     </div>

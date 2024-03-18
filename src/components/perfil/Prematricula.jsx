@@ -110,7 +110,7 @@ const Prematricula = () => {
           <label className="mb-1 text-black">Sexo:</label>
           <input
             type="text"
-            value={estudiante.sexo ? "Femenino" : "Masculino"}
+            value={estudiante.sexo ? "Masculino" : "Femenino"}
             readOnly
             className="px-3 py-2 text-black bg-purple-200 border-2 rounded"
           />

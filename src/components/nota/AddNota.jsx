@@ -101,13 +101,15 @@ const AddNota = () => {
   };
 
   return (
-    <div>
+    <div className="max-w-md p-8 mx-auto mt-10 bg-purple-600 rounded-lg shadow-lg">
       {/* Dropdown para seleccionar la sección */}
+      <h2 className="mb-6 text-2xl font-bold text-white">Agregar Nota:</h2>
       <div>
-        <label>Selecciona una sección:</label>
+        <label  className="block mb-1 text-sm font-medium text-white">Selecciona una sección:</label>
         <select
           onChange={(e) => setSelectedSeccion(e.target.value)}
           value={selectedSeccion}
+           className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
         >
           <option value="">-- Selecciona --</option>
           {secciones.map((seccion, index) => (
@@ -121,8 +123,9 @@ const AddNota = () => {
       {/* Dropdown para seleccionar la materia */}
 
       <div>
-        <label>Selecciona una materia:</label>
-        <select value={selectedMateria} onChange={handleSelectChange}>
+        <label  className="block mb-1 text-sm font-medium text-white">Selecciona una materia:</label>
+        <select value={selectedMateria} onChange={handleSelectChange}
+         className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600">
           <option value="">-- Selecciona --</option>
           {materias.map((materia, index) => (
             <option key={index} value={materia.id}>
@@ -133,10 +136,11 @@ const AddNota = () => {
       </div>
 
       <div>
-        <label>Selecciona un periodo:</label>
+        <label  className="block mb-1 text-sm font-medium text-white">Selecciona un periodo:</label>
         <select
           value={selectedPeriodo}
           onChange={(e) => setSelectedPeriodo(e.target.value)}
+           className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
         >
           <option value="">-- Selecciona --</option>
           <option value="primero">Primero</option>
@@ -146,7 +150,7 @@ const AddNota = () => {
       </div>
 
       <div>
-        <table>
+        <table className="p-4">
           <thead>
             <tr>
               <th>Nombre</th>
@@ -178,7 +182,7 @@ const AddNota = () => {
             )}
           </tbody>
         </table>
-        <button onClick={handleEnviarNotas}>Enviar Notas</button>
+        <button className="w-full p-2 text-white bg-purple-300  rounded-md hover:bg-[#F7A834]  focus:outline-none focus:ring focus:ring-gray-700" onClick={handleEnviarNotas}>Enviar Notas</button>
       </div>
     </div>
   );

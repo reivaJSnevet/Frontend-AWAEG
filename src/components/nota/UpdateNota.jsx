@@ -58,43 +58,46 @@ const UpdateNota = () => {
   };
 
   return (
-    <div>
-      <h2>Actualizar Nota</h2>
+    <div  className="p-8 bg-purple-400 rounded shadow-lg">
+      <h2 className="mb-6 text-3xl font-semibold text-white">Actualizar Nota</h2>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Calificación:</label>
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-semibold text-white">Calificación:</label>
           <input
             type="number"
             name="calificacion"
             value={formData.calificacion}
             onChange={handleChange}
             required
+            className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
             min="0"
             max="100"
           />
         </div>
-        <div>
-          <label>Periodo:</label>
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-semibold text-white">Periodo:</label>
           <input
             type="text"
             name="periodo"
             value={formData.periodo}
             onChange={handleChange}
             required
+            className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
           />
         </div>
-        <div>
-          <label>Fecha de Subida:</label>
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-semibold text-white">Fecha de Subida:</label>
           <input
             type="date"
             name="fechaSubida"
             value={formData.fechaSubida}
             onChange={handleChange}
             required
+            className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
           />
         </div>
         <div>
-          <button type="submit">Actualizar</button>
+          <button className="w-full p-2 text-white bg-purple-300  rounded-md hover:bg-[#F7A834]  focus:outline-none focus:ring focus:ring-gray-700" type="submit">Actualizar</button>
         </div>
       </form>
     </div>

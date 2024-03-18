@@ -34,19 +34,21 @@ const handleDelete = (event) => {
 
 
   return (
-    <div>
-    <h2>Eliminar Categoria por ID</h2>
-    <form onSubmit={handleDelete}>
+    <div className="max-w-md p-6 mx-auto mt-10 bg-purple-400 rounded-lg shadow-lg">
+    <h2  className="mb-4 text-2xl font-bold text-white">Eliminar Categoria por ID</h2>
+    <form className="space-y-4" onSubmit={handleDelete}>
       <div>
-        <label>ID de la categoria a Eliminar:</label>
+        <label className="block mb-1 text-sm font-medium text-white">ID de la categoria a Eliminar:</label>
         <input
           type="text"
           value={categoriaId}
           onChange={handleInputChange}
+          disabled
+            className="w-full p-2 bg-transparent border border-white rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
         />
       </div>
       <div>
-        <button type="submit">Eliminar Categoria</button>
+        <button className="w-full p-2 text-white bg-purple-300  rounded-md hover:bg-[#F7A834]  focus:outline-none focus:ring focus:ring-gray-700" type="submit">Eliminar Categoria</button>
       </div>
     </form>
   </div>

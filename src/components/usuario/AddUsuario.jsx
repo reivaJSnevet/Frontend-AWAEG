@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import Swal from "sweetalert2";
 
 const AddUsuario = () => {
   const api = useAxiosPrivate();
@@ -92,12 +93,18 @@ const AddUsuario = () => {
       setContraseña("");
       setRoleId("");
 
-      alert("Usuario creado con éxito");
+      Swal.fire({
+        icon: "success",
+        title: "Éxito",
+        text: "El usuario se agregó exitosamente.",
+      });
     } catch (error) {
       console.error("Error al crear el usuario:", error);
-      alert(
-        "Hubo un error al crear el usuario. Por favor, inténtelo de nuevo."
-      );
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Hubo un error al agregar el rol. Por favor, inténtelo de nuevo.",
+      });
     }
   };
 
@@ -176,7 +183,7 @@ const AddUsuario = () => {
             type="checkbox"
             id="showPasswordCheckbox"
             onChange={togglePasswordVisibility}
-            checked={showPassword}
+            checked={!showPassword}
             className="mr-2"
           />
           <label className="text-white" htmlFor="showPasswordCheckbox">
@@ -185,7 +192,7 @@ const AddUsuario = () => {
         </div>
         <button
           type="submit"
-          className="w-full p-2 text-white bg-slate-950 rounded-md hover:bg-slate-950 focus:outline-none focus:ring focus:ring-gray-700"
+          className="w-full p-2 text-white bg-purple-300  rounded-md hover:bg-[#F7A834]  focus:outline-none focus:ring focus:ring-gray-700"
         >
           Agregar Usuario
         </button>

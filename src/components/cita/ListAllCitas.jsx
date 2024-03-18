@@ -72,7 +72,7 @@ function ListAllCitas() {
   }, [rol, api, auth.personaId]);
 
   return (
-    <div className="p-4 bg-slate-950 rounded-lg shadow-lg md:p-8">
+    <div className="p-4 bg-slate-200 rounded-lg shadow-lg md:p-8">
       <div className="flex flex-col md:flex-row">
         <div className="order-1 w-full p-4 overflow-x-auto bg-purple-600 rounded md:w-1/2 md:order-1 md:rounded-l-none">
           <h2 className="mb-4 text-lg font-semibold text-white">
@@ -99,7 +99,7 @@ function ListAllCitas() {
                   <td>{cita.funcionarioId}</td>
                   {rol === "Estudiante" && (
                     <td>
-                      <button onClick={() => handleSolicitarCita(cita.id)} className="text-yellow-400">
+                      <button onClick={() => handleSolicitarCita(cita.id)} className="w-full p-2 text-white bg-purple-300  rounded-md hover:bg-[#F7A834]  focus:outline-none focus:ring focus:ring-gray-700">
                         Solicitar Cita
                       </button>
                     </td>

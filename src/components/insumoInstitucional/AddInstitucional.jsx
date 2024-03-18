@@ -46,50 +46,55 @@ function AddInstitucional() {
 
 
   return (
-    <div>
-        <h2>Añadir Insumo Institucional</h2>
-        <form onSubmit={handleSubmit}>
+    <div  className="max-w-md p-8 mx-auto mt-10 bg-purple-600 rounded-lg shadow-lg">
+        <h2 className="mb-6 text-2xl font-bold text-white">Añadir Insumo Institucional</h2>
+        <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
-                <label>Nombre:</label>
+                <label className="block mb-1 text-sm font-medium text-white">Nombre:</label>
                 <input
                     type="text"
                     name="nombreInsumoInst"
                     value={institucional.nombreInsumoInst}
                     onChange={handleChange}
                     required
+                    className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
                 />
             </div>
             <div>
-                <label>Disponible:</label>
-                <select name="disponible" onChange={handleChange}>
+                <label className="block mb-1 text-sm font-medium text-white">Disponible:</label>
+                <select name="disponible" onChange={handleChange}
+                className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600">
                     <option value="">Selecciona una opción</option>
                     <option value={true}>Disponible</option>
                     <option value={false}>No Disponible</option>
                 </select>
             </div>
             <div>
-                <label>Cantidad:</label>
+                <label className="block mb-1 text-sm font-medium text-white">Cantidad:</label>
                 <input
                     type="text"
                     name="cantidad"
                     value={institucional.cantidad}
                     onChange={handleChange}
                     required
+                    className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
                 />
             </div>
             <div>
-                <label>Descripción:</label>
+                <label className="block mb-1 text-sm font-medium text-white">Descripción:</label>
                 <input
                     type="text"
                     name="descripcion"
                     value={institucional.descripcion}
                     onChange={handleChange}
                     required
+                    className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
                 />
             </div>
             <div>
-                <label>Categoría:</label>
-                <select name="cateInsumoId" onChange={handleChange}>
+                <label className="block mb-1 text-sm font-medium text-white">Categoría:</label>
+                <select name="cateInsumoId" onChange={handleChange}
+                className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600">
                     <option value="">Selecciona una categoría</option>
                     {categorias.map((categoria) => (
                         <option key={categoria.id} value={categoria.id}>
@@ -98,7 +103,7 @@ function AddInstitucional() {
                     ))}
                 </select>
             </div>
-            <button type="submit">Añadir Insumo Institucional</button>
+            <button className="w-full p-2 text-white bg-purple-300  rounded-md hover:bg-[#F7A834]  focus:outline-none focus:ring focus:ring-gray-700" type="submit">Añadir Insumo Institucional</button>
         </form>
     </div>
   )

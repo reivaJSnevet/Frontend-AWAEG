@@ -56,30 +56,32 @@ const handleSubmit = async (e) => {
 
 
   return (
-    <div>
-        <h2>Actualizar Categoría</h2>
+    <div className="p-8 bg-purple-400 rounded shadow-lg">
+        <h2 className="mb-6 text-3xl font-semibold text-white">Actualizar Categoría</h2>
         <form onSubmit={handleSubmit}>
-            <div>
-            <label>Nombre:</label>
+            <div className="mb-4">
+            <label className="block mb-2 text-sm font-semibold text-white">Nombre:</label>
             <input
                 type="text"
                 name="nombreCateInsumo"
                 value={formData.nombreCateInsumo}
                 onChange={handleChange}
                 required
+                 className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
             />
             </div>
-            <div>
-            <label>Descripción:</label>
+            <div className="mb-4">
+            <label className="block mb-2 text-sm font-semibold text-white">Descripción:</label>
             <input
                 type="text"
                 name="descripcionCateInsumo"
                 value={formData.descripcionCateInsumo}
                 onChange={handleChange}
                 required
+                 className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
             />
             </div>
-            <button type="submit">Actualizar Categoría</button>
+            <button className="w-full p-2 text-white bg-purple-300  rounded-md hover:bg-[#F7A834]  focus:outline-none focus:ring focus:ring-gray-700" type="submit">Actualizar Categoría</button>
         </form>
     </div>
   )

@@ -76,62 +76,68 @@ const UpdateGrupo = () => {
   };
 
   return (
-    <div className="update-grupo">
-      <h2>Update Grupo</h2>
+    <div className="p-8 bg-purple-400 rounded shadow-lg">
+      <h2 className="mb-6 text-3xl font-semibold text-white">Update Grupo</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Sección:</label>
+          <label className="block mb-2 text-sm font-semibold text-white">Sección:</label>
           <input
             type="text"
             name="seccion"
             value={formData.seccion}
             onChange={handleChange}
             required
+             className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
           />
         </div>
         <div>
-          <label>Ciclo:</label>
+          <label className="block mb-2 text-sm font-semibold text-white">Ciclo:</label>
           <input
             type="text"
             name="ciclo"
             value={formData.ciclo}
             onChange={handleChange}
             required
+             className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
           />
         </div>
         <div>
-          <label>Grado:</label>
+          <label className="block mb-2 text-sm font-semibold text-white">Grado:</label>
           <input
             type="text"
             name="grado"
             value={formData.grado}
             onChange={handleChange}
             required
+             className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
           />
         </div>
         <div>
-          <label>Aula:</label>
+          <label className="block mb-2 text-sm font-semibold text-white">Aula:</label>
           <input
             type="text"
             name="aula"
             value={formData.aula}
             onChange={handleChange}
             required
+             className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
           />
         </div>
         <div>
-          <label>Cantidad de Alumnos:</label>
+          <label className="block mb-2 text-sm font-semibold text-white">Cantidad de Alumnos:</label>
           <input
             type="number"
             name="cantAlumno"
             value={formData.cantAlumno}
             onChange={handleChange}
             required
+             className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
           />
         </div>
-        <div>
-          <label>Turno:</label>
-          <select name="turno" value={formData.turno} onChange={handleChange}>
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-semibold text-white">Turno:</label>
+          <select name="turno" value={formData.turno} onChange={handleChange}
+           className="w-full p-2 border rounded focus:outline-none focus:border-purple-400">
           <option value="" disabled>
                 Seleccione un profesor
               </option>
@@ -139,12 +145,13 @@ const UpdateGrupo = () => {
             <option value={true}>Tarde</option>
           </select>
         </div>
-        <div>
-        <label>Profesor:</label>
+        <div className="mb-4">
+        <label className="block mb-2 text-sm font-semibold text-white">Profesor:</label>
             <select
               name="funcionarioId"
               value={formData.funcionarioId}
               onChange={handleChange}
+               className="w-full p-2 border rounded focus:outline-none focus:border-purple-400"
             >
               <option value="" disabled>
                 Seleccione un profesor
@@ -157,7 +164,7 @@ const UpdateGrupo = () => {
               ))}
             </select>
         </div>
-        <button type="submit">Update</button>
+        <button className="w-full p-2 text-white bg-purple-300  rounded-md hover:bg-[#F7A834]  focus:outline-none focus:ring focus:ring-gray-700" type="submit">Update</button>
       </form>
     </div>
   );

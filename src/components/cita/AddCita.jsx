@@ -41,55 +41,60 @@ function AddCita() {
   };
 
   return (
-    <div>
-      <h2>Añadir Cita</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="max-w-md p-8 mx-auto mt-10 bg-purple-600 rounded-lg shadow-lg">
+      <h2 className="mb-6 text-2xl font-bold text-white">Añadir Cita</h2>
+      <form className="space-y-4" onSubmit={handleSubmit}>
         <div>
-          <label>Fecha y Hora:</label>
+          <label className="block mb-1 text-sm font-medium text-white">Fecha y Hora:</label>
           <input
             type="datetime-local"
             name="dia"
             value={cita.dia}
             onChange={handleInputChange}
+             className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
           />
         </div>
         <div>
-          <label>Asunto:</label>
+          <label className="block mb-1 text-sm font-medium text-white">Asunto:</label>
           <input
             type="text"
             name="asunto"
             value={cita.asunto}
             onChange={handleInputChange}
+             className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
           />
         </div>
         <div>
-          <label>Duración:</label>
+          <label className="block mb-1 text-sm font-medium text-white">Duración:</label>
           <input
             type="text"
             name="duracion"
             value={cita.duracion}
             onChange={handleInputChange}
+             className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
           />
         </div>
         <div>
-          <label>Ubicación:</label>
+          <label className="block mb-1 text-sm font-medium text-white">Ubicación:</label>
           <input
             type="text"
             name="ubicacion"
             value={cita.ubicacion}
             onChange={handleInputChange}
+             className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
           />
         </div>
         <div>
-          <label>ID del Funcionario:</label>
+          <label className="block mb-1 text-sm font-medium text-white">ID del Funcionario:</label>
           <input
             type="text"
             name="funcionarioId"
             value={cita.funcionarioId}
             onChange={handleInputChange}
+             className="w-full p-2 bg-white border border-purple-600 rounded-md focus:outline-none focus:ring focus:ring-purple-600"
           />
         </div>
-        <button type="submit">Agregar Cita</button>
+        <button className="w-full p-2 text-white bg-purple-300  rounded-md hover:bg-[#F7A834]  focus:outline-none focus:ring focus:ring-gray-700" type="submit">Agregar Cita</button>
       </form>
     </div>
   );
