@@ -31,6 +31,9 @@ const AddNota = () => {
         `clases/funcionarios/${personaId}`
       );
 
+      console.log("Secciones:", responseSecciones.data);
+        console.log("Materias:", responseMaterias.data);
+
       setSecciones(responseSecciones.data);
       setMaterias(responseMaterias.data);
     };
@@ -109,7 +112,7 @@ const AddNota = () => {
           <option value="">-- Selecciona --</option>
           {secciones.map((seccion, index) => (
             <option key={index} value={seccion.seccion}>
-              {seccion.seccion}
+              {seccion.seccion ?? "Sin sección"}
             </option>
           ))}
         </select>

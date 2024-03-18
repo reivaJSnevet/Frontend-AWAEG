@@ -1,131 +1,176 @@
-import { useState } from "react";
-import api from "../../services/api.config.js";
-import { useNavigate } from "react-router-dom";
-import {
-  Grid,
-  GridItem,
-  Heading,
-  FormControl,
-  FormLabel,
-  FormHelperText,
-  Checkbox,
-  Button,
-} from "@chakra-ui/react";
+import { useRef, useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import useLocalStorage from "../../hooks/useLocalStorage";
+import useAuth from "../../hooks/useAuth";
+import api from "../../database/api";
+import { useUserStore } from "../../stores";
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    correo: "",
-    contraseña: "",
-  });
+  const { setAuth, persist, setPersist } = useAuth();
+  const setUserStore = useUserStore((state) => state.setUser);
+
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname;
 
-  const { correo, contraseña } = formData;
+  const userRef = useRef();
+  const errRef = useRef();
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const [user, setUser] = useLocalStorage("user", "");
+  const [pwd, setPwd] = useState("");
+  const [errMsg, setErrMsg] = useState("");
+
+  useEffect(() => {
+    userRef.current.focus();
+  }, []);
+
+  useEffect(() => {
+    setErrMsg("");
+  }, [user, pwd]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted", correo, contraseña);
+
+    // Lógica para el inicio de sesión
     try {
-      const response = await api.post("/auth/login", { correo, contraseña });
+      const response = await api.post(
+        "/auth/login",
+        JSON.stringify({ userName: user, password: pwd }),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
 
-      const { token, usuario } = response.data;
-      const { role, id } = usuario;
+      console.log(response.data);
+      setUserStore(response.data);
 
-      localStorage.setItem("token", token); // Store token in local storage
-      localStorage.setItem("userId", id); // Almacena el ID del usuario en el local storage
+      const accessToken = response?.data.accessToken; //cambio
+      const role = response?.data?.user.Role.roleName; //cambio
+      const idUser = response?.data?.user.Person.id; //cambio
 
-      // Redirect user based on their role
-      if (role.nombre === "Estudiante") {
-        navigate("/perfil");
-      } else if (role.nombre === "Director" || role.nombre === "Maestra") {
-        navigate("/admin");
+      const roleArray = role ? [role] : ["anonimo"];
+
+      setAuth({ roleArray, accessToken, idUser });
+      console.log(roleArray, accessToken, idUser);
+
+      if (roleArray.includes("director") || roleArray.includes("Maestra")) {
+        navigate("/roles", { replace: true });
+      } else if (roleArray.includes("Estudiante")) {
+        navigate("/perfil", { replace: true });
+      } else {
+        console.log("Rol desconocido o ruta incorrecta para el rol");
+        navigate("/login", { replace: true });
       }
     } catch (error) {
-      console.error("Login error", error);
-      // Handle login error (e.g., show an error message)
+      console.log(error);
+      if (error.response) {
+        setErrMsg(error.response.data.message);
+      } else {
+        setErrMsg("Error desconocido");
+      }
+      errRef.current.focus();
     }
-    console.log("Form submitted");
   };
 
+  const togglePersist = () => {
+    setPersist((prev) => !prev);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("persist", persist);
+  }, [persist]);
+
   return (
-    <Grid
-      templateAreas={`"Main Rest"`}
-      gridTemplateColumns={"1fr 2fr"} // Utilizamos unidades flexibles para las columnas
-      w="100vw"
-      h="100vh"
-      color="black.900"
-      fontWeight="bold"
+    <section
+      className="flex flex-col items-center justify-center h-screen"
+      style={{ backgroundColor: "#1e1b4b" }}
     >
-      <GridItem
-        pl="2"
-        bg="purple.600"
-        area={"Main"}
-        className="flex flex-col items-center justify-center "
-      >
-        <Heading fontSize="5xl" className="mb-4">
-          Bienvenido
-        </Heading>
-        <div fontSize="3xl" className="mb-6">
-          Inicia Sesión con tu cuenta
-        </div>
-
-        <FormControl
+      <div className="relative">
+        <form
           onSubmit={handleSubmit}
-          className="flex flex-col items-center justify-center "
+          className="relative z-10 flex flex-col w-full max-w-md p-4 text-white rounded-lg shadow-md dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10 mt-n8"
+          style={{
+            backgroundColor: "rgba(0, 0, 0, 0.7)",
+            boxShadow:
+              "0 0 0 3px rgba(156, 72, 255, 0.7), 0 0 0 6px rgba(156, 72, 255, 0.5), 0 0 0 9px rgba(156, 72, 255, 0.3), 0 0 0 12px rgba(156, 72, 255, 0.2)",
+          }}
         >
-          <FormLabel color={"blackAlpha.900"}>Correo Electrónico:</FormLabel>
+          <div className="flex items-center justify-center mb-2">
+            <img src="/about.png" alt="Logo" className="h-60" />
+          </div>
+          <p
+            ref={errRef}
+            className={`${
+              errMsg ? "errmsg p-3" : "offscreen"
+            } bg-red-500 text-white p-0 rounded-md mt-2`}
+            role="alert"
+            aria-live="assertive"
+          >
+            {errMsg}
+          </p>
+          <label
+            htmlFor="username"
+            className="block text-sm font-medium text-white"
+          >
+            Usuario
+          </label>
           <input
-            id="email-address"
-            name="correo"
-            type="email"
-            placeholder="Escriba su correo electrónico"
-            size="md"
-            value={correo}
-            onChange={handleChange}
+            type="text"
+            id="username"
+            ref={userRef}
+            autoComplete="off"
+            onChange={(e) => setUser(e.target.value)}
+            value={user}
+            required
+            className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm dark:bg-gray-700 dark:text-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
-          <FormHelperText color={"blackAlpha.900"}>
-            Ejemplo: correo@gmail.com
-          </FormHelperText>
 
-          <FormLabel color={"blackAlpha.900"}>Contraseña:</FormLabel>
+          <label
+            htmlFor="password"
+            className="block mt-4 text-sm font-medium text-white"
+          >
+            Contraseña
+          </label>
           <input
-            id="contraseña"
-            name="contraseña"
             type="password"
-            placeholder="Escriba su contraseña"
-            size="md"
-            value={contraseña}
-            onChange={handleChange}
+            id="password"
+            autoComplete="off"
+            onChange={(e) => setPwd(e.target.value)}
+            value={pwd}
+            required
+            className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm dark:bg-gray-700 dark:text-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
-          <FormHelperText color={"blackAlpha.900"}>
-            Debe contener al menos 8 caracteres
-          </FormHelperText>
+          <button
+            type="submit"
+            className="px-10 py-2 mt-4 text-white transition-colors duration-300 bg-purple-400 bg-opacity-50 shadow-xl rounded-3xl backdrop-blur-md hover:bg-purple-600"
+          >
+            Iniciar sesión
+          </button>
+          <div className="flex items-center mt-2">
+            <input
+              type="checkbox"
+              id="persist"
+              onChange={togglePersist}
+              checked={persist}
+              className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 focus:ring focus:ring-opacity-50"
+            />
+            <label htmlFor="persist" className="ml-2 text-sm text-white">
+              Mantener sesión iniciada
+            </label>
+          </div>
 
-          <Checkbox className="mb-6">Mostrar Contraseña</Checkbox>
-
-          <Button type="submit" bg="gray.300" onClick={handleSubmit}>
-            Iniciar Seción
-          </Button>
-        </FormControl>
-      </GridItem>
-
-      <GridItem
-        pl="2"
-        area={"Rest"}
-        style={{
-          backgroundImage:
-            "url(https://images.alphacoders.com/109/1091572.png)",
-          backgroundSize: "cover", // La imagen de fondo cubrirá todo el elemento
-          backgroundPosition: "center center", // La imagen de fondo se centrará
-          backgroundRepeat: "no-repeat", // Evita la repetición de la imagen de fondo
-        }}
-      >
-        <div className="flex flex-col items-center justify-center h-full p-6"></div>
-      </GridItem>
-    </Grid>
+          <p className="mt-2 text-white">
+            ¿Olvidaste tu contraseña?{" "}
+            <span className="text-blue-500">
+              Recupérala <a href="/Admin">aquí</a>
+            </span>
+          </p>
+        </form>
+      </div>
+    </section>
   );
 };
 

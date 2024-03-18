@@ -1,15 +1,18 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./index.html", "./src/**/*.{js,jsx}"],
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
-    screens: {
-      sm: "640px",
-      md: "768px",
-      lg: "1024px",
-      xl: "1200px",
-      '2xl': "1536px",
+    extend: {
+        colors:{
+            customBlack: '#332941',
+            navy: '#3B3486',
+            customPurple: '#864AF9',
+            customYellow: '#F8E559',
+        }
     },
-    
   },
   plugins: [],
 }

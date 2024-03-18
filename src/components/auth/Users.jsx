@@ -15,23 +15,21 @@ const Users = () => {
 
     const getUsers = async () => {
       try {
-        const response = await axiosPrivate.get("/usuarios", {
+        const response = await axiosPrivate.get("/users", {
           signal: controller.signal
         });
         if(isMounted){
-            /* console.log(response.data); */
+     
           setUsers(response.data);
         }
 
-        /* console.log(response.data);
-        isMounted && setUsers(response.data); */
+     
       } catch (err) {
         if(isMounted){
-           /*  console.error(err); */
+        
             navigate("/login", { state: { from: location }, replace: true});
         }
-        /* console.error(err);
-        navigate("/login", { state: { from: location }, replace: true}); */
+
       }
     };
 

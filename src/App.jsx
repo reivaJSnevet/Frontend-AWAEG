@@ -1,20 +1,14 @@
-import {Routes, Route} from "react-router-dom";
-import Layout from "./components/Layout";
-import routes from "./routes/routes";
-
-import "./App.css";
-import { ChakraProvider } from "@chakra-ui/react";
+import { Routes, Route } from "react-router-dom";
+import routes from "./routes/MyRoutes.jsx";
+import Layout from "./components/layout/layout.jsx";
 
 function App() {
-
   return (
-    <ChakraProvider>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-            {routes}
-        </Route>   
-      </Routes>
-    </ChakraProvider>
+    <Routes>
+      {/* <Route path="/" element={<Layout />}> */}
+      {routes}
+      {/* </Route> */}
+    </Routes>
   );
 }
 

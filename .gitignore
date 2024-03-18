@@ -7,8 +7,6 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-memory.txt
-
 node_modules
 dist
 dist-ssr
