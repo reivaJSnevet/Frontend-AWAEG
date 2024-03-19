@@ -126,7 +126,6 @@ function StudentsTable() {
               onClick={() => {
                 setEditStudent(params.row);
                 handleOpenModal(true);
-                console.log(editStudent);
               }}
             />
             <GridActionsCellItem
@@ -389,8 +388,9 @@ function StudentsTable() {
             }}
             spacing={1}
             margin={1}
+            item={true}
           >
-            <Grid item xs={12}>
+            <Grid item={true} xs={12}>
               <TextField
                 disabled
                 fullWidth
@@ -401,7 +401,7 @@ function StudentsTable() {
                 variant="outlined"
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item={true} xs={12} sm={6}>
               <TextField
                 fullWidth
                 type="text"
@@ -412,7 +412,7 @@ function StudentsTable() {
                 onChange={handleInputChange}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item={true} xs={12} sm={6}>
               <TextField
                 fullWidth
                 type="text"
@@ -423,7 +423,7 @@ function StudentsTable() {
                 onChange={handleInputChange}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item={true} xs={12} sm={6}>
               <TextField
                 fullWidth
                 type="text"
@@ -434,7 +434,7 @@ function StudentsTable() {
                 onChange={handleInputChange}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item={true} xs={12} sm={6}>
               <TextField
                 fullWidth
                 type="text"
@@ -445,7 +445,7 @@ function StudentsTable() {
                 onChange={handleInputChange}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item={true} xs={12}>
               <TextField
                 type="date"
                 name="birthDate"
@@ -456,7 +456,7 @@ function StudentsTable() {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item={true} xs={12}>
               <FormLabel id="gender">Genero</FormLabel>
               <RadioGroup
                 aria-labelledby="gender"
@@ -478,7 +478,7 @@ function StudentsTable() {
               </RadioGroup>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item={true} xs={12}>
               <TextField
                 fullWidth
                 type="text"
@@ -502,8 +502,9 @@ function StudentsTable() {
             }}
             spacing={1}
             margin={1}
+            item={true}
           >
-            <Grid item xs={12} sm={6}>
+            <Grid item={true} xs={12} sm={6}>
               <TextField
               disabled
                 fullWidth
@@ -516,7 +517,7 @@ function StudentsTable() {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid item={true} xs={12} sm={6}>
               <TextField
                 fullWidth
                 type="text"
@@ -528,7 +529,7 @@ function StudentsTable() {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid item={true} xs={12} sm={6}>
               <TextField
                 fullWidth
                 type="text"
@@ -539,7 +540,7 @@ function StudentsTable() {
                 onChange={handleInputChange}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item={true} xs={12} sm={6}>
               <TextField
                 select
                 fullWidth
@@ -555,7 +556,7 @@ function StudentsTable() {
                 <option value="especial">Especial</option>
               </TextField>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item={true} xs={12} sm={6}>
                 <Autocomplete
                     disablePortal
                     options={groups}

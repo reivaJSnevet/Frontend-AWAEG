@@ -19,7 +19,7 @@ import Box from "@mui/material/Box";
 
 function ApplicationsTable() {
     const [files, setFiles] = useState([]);
-    const [preRegister, setPreRegister] = useState(false);
+    const [preRegister, setPreRegister] = useState([]);
     const [loans, setLoans] = useState([]);
     const [reset, setReset] = useState(false);
 
@@ -102,7 +102,6 @@ function ApplicationsTable() {
                                     handleDetailsFiles(params.row);
                                 }
                                 if (params.row.type === "preregistration") {
-                                    console.log(params.row);
                                     handleDetailsPreRegister(params.row);
                                 }
                                 if (params.row.type === "loan") {
@@ -147,7 +146,6 @@ function ApplicationsTable() {
 
     const handleApprove = async (application) => {
         try {
-            console.log(application);
             await api.put(`/applications/${application.applicationId}`, {
                 status: "approved",
             });
@@ -240,7 +238,6 @@ function ApplicationsTable() {
 
     const handleDetailsFiles = (application) => {
         setDetailsApplication(application);
-        console.log(detailsApplication);
         handleOpenDetails();
     };
 
@@ -251,7 +248,7 @@ function ApplicationsTable() {
 
     const handleDetailsLoan = (application) => {
         setDetailsApplication(application);
-        console.log(detailsApplication);
+
         handleOpenDetailsLoan();
     };
 
