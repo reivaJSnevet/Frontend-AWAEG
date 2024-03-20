@@ -143,6 +143,15 @@ const ListOptions = () => {
                         <ListItemText primary={"Insumos"} />
                     </ListItemButton>
                 </ListItem>
+
+                <ListItem disablePadding>
+                    <ListItemButton component={Link} to="appointment">
+                        <ListItemIcon>
+                            <ScheduleIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={"Citas"} />
+                    </ListItemButton>
+                </ListItem>
             </div>
             <div style={{ flexGrow: 1 }}>
                 <ListItem disablePadding>
