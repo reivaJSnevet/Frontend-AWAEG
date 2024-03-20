@@ -272,7 +272,7 @@ function SuppliesTable() {
             spacing={1}
             margin={1}
           >
-            <Grid xs={12}>
+            <Grid  item xs={12}>
               <TextField
                 fullWidth
                 type="text"
@@ -282,7 +282,7 @@ function SuppliesTable() {
                 onChange={handleEditInputChange}
               />
             </Grid>
-            <Grid xs={12}>
+            <Grid item xs={12}>
               <TextField
                 fullWidth
                 type="text"
@@ -292,7 +292,7 @@ function SuppliesTable() {
                 onChange={handleEditInputChange}
               />
             </Grid>
-            <Grid xs={12}>
+            <Grid item xs={12}>
               <TextField
                 select
                 fullWidth
@@ -307,7 +307,7 @@ function SuppliesTable() {
                 <option value="inactivo">Inactivo</option>
               </TextField>
             </Grid>
-            <Grid xs={12}>
+            <Grid item xs={12}>
               <TextField
                 fullWidth
                 type="text"
