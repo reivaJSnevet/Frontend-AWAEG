@@ -128,7 +128,6 @@ function CoursesTable() {
       try {
         const responseGroup = await axiosPrivate.get("/groups");
         setGroups(responseGroup.data);
-        console.log(groups);
       } catch (error) {
         console.error("Error fetching grupos:", error);
       }
@@ -199,7 +198,6 @@ function CoursesTable() {
           );
           setEvents(formattedEvents);
         } else {
-          console.log("No se encontraron datos de horarios.");
           setEvents([]);
         }
       } catch (error) {
@@ -394,14 +392,14 @@ function CoursesTable() {
         weekends={false}
         selectMirror={true}
         select={(info) => {
-          console.log("select", info);
+
           setEvent({
             title: "",
             startTime: info.startStr,
             endTime: info.endStr,
             weekDay: info.start.toString().split(" ")[0],
           });
-          console.log(info.start);
+
           setOpenModalAdd(true);
         }}
         eventContent={(eventInfo) => {
@@ -473,14 +471,14 @@ function CoursesTable() {
           </div>
           <Grid
             container
-            item="true"
             sx={{
               width: "auto",
             }}
             spacing={1}
             margin={1}
+            item={true}
           >
-            <Grid item="true" xs={12} sm={6}>
+            <Grid item={true} xs={12} sm={6}>
               <TextField
                 disabled
                 fullWidth
@@ -494,7 +492,7 @@ function CoursesTable() {
               />
             </Grid>
 
-            <Grid item="true" xs={12} sm={6}>
+            <Grid item={true} xs={12} sm={6}>
               <TextField
                 disabled
                 fullWidth
@@ -508,7 +506,7 @@ function CoursesTable() {
               />
             </Grid>
 
-            <Grid item="true" xs={12}>
+            <Grid item={true} xs={12}>
               <Autocomplete
                 disablePortal
                 options={teachers}
@@ -538,7 +536,7 @@ function CoursesTable() {
               />
             </Grid>
 
-            <Grid item="true" xs={12}>
+            <Grid item={true} xs={12}>
               <Autocomplete
                 disablePortal
                 options={subjects}
@@ -569,7 +567,7 @@ function CoursesTable() {
               />
             </Grid>
 
-            <Grid item="true" xs={12}>
+            <Grid item={true} xs={12}>
               <TextField
                 required
                 select
@@ -587,7 +585,7 @@ function CoursesTable() {
               </TextField>
             </Grid>
 
-            <Grid item="true" xs={12}>
+            <Grid item={true} xs={12}>
               <Button
                 type="submit"
                 variant="contained"

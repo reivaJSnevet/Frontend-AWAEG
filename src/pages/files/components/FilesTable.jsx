@@ -54,7 +54,6 @@ function FilesTable() {
       try {
         const response = await axiosPrivate.get(`/files/${selectedSection}`);
         setFiles(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error("Error fetching files", error.message);
       }

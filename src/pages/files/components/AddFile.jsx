@@ -30,7 +30,6 @@ function AddFile() {
                 const reponse = await api.get("/groups");
                 const data = reponse.data;
                 setSections(data);
-                console.log(userStore.user.personId);
             } catch (error) {
                 console.error(error);
             }
@@ -46,7 +45,6 @@ function AddFile() {
 
     const handleUpload = async () => {
         try {
-            console.log(userStore.user.personId);
 
             const formData = new FormData();
             formData.append("file", file);

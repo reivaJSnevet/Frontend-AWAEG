@@ -6,10 +6,8 @@ import {
   GridRowModes,
   GridActionsCellItem,
 } from "@mui/x-data-grid";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
-import AddRole from "./AddRole";
-import * as React from "react";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
 import EditIcon from "@mui/icons-material/Edit";
@@ -116,8 +114,8 @@ function Role() {
                 label="Delete"
                 onClick={() => { 
                   setId(id);
-                  handleClickOpen(id), 
-                  console.log(id)}
+                  handleClickOpen(id)
+                }
                 }
                 color="inherit"
             />,
@@ -142,10 +140,10 @@ function Role() {
   };
 
 
-  const [rows, setRows] = React.useState(roles);
-  const [rowModesModel, setRowModesModel] = React.useState({});
+  const [rows, setRows] = useState(roles);
+  const [rowModesModel, setRowModesModel] = useState({});
 
-  const [snackbar, setSnackbar] = React.useState(null);
+  const [snackbar, setSnackbar] = useState(null);
 
   const handleCloseSnackbar = () => setSnackbar(null);
 
@@ -178,7 +176,6 @@ function Role() {
   };
   
   const handleDeleteClick = (id) => async () => {
-    console.log("handleDeleteClick", id);
     try {
       await axiosPrivate.delete(`/roles/${id}`);
       setRoles(roles.filter((role) => role.roleId !== id));
@@ -250,13 +247,12 @@ function Role() {
     return newRow;
   };
 
-  const handleProcessRowUpdateError = React.useCallback((error) => {
+  const handleProcessRowUpdateError = useCallback((error) => {
     setSnackbar({ children: error.message, severity: "error" });
   }, []);
 
   return (
     <>
-      <AddRole />
       <DataGrid
         sx={{
           boxShadow: 2,

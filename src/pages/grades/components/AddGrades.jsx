@@ -326,7 +326,7 @@ function AddGrades() {
                   onChange={handleInputChange}
                   SelectProps={{ native: true }}
                 >
-                  <option value="">Selecciona una opción</option>
+                  <option value="">Seleccione un periodo</option>
                   <option value="primero">Primero</option>
                   <option value="segundo">Segundo</option>
                   <option value="tercero">Tercero</option>

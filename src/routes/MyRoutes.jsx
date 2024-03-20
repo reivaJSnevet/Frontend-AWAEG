@@ -3,7 +3,7 @@ import Login from "../pages/login/Login";
 import { Route } from "react-router-dom";
 import PersistLogin from "../components/auth/PersistLogin";
 import RequireAuth from "../components/auth/RequireAuth";
-import Role from "../pages/Roles/components/ListarRoles";
+import Roles from "../pages/Roles/Roles";
 import UsersTable from "../pages/users/components/UsersTable";
 import StudentProfile from "../pages/profiles/students/StudentProfile";
 import Functionaries from "../pages/functionaries/Functionaries";
@@ -25,7 +25,7 @@ const routes = (
     <Route element={<PersistLogin />}>
       <Route element={<RequireAuth allowedRoles={["superadmin", "director", "maestra"]} />}>
         <Route element={<Layout />}>
-          <Route path="roles/" element={<Role />} />
+          <Route path="roles/" element={<Roles />} />
           <Route path="users/" element={<UsersTable />} />
           <Route path="functionaries/" element={<Functionaries />} />
           <Route path="students/" element={<Students />} />

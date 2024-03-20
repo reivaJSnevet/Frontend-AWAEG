@@ -144,7 +144,7 @@ function AddFunctonary() {
               Información Personal
             </Typography>
             <Grid container spacing={2} margin={1}>
-              <Grid item xs={12}>
+              <Grid item={"true"} xs={12}>
                 <TextField
                   required
                   fullWidth
@@ -173,7 +173,7 @@ function AddFunctonary() {
                   onChange={handleInputChange}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item={"true"} xs={12} sm={6}>
                 <TextField
                   required
                   fullWidth
@@ -202,7 +202,7 @@ function AddFunctonary() {
                   onChange={handleInputChange}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item={"true"} xs={12} sm={6}>
                 <TextField
                   fullWidth
                   error={
@@ -230,7 +230,7 @@ function AddFunctonary() {
                   onChange={handleInputChange}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item={"true"} xs={12} sm={6}>
                 <TextField
                   required
                   fullWidth
@@ -259,7 +259,7 @@ function AddFunctonary() {
                   onChange={handleInputChange}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item={"true"} xs={12} sm={6}>
                 <TextField
                   required
                   fullWidth
@@ -288,7 +288,7 @@ function AddFunctonary() {
                   onChange={handleInputChange}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item={"true"} xs={12}>
                 <TextField
                   required
                   error={
@@ -317,7 +317,7 @@ function AddFunctonary() {
                 />
               </Grid>
 
-              <Grid item xs={12}>
+              <Grid item={"true"} xs={12}>
                 <FormLabel id="gender">Genero</FormLabel>
                 <RadioGroup
                   aria-labelledby="gender"
@@ -339,7 +339,7 @@ function AddFunctonary() {
                 </RadioGroup>
               </Grid>
 
-              <Grid item xs={12}>
+              <Grid item={"true"} xs={12}>
                 <TextField
                   required
                   fullWidth
@@ -375,7 +375,7 @@ function AddFunctonary() {
               Información Laboral
             </Typography>
             <Grid container spacing={2} margin={1}>
-              <Grid item xs={12} sm={6}>
+              <Grid item={"true"} xs={12} sm={6}>
                 <TextField
                   required
                   fullWidth
@@ -405,7 +405,7 @@ function AddFunctonary() {
                 />
               </Grid>
 
-              <Grid item xs={12} sm={6}>
+              <Grid item={"true"} xs={12} sm={6}>
                 <TextField
                   required
                   fullWidth
@@ -435,7 +435,7 @@ function AddFunctonary() {
                 />
               </Grid>
 
-              <Grid item xs={12} sm={6}>
+              <Grid item={"true"} xs={12} sm={6}>
                 <TextField
                   required
                   fullWidth
@@ -464,7 +464,7 @@ function AddFunctonary() {
                   onChange={handleInputChange}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item={"true"} xs={12} sm={6}>
                 <TextField
                   fullWidth
                   required
@@ -494,7 +494,7 @@ function AddFunctonary() {
                   onChange={handleInputChange}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item={"true"} xs={12} sm={6}>
                 <TextField
                   required
                   fullWidth
@@ -523,7 +523,7 @@ function AddFunctonary() {
                   onChange={handleInputChange}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item={"true"} xs={12} sm={6}>
                 <TextField
                   required
                   fullWidth
