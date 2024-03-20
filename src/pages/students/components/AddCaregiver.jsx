@@ -95,9 +95,7 @@ function AddCaregiverStudent() {
         children: "Encargado agregado correctamente",
         severity: "success",
       });
-      window.location.reload();
     } catch (err) {
-      resetFormData();
       setSnackbar({
         children: "Error al agregar el encargado",
         severity: "error",

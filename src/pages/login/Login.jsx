@@ -56,10 +56,10 @@ const Login = () => {
       setAuth({ roleArray, accessToken, idUser });
       console.log(roleArray, accessToken, idUser);
 
-      if (roleArray.includes("director") || roleArray.includes("Maestra")) {
+      if (roleArray.includes("director") || roleArray.includes("maestra")) {
         navigate("/roles", { replace: true });
-      } else if (roleArray.includes("Estudiante")) {
-        navigate("/perfil", { replace: true });
+      } else if (roleArray.includes("estudiante")) {
+        navigate("/profile", { replace: true });
       } else {
         console.log("Rol desconocido o ruta incorrecta para el rol");
         navigate("/login", { replace: true });

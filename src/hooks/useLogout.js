@@ -10,6 +10,9 @@ const useLogout = () => {
             const response = await api("/logout", {
                 withCredentials: true,
             });
+
+            
+            localStorage.removeItem("user-storage");
         } catch (err) {
             console.error(err);
         }
