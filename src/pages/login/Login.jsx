@@ -44,7 +44,7 @@ const Login = () => {
         }
       );
 
-      console.log(response.data);
+
       setUserStore(response.data);
 
       const accessToken = response?.data.accessToken; //cambio
@@ -54,7 +54,7 @@ const Login = () => {
       const roleArray = role ? [role] : ["anonimo"];
 
       setAuth({ roleArray, accessToken, idUser });
-      console.log(roleArray, accessToken, idUser);
+     
 
       if (roleArray.includes("director") || roleArray.includes("maestra")) {
         navigate("/roles", { replace: true });

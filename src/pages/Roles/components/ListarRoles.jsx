@@ -254,14 +254,14 @@ function Role() {
   return (
     <>
       <DataGrid
-        sx={{
-          boxShadow: 2,
-          border: 2,
-          borderColor: "primary.light",
-          "& .MuiDataGrid-cell:hover": {
-            color: "primary.main",
-          },
-        }}
+          sx={{
+            boxShadow: 2,
+            border: 2,
+            borderColor: "transparent",
+            "& .MuiDataGrid-cell:hover": {
+              color: "primary.main",
+            },
+          }}
         style={{ height: 500, width: "100%" }}
         localeText={esES.components.MuiDataGrid.defaultProps.localeText}
         rows={roles}
