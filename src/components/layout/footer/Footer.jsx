@@ -24,7 +24,7 @@ const Footer = () => {
                 <span>Escuela Guayabal</span>
               </li>
               <li className="items-center p-4 py-1">
-                <span>Correo Electronico: esc.guayabal@mep.go.cr</span>
+                <span>esc.guayabal@mep.go.cr</span>
               </li>
             </ul>
           </div>

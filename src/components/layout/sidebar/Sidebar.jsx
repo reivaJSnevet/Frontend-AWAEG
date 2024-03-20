@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -21,9 +21,14 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import EscalatorWarningIcon from "@mui/icons-material/EscalatorWarning";
 import Divider from "@mui/material/Divider";
 import { ListItemIcon } from "@mui/material";
+import { useUserStore } from "../../../stores";
+import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
+import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
+import GradeIcon from '@mui/icons-material/Grade';
 import InventoryIcon from '@mui/icons-material/Inventory';
 
 const ListOptions = () => {
+    const user = useUserStore((state) => state.user);
     const logout = useLogout();
     const nav = useNavigate();
 
@@ -40,101 +45,99 @@ const ListOptions = () => {
                     flexDirection: "column",
                 }}
             >
-                <ListItem disablePadding>
-                    <ListItemButton component={Link} to="roles">
-                        <ListItemIcon>
-                            <VpnKeyIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={"Roles"} />
-                    </ListItemButton>
-                </ListItem>
-                <ListItem disablePadding>
-                    <ListItemButton component={Link} to="users">
-                        <ListItemIcon>
-                            <AccountCircleIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={"Usuarios"} />
-                    </ListItemButton>
-                </ListItem>
-                <Divider variant="middle" />
-                <ListItem disablePadding>
-                    <ListItemButton component={Link} to="functionaries">
-                        <ListItemIcon>
-                            <GroupIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={"Funcionarios"} />
-                    </ListItemButton>
-                </ListItem>
+                {user?.user?.Role?.roleName === "director" ? (
+                    <div>
+                        <ListItem disablePadding>
+                            <ListItemButton component={Link} to="roles">
+                                <ListItemIcon>
+                                    <VpnKeyIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={"Roles"} />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton component={Link} to="users">
+                                <ListItemIcon>
+                                    <AccountCircleIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={"Usuarios"} />
+                            </ListItemButton>
+                        </ListItem>
+                        <Divider variant="middle" />
+                        <ListItem disablePadding>
+                            <ListItemButton component={Link} to="functionaries">
+                                <ListItemIcon>
+                                    <GroupIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={"Funcionarios"} />
+                            </ListItemButton>
+                        </ListItem>
 
-                <ListItem disablePadding>
-                    <ListItemButton component={Link} to="groups">
-                        <ListItemIcon>
-                            <GroupsIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={"Secciones"} />
-                    </ListItemButton>
-                </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton component={Link} to="groups">
+                                <ListItemIcon>
+                                    <GroupsIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={"Secciones"} />
+                            </ListItemButton>
+                        </ListItem>
 
-              
-                <Divider variant="middle" />
+                        <Divider variant="middle" />
 
-                <ListItem disablePadding>
-                    <ListItemButton component={Link} to="caregivers">
-                        <ListItemIcon>
-                            <EscalatorWarningIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={"Encargados"} />
-                    </ListItemButton>
-                </ListItem>
-                <ListItem disablePadding>
-                    <ListItemButton component={Link} to="students">
-                        <ListItemIcon>
-                            <SchoolIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={"Estudiantes"} />
-                    </ListItemButton>
-                </ListItem>
-                
-                <Divider variant="middle" />
-                
-                <ListItem disablePadding>
-                    <ListItemButton component={Link} to="grades">
-                        <ListItemIcon>
-                            <NoteIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={"Calificaciones"} />
-                    </ListItemButton>
-                </ListItem>
-                <ListItem disablePadding>
-                    <ListItemButton component={Link} to="courses">
-                        <ListItemIcon>
-                            <ScheduleIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={"Horarios"} />
-                    </ListItemButton>
-                </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton component={Link} to="caregivers">
+                                <ListItemIcon>
+                                    <EscalatorWarningIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={"Encargados"} />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton component={Link} to="students">
+                                <ListItemIcon>
+                                    <SchoolIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={"Estudiantes"} />
+                            </ListItemButton>
+                        </ListItem>
 
-                <Divider variant="middle" />
-                <ListItem disablePadding>
-                    <ListItemButton component={Link} to="files">
-                        <ListItemIcon>
-                            <FolderIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={"Archivos"} />
-                    </ListItemButton>
-                </ListItem>
-             
-                <ListItem disablePadding>
-                    <ListItemButton component={Link} to="applications">
-                        <ListItemIcon>
-                            <AssignmentIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={"Solicitudes"} />
-                    </ListItemButton>
-                </ListItem>
+                        <Divider variant="middle" />
 
-                <Divider variant="middle" />
+                        <ListItem disablePadding>
+                            <ListItemButton component={Link} to="grades">
+                                <ListItemIcon>
+                                    <NoteIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={"Calificaciones"} />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton component={Link} to="courses">
+                                <ListItemIcon>
+                                    <ScheduleIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={"Horarios"} />
+                            </ListItemButton>
+                        </ListItem>
 
+                        <Divider variant="middle" />
+                        <ListItem disablePadding>
+                            <ListItemButton component={Link} to="files">
+                                <ListItemIcon>
+                                    <FolderIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={"Archivos"} />
+                            </ListItemButton>
+                        </ListItem>
+
+                        <ListItem disablePadding>
+                            <ListItemButton component={Link} to="applications">
+                                <ListItemIcon>
+                                    <AssignmentIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={"Solicitudes"} />
+                            </ListItemButton>
+                        </ListItem>
                 <ListItem disablePadding>
                     <ListItemButton component={Link} to="supplies">
                         <ListItemIcon>
@@ -144,6 +147,7 @@ const ListOptions = () => {
                     </ListItemButton>
                 </ListItem>
 
+
                 <ListItem disablePadding>
                     <ListItemButton component={Link} to="appointment">
                         <ListItemIcon>
@@ -152,6 +156,76 @@ const ListOptions = () => {
                         <ListItemText primary={"Citas"} />
                     </ListItemButton>
                 </ListItem>
+
+                    </div>
+                ) : user?.user?.Role?.roleName === "maestra" ? (
+                    <div>
+                        <ListItem disablePadding>
+                            <ListItemButton component={Link} to="files">
+                                <ListItemIcon>
+                                    <FolderIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={"Archivos"} />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton component={Link} to="grades">
+                                <ListItemIcon>
+                                    <NoteIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={"Calificaciones"} />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton component={Link} to="applications">
+                                <ListItemIcon>
+                                    <AssignmentIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={"Solicitudes"} />
+                            </ListItemButton>
+                        </ListItem>
+                    </div>
+                ) : (
+                    <div>
+                        <ListItem disablePadding>
+                            <ListItemButton component={Link} to="profile">
+                                <ListItemIcon>
+                                    <AssignmentIndIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={"Perfil"} />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton component={Link} to="mygrades">
+                                <ListItemIcon>
+                                    <GradeIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={"Notas"} />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton component={Link} to="schedule">
+                                <ListItemIcon>
+                                    <ScheduleIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={"Mi horario"} />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton
+                                component={Link}
+                                to="preregistration"
+                            >
+                                <ListItemIcon>
+                                    <AppRegistrationIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={"Prematrícula"} />
+                            </ListItemButton>
+                        </ListItem>
+
+                    </div>
+                )}
+
             </div>
             <div style={{ flexGrow: 1 }}>
                 <ListItem disablePadding>

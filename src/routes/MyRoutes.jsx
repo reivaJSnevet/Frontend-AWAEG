@@ -15,6 +15,9 @@ import Grades from "../pages/grades/Grades";
 import Courses from "../pages/courses/Courses"
 import Files from "../pages/files/Files"
 import Applications from "../pages/applications/Applications";
+import MyGrades from "../pages/profiles/students/components/MyGrades";
+import MySchedule from "../pages/profiles/students/components/MySchedule";
+import PreRegistration from "../pages/profiles/students/components/PreRegistration";
 import Supplies from "../pages/supplies/Supplies";
 import Appointment from "../pages/appointment/Appointment";
 
@@ -42,8 +45,13 @@ const routes = (
         </Route>
       </Route>
       <Route element={<RequireAuth allowedRoles={["estudiante"]}/>}>
-      <Route element={<Layout />}>
-        <Route path="perfil/" element={<StudentProfile />} />
+        <Route element={<Layout />}>
+            <Route path="profile/" element={<StudentProfile />}/>
+            <Route path="mygrades/" element={<MyGrades />} />
+            <Route path="schedule/" element={<MySchedule/>} />
+            <Route path="preregistration/" element={<PreRegistration/>} />
+            
+            
         </Route>
       </Route>
     </Route>
