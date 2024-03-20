@@ -17,10 +17,9 @@ import Typography from "@mui/material/Typography";
 import { RadioGroup, Radio, FormControlLabel, FormLabel } from "@mui/material";
 import Grid from "@mui/system/Unstable_Grid";
 
-
 export const useFormStore = create((set) => ({
   formData: {
-     id: "",
+    id: "",
     name: "",
     middleName: "",
     lastName: "",
@@ -51,7 +50,6 @@ export const useFormStore = create((set) => ({
 }));
 
 function AddCaregiverStudent() {
-
   const api = useAxiosPrivate();
   const { formData, setFormData, resetFormData } = useFormStore();
   const [error, setError] = useState({
@@ -70,11 +68,7 @@ function AddCaregiverStudent() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const {
-        phoneNumber,
-        relationTo,
-        ...rest }
-         = formData;
+    const { phoneNumber, relationTo, ...rest } = formData;
     try {
       await api.post("/caregivers", {
         ...rest,
@@ -89,7 +83,6 @@ function AddCaregiverStudent() {
         error: false,
         validations: [],
       });
-
 
       setSnackbar({
         children: "Encargado agregado correctamente",
@@ -121,37 +114,37 @@ function AddCaregiverStudent() {
           Información del Encargado
         </Typography>
 
-        <Grid container spacing={2} margin={1}>
-          <Grid item xs={12}>
+        <Grid  container spacing={2} margin={1} >
+          <Grid  xs={12}>
             <TextField
-               required
-               fullWidth
-               error={
-                 (formData.id === "" ||
-                   error.validations.some(
-                     (validation) => validation.field === "id"
-                   )) &&
-                 error.error
-               }
-               type="text"
-               name="id"
-               value={formData.id}
-               label="Cedula"
-               variant="outlined"
-               helperText={
-                 formData.userName === "" ||
-                 error.validations.some(
-                   (validation) => validation.field === "id"
-                 )
-                   ? error.validations.find(
-                       (validation) => validation.field === "id"
-                     )?.message
-                   : "Agregar Cedula"
-               }
-               onChange={handleInputChange}
-               />
+              required
+              fullWidth
+              error={
+                (formData.id === "" ||
+                  error.validations.some(
+                    (validation) => validation.field === "id"
+                  )) &&
+                error.error
+              }
+              type="text"
+              name="id"
+              value={formData.id}
+              label="Cedula"
+              variant="outlined"
+              helperText={
+                formData.userName === "" ||
+                error.validations.some(
+                  (validation) => validation.field === "id"
+                )
+                  ? error.validations.find(
+                      (validation) => validation.field === "id"
+                    )?.message
+                  : "Agregar Cedula"
+              }
+              onChange={handleInputChange}
+            />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid  xs={12} sm={6}>
             <TextField
               required
               fullWidth
@@ -180,7 +173,7 @@ function AddCaregiverStudent() {
               onChange={handleInputChange}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid  xs={12} sm={6}>
             <TextField
               fullWidth
               error={
@@ -208,7 +201,7 @@ function AddCaregiverStudent() {
               onChange={handleInputChange}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid  xs={12} sm={6}>
             <TextField
               required
               fullWidth
@@ -237,7 +230,7 @@ function AddCaregiverStudent() {
               onChange={handleInputChange}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid  xs={12} sm={6}>
             <TextField
               required
               fullWidth
@@ -266,7 +259,7 @@ function AddCaregiverStudent() {
               onChange={handleInputChange}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid  xs={12}>
             <TextField
               required
               error={
@@ -295,7 +288,7 @@ function AddCaregiverStudent() {
             />
           </Grid>
 
-          <Grid item xs={12}>
+          <Grid  xs={12}>
             <FormLabel id="gender">Genero</FormLabel>
             <RadioGroup
               aria-labelledby="gender"
@@ -304,12 +297,20 @@ function AddCaregiverStudent() {
               onChange={handleInputChange}
               row
             >
-              <FormControlLabel value="M" control={<Radio />} label="Masculino" />
-              <FormControlLabel value="F" control={<Radio />} label="Femenino" />
+              <FormControlLabel
+                value="M"
+                control={<Radio />}
+                label="Masculino"
+              />
+              <FormControlLabel
+                value="F"
+                control={<Radio />}
+                label="Femenino"
+              />
             </RadioGroup>
           </Grid>
 
-          <Grid item xs={12}>
+          <Grid  xs={12}>
             <TextField
               required
               fullWidth
@@ -339,7 +340,7 @@ function AddCaregiverStudent() {
             />
           </Grid>
 
-          <Grid item xs={12} sm={6}>
+          <Grid  xs={12} sm={6}>
             <TextField
               required
               select
@@ -383,7 +384,7 @@ function AddCaregiverStudent() {
             </TextField>
           </Grid>
 
-          <Grid item xs={12} sm={6}>
+          <Grid   xs={12} sm={6}>
             <TextField
               required
               fullWidth
@@ -418,7 +419,6 @@ function AddCaregiverStudent() {
           Agregar Encargado
         </Button>
       </Box>
-      
 
       <div>
         {!!snackbar && (

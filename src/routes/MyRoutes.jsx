@@ -3,7 +3,7 @@ import Login from "../pages/login/Login";
 import { Route } from "react-router-dom";
 import PersistLogin from "../components/auth/PersistLogin";
 import RequireAuth from "../components/auth/RequireAuth";
-import Role from "../pages/Roles/components/ListarRoles";
+import Roles from "../pages/Roles/Roles";
 import UsersTable from "../pages/users/components/UsersTable";
 import StudentProfile from "../pages/profiles/students/StudentProfile";
 import Functionaries from "../pages/functionaries/Functionaries";
@@ -18,6 +18,7 @@ import Applications from "../pages/applications/Applications";
 import MyGrades from "../pages/profiles/students/components/MyGrades";
 import MySchedule from "../pages/profiles/students/components/MySchedule";
 import PreRegistration from "../pages/profiles/students/components/PreRegistration";
+import Supplies from "../pages/supplies/Supplies";
 
 
 const routes = (
@@ -28,7 +29,7 @@ const routes = (
     <Route element={<PersistLogin />}>
       <Route element={<RequireAuth allowedRoles={["superadmin", "director", "maestra"]} />}>
         <Route element={<Layout />}>
-          <Route path="roles/" element={<Role />} />
+          <Route path="roles/" element={<Roles />} />
           <Route path="users/" element={<UsersTable />} />
           <Route path="functionaries/" element={<Functionaries />} />
           <Route path="students/" element={<Students />} />
@@ -38,6 +39,7 @@ const routes = (
           <Route path="courses" element={<Courses />} />
           <Route path="files" element={<Files/>} />
           <Route path="applications" element={<Applications/>} />
+          <Route path="supplies" element={<Supplies/>} />
         </Route>
       </Route>
       <Route element={<RequireAuth allowedRoles={["estudiante"]}/>}>

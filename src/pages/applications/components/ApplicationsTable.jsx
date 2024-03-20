@@ -23,7 +23,7 @@ function ApplicationsTable() {
     const user = useUserStore((state) => state.user);
     const [preregisterState, setPreregisterState] = useState(false);
     const [files, setFiles] = useState([]);
-    const [preRegister, setPreRegister] = useState(false);
+    const [preRegister, setPreRegister] = useState([]);
     const [loans, setLoans] = useState([]);
     const [reset, setReset] = useState(false);
 
@@ -117,7 +117,6 @@ function ApplicationsTable() {
                                     handleDetailsFiles(params.row);
                                 }
                                 if (params.row.type === "preregistration") {
-                                    console.log(params.row);
                                     handleDetailsPreRegister(params.row);
                                 }
                                 if (params.row.type === "loan") {
@@ -282,7 +281,6 @@ function ApplicationsTable() {
 
     const handleDetailsFiles = (application) => {
         setDetailsApplication(application);
-        console.log(detailsApplication);
         handleOpenDetails();
     };
 
@@ -293,7 +291,7 @@ function ApplicationsTable() {
 
     const handleDetailsLoan = (application) => {
         setDetailsApplication(application);
-        console.log(detailsApplication);
+
         handleOpenDetailsLoan();
     };
 

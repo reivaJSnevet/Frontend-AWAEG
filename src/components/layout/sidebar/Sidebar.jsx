@@ -25,6 +25,7 @@ import { useUserStore } from "../../../stores";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import GradeIcon from '@mui/icons-material/Grade';
+import InventoryIcon from '@mui/icons-material/Inventory';
 
 const ListOptions = () => {
     const user = useUserStore((state) => state.user);
@@ -137,6 +138,14 @@ const ListOptions = () => {
                                 <ListItemText primary={"Solicitudes"} />
                             </ListItemButton>
                         </ListItem>
+                <ListItem disablePadding>
+                    <ListItemButton component={Link} to="supplies">
+                        <ListItemIcon>
+                           <InventoryIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={"Insumos"} />
+                    </ListItemButton>
+                </ListItem>
                     </div>
                 ) : user?.user?.Role?.roleName === "maestra" ? (
                     <div>
@@ -202,6 +211,7 @@ const ListOptions = () => {
                                 <ListItemText primary={"Prematrícula"} />
                             </ListItemButton>
                         </ListItem>
+
                     </div>
                 )}
             </div>

@@ -115,7 +115,7 @@ function FunctionariesTable() {
               onClick={() => {
                 setEditFunctionary(params.row);
                 handleOpenModal(true);
-                console.log(editFunctionary);
+              
               }}
             />
             <GridActionsCellItem
@@ -130,7 +130,6 @@ function FunctionariesTable() {
               icon={<InfoIcon />}
               label="Detalles"
               onClick={() => {
-                console.log(params.row);
                 handleDetails(params.row);
               }}
             />
@@ -298,7 +297,6 @@ function FunctionariesTable() {
 
   const handleDetails = (functionary) => {
     setDetailsFunctionary(functionary);
-    console.log(detailsFunctionary);
     handleOpenDetails();
   };
 
@@ -372,8 +370,9 @@ function FunctionariesTable() {
             }}
             spacing={1}
             margin={1}
+            item={true}
           >
-            <Grid item xs={12}>
+            <Grid  item={true} xs={12}>
               <TextField
                 disabled
                 fullWidth
@@ -384,7 +383,7 @@ function FunctionariesTable() {
                 variant="outlined"
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid   item={true}  xs={12} sm={6}>
               <TextField
                 fullWidth
                 type="text"
@@ -395,7 +394,7 @@ function FunctionariesTable() {
                 onChange={handleInputChange}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid  item={true}  xs={12} sm={6}>
               <TextField
                 fullWidth
                 type="text"
@@ -406,7 +405,7 @@ function FunctionariesTable() {
                 onChange={handleInputChange}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item={true}  xs={12} sm={6}>
               <TextField
                 fullWidth
                 type="text"
@@ -417,7 +416,7 @@ function FunctionariesTable() {
                 onChange={handleInputChange}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item={true}  xs={12} sm={6}>
               <TextField
                 fullWidth
                 type="text"
@@ -428,7 +427,7 @@ function FunctionariesTable() {
                 onChange={handleInputChange}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid  item={true} xs={12}>
               <TextField
                 type="date"
                 name="birthDate"
@@ -439,7 +438,7 @@ function FunctionariesTable() {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid  item={true}  xs={12}>
               <FormLabel id="gender">Genero</FormLabel>
               <RadioGroup
                 aria-labelledby="gender"
@@ -461,7 +460,7 @@ function FunctionariesTable() {
               </RadioGroup>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid  item={true} xs={12}>
               <TextField
                 fullWidth
                 type="text"
@@ -486,7 +485,7 @@ function FunctionariesTable() {
             spacing={1}
             margin={1}
           >
-            <Grid item xs={12} sm={6}>
+            <Grid  item={true} xs={12} sm={6}>
               <TextField
                 fullWidth
                 type="text"
@@ -498,7 +497,7 @@ function FunctionariesTable() {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid item={true}  xs={12} sm={6}>
               <TextField
                 fullWidth
                 type="text"
@@ -510,7 +509,7 @@ function FunctionariesTable() {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid  item={true} xs={12} sm={6}>
               <TextField
                 fullWidth
                 type="text"
@@ -521,7 +520,7 @@ function FunctionariesTable() {
                 onChange={handleInputChange}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid  item={true} xs={12} sm={6}>
               <TextField
                 fullWidth
                 type="text"
@@ -532,7 +531,7 @@ function FunctionariesTable() {
                 onChange={handleInputChange}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid  item={true} xs={12} sm={6}>
               <TextField
                 fullWidth
                 type="text"
@@ -543,7 +542,7 @@ function FunctionariesTable() {
                 onChange={handleInputChange}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid  item={true} xs={12} sm={6}>
               <TextField
                 fullWidth
                 type="number"
@@ -686,13 +685,13 @@ function FunctionariesTable() {
               />
               <Title>Informacion de Usuario</Title>
               <Detail>
-                <b>Usuario:</b> {detailsFunctionary.User?.username ?? "Sin Datos"}
+                <b>Usuario:</b> {detailsFunctionary.User?.userName ?? "Sin Datos"}
               </Detail>
               <Detail>
                 <b>Correo:</b> {detailsFunctionary.User?.email ?? "Sin Datos"}
               </Detail>
               <Detail>
-                <b>Rol:</b> {detailsFunctionary.User?.role ?? "Sin Datos"}
+                <b>Rol:</b> {detailsFunctionary.User?.Role?.roleName ?? "Sin Datos"}
               </Detail>
             </StyledCardContent>
           </StyledCard>

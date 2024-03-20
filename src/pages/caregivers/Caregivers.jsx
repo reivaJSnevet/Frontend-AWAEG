@@ -2,9 +2,16 @@ import CaregiversTable from "./components/CaregiversTable"
 
 function Caregivers() {
   return (
-    <div>
-        <CaregiversTable />
-    </div>
+    <>
+    <div className="m-10 shadow-lg">
+          <div className="mb-2">
+         
+          </div>
+          <div className="">
+             <CaregiversTable />
+          </div>
+        </div>
+    </>
   )
 }
 

@@ -20,7 +20,25 @@ import AddCaregiver from "./AddCaregiver";
 import Checkbox from "@mui/material/Checkbox";
 
 const useFormStore = create((set) => ({
-    formData: {
+  formData: {
+    id: "",
+    name: "",
+    middleName: "",
+    lastName: "",
+    lastName2: "",
+    birthDate: "2000-01-01",
+    gender: "",
+    address: "",
+    caregiverId: "",
+    allergies: "",
+    healthObservations: "",
+    accommodation: "",
+  },
+  setFormData: (newFormData) =>
+    set((state) => ({ formData: { ...state.formData, ...newFormData } })),
+  resetFormData: () =>
+    set(() => ({
+      formData: {
         id: "",
         name: "",
         middleName: "",
