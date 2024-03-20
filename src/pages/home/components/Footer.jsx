@@ -3,8 +3,8 @@ import { Facebook, LocationOn, Phone, MailOutline } from "@mui/icons-material";
 
 const Footer = () => {
   return (
-    <Box sx={{ width: "100%", backgroundColor: "#1e1b4b", color: "white", padding: "2rem 1rem", mt: 24 }}>
-      <Box sx={{ maxWidth: "1240px", mx: "auto", display: "grid", gridTemplateColumns: { md: "repeat(2, 1fr)" }, borderBottom: "2px solid #606060", py: 8 }}>
+    <Box sx={{ width: "100%", backgroundColor: "#1e1b4b", color: "white", padding: "2rem 1rem", mt: 3 }}>
+      <Box sx={{ maxWidth: "1240px", mx: "auto", display: "grid", gridTemplateColumns: { md: "repeat(2, 1fr)" }, borderBottom: "2px solid #606060", py: 1 }}>
         <Box>
           <Typography variant="h6" fontWeight="bold" sx={{ textTransform: "uppercase", pt: 2 }}>Equipo Desarrollador</Typography>
           <ul>

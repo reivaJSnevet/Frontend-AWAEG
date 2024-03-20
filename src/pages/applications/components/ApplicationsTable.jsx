@@ -16,8 +16,12 @@ import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
+import { useUserStore } from "../../../stores";
+import Switch from "@mui/material/Switch";
 
 function ApplicationsTable() {
+    const user = useUserStore((state) => state.user);
+    const [preregisterState, setPreregisterState] = useState(false);
     const [files, setFiles] = useState([]);
     const [preRegister, setPreRegister] = useState([]);
     const [loans, setLoans] = useState([]);
@@ -58,6 +62,17 @@ function ApplicationsTable() {
                 });
             }
         };
+
+        const fetchPremaState = async () => {
+            try {
+                const response = await api.get( "/preregistrationPeriods/state");
+                setPreregisterState(response.data.active);
+            } catch (error) {
+                console.error("Error fetching preRegistrations", error.message);
+            }
+        };
+
+        fetchPremaState();
         fetchApplications();
     }, [api, reset]);
 
@@ -148,10 +163,24 @@ function ApplicationsTable() {
         try {
             await api.put(`/applications/${application.applicationId}`, {
                 status: "approved",
+                functionaryId: user.user.Person.Functionary.functionaryId,
             });
             if (application.type === "file") {
                 await api.put(`/files/${application.File.fileId}`, {
                     active: true,
+                });
+            }
+            if (application.type === "preregistration") {
+                await api.put(
+                    `/preRegistrations/${application.PreRegistration.preRegistrationId}`,
+                    {
+                        status: "approved",
+                    }
+                );
+            }
+            if (application.type === "loan") {
+                await api.put(`/loans/${application.Loan.loanId}`, {
+                    status: "APPROVED",
                 });
             }
 
@@ -174,11 +203,25 @@ function ApplicationsTable() {
         try {
             await api.put(`/applications/${application.applicationId}`, {
                 status: "rejected",
+                functionaryId: user.user.Person.Functionary.functionaryId,
             });
 
             if (application.type === "file") {
                 await api.put(`/files/${application.File.fileId}`, {
                     active: false,
+                });
+            }
+            if (application.type === "preregistration") {
+                await api.put(
+                    `/preRegistrations/${application.PreRegistration.preRegistrationId}`,
+                    {
+                        status: "rejected",
+                    }
+                );
+            }
+            if (application.type === "loan") {
+                await api.put(`/loans/${application.Loan.loanId}`, {
+                    status: "REJECTED",
                 });
             }
 
@@ -286,6 +329,23 @@ function ApplicationsTable() {
         }
     };
 
+    const handleSwitchChange = async () => {
+        try {
+
+            if (!preregisterState) {
+                await api.get("preregistrationPeriods/activate");
+            }
+
+            if (preregisterState){
+                await api.get("preregistrationPeriods/deactivate");
+            }
+
+            setPreregisterState(!preregisterState);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return (
         <>
             <div className="p-10 mb-10">
@@ -332,6 +392,12 @@ function ApplicationsTable() {
                 <Typography variant="h4" component="h2" p={1}>
                     Pre-Matricula
                 </Typography>
+                <Switch
+                    checked={preregisterState}
+                    onChange={handleSwitchChange}
+                    inputProps={{ 'aria-label': 'controlled' }}
+                    size="medium"
+                />
                 <DataGrid
                     sx={{
                         boxShadow: 2,
@@ -499,7 +565,8 @@ function ApplicationsTable() {
                                     : "Rechazada"}
                             </Detail>
                             <Detail>
-                                <strong>Tipo: </strong> {detailsApplication.type}
+                                <strong>Tipo: </strong>{" "}
+                                {detailsApplication.type}
                             </Detail>
 
                             <Detail>
@@ -516,14 +583,16 @@ function ApplicationsTable() {
 
                             <Detail>
                                 <strong>Grado: </strong>
-                                {detailsApplication?.PreRegistration?.grade || "Sin Datos"}
+                                {detailsApplication?.PreRegistration?.grade ||
+                                    "Sin Datos"}
                             </Detail>
 
                             <Detail>
                                 <strong>Ciclo: </strong>
-                                {detailsApplication?.PreRegistration?.cycle || "Sin Datos"}
+                                {detailsApplication?.PreRegistration?.cycle ||
+                                    "Sin Datos"}
                             </Detail>
-                            
+
                             <Detail>
                                 <strong>Sección: </strong>
                                 {detailsApplication?.PreRegistration?.Student
