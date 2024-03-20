@@ -21,6 +21,7 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import EscalatorWarningIcon from "@mui/icons-material/EscalatorWarning";
 import Divider from "@mui/material/Divider";
 import { ListItemIcon } from "@mui/material";
+import InventoryIcon from '@mui/icons-material/Inventory';
 
 const ListOptions = () => {
     const logout = useLogout();
@@ -129,6 +130,17 @@ const ListOptions = () => {
                             <AssignmentIcon />
                         </ListItemIcon>
                         <ListItemText primary={"Solicitudes"} />
+                    </ListItemButton>
+                </ListItem>
+
+                <Divider variant="middle" />
+
+                <ListItem disablePadding>
+                    <ListItemButton component={Link} to="supplies">
+                        <ListItemIcon>
+                           <InventoryIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={"Insumos"} />
                     </ListItemButton>
                 </ListItem>
             </div>

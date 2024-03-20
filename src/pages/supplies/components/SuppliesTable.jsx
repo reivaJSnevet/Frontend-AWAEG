@@ -1,16 +1,15 @@
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { useEffect, useState } from "react";
+import Alert from "@mui/material/Alert";
+import Snackbar from "@mui/material/Snackbar";
 import {
   DataGrid,
   esES,
   GridToolbar,
   GridActionsCellItem,
 } from "@mui/x-data-grid";
-import Snackbar from "@mui/material/Snackbar";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Alert from "@mui/material/Alert";
-import { useMediaQuery, useTheme } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -18,22 +17,19 @@ import Button from "@mui/material/Button";
 import CancelIcon from "@mui/icons-material/Cancel";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
+import { useMediaQuery, useTheme } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
-import InfoIcon from "@mui/icons-material/Info";
 
-import { Card, CardContent } from "@mui/material";
-import { styled } from "@mui/material/styles";
-
-function ClasesTable() {
-  const [clases, setClases] = useState([]);
-  const pageSize = 10;
+function SuppliesTable() {
+  const [supplies, setSupplies] = useState([]);
+  const api = useAxiosPrivate();
+  const pageSize = 5;
   const sizeOptions = [5, 10, 15];
-  const axiosPrivate = useAxiosPrivate();
   const [reset, setReset] = useState(false);
 
   const [snackbar, setSnackbar] = useState(null);
@@ -41,54 +37,40 @@ function ClasesTable() {
   const handleCloseSnackbar = () => setSnackbar(null);
 
   useEffect(() => {
-    const fetchClases = async () => {
+    const fetchSupplies = async () => {
       try {
-        const response = await axiosPrivate.get("/groups");
-        setClases(response.data);
+        const response = await api.get("/supplies");
+        setSupplies(response.data);
       } catch (error) {
         setSnackbar({
-          children: "Error al obetner los grupos",
+          children: "Error al cargar los insumos",
           severity: "error",
         });
       }
     };
-    fetchClases();
-  }, [axiosPrivate, reset]);
+    fetchSupplies();
+  }, [api, reset]);
 
   const columns = [
     {
-      field: "section",
-      headerName: "Sección",
+      field: "name",
+      headerName: "Nombre del insumo",
       flex: 1,
     },
     {
-      field: "shift",
-      headerName: "Turno",
+      field: "price",
+      headerName: "Precio",
       flex: 1,
     },
     {
-      field: "classRoom",
-      headerName: "Aula",
+      field: "state",
+      headerName: "Estado",
       flex: 1,
     },
     {
-      field: "studentCount",
-      headerName: "Cantidad de estudiantes",
+      field: "description",
+      headerName: "Descripcion",
       flex: 1,
-    },
-    {
-      field: "Functionary",
-      headerName: "Profesor",
-      flex: 1,
-      valueGetter: (params) => {
-        if (params.row.Functionary && params.row.Functionary.personId) {
-          return `${params.row.Functionary.personId} - ${
-            params.row.Functionary.Person.name ?? "Profesor"
-          }`;
-        } else {
-          return "Sin Profesor asignado";
-        }
-      },
     },
     {
       field: "actions",
@@ -103,7 +85,7 @@ function ClasesTable() {
               icon={<EditIcon />}
               label="Editar"
               onClick={() => {
-                setEditClass(params.row);
+                setEditSupplie(params.row);
                 handleOpenModal(true);
               }}
             />
@@ -111,15 +93,8 @@ function ClasesTable() {
               icon={<DeleteIcon />}
               label="Eliminar"
               onClick={() => {
-                setSection(params.row.section);
+                setSupplieId(params.row.supplieId);
                 handleClickOpen();
-              }}
-            />
-            <GridActionsCellItem
-              icon={<InfoIcon />}
-              label="Ver"
-              onClick={() => {
-                handleDetails(params.row);
               }}
             />
           </div>
@@ -130,25 +105,27 @@ function ClasesTable() {
 
   const csvOptions = {
     delimiter: ";",
-    fileName: "Lista de Clases",
+    fileName: "Lista de Insumos",
     includeHeaders: true,
     utf8WithBom: true,
   };
 
   const printOptions = {
-    fileName: "Lista de Clases",
+    fileName: "Lista de Insumos",
     hideFooter: true,
     hideToolbar: true,
     pageStyle:
       ".MuiDataGrid-root .MuiDataGrid-main { color: rgba(0, 0, 0, 0.87); }",
   };
 
-  ////Update
+  //Update
   const [openModal, setOpenModal] = useState(false);
-  const [editClass, setEditClass] = useState({
-    section: "",
-    shift: "",
-    classRoom: "",
+  const [editSupplie, setEditSupplie] = useState({
+    supplieId: "",
+    name: "",
+    price: "",
+    state: "",
+    description: "",
   });
 
   const theme = useTheme();
@@ -176,33 +153,30 @@ function ClasesTable() {
   const handleEditSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axiosPrivate.put(
-        `/groups/${editClass.section}`,
-        editClass
-      );
-      console.log(response);
+      await api.put(`/supplies/${editSupplie.supplieId}`, editSupplie);
       setSnackbar({
-        children: "Clase actualizado",
+        children: "Insumo actualizado con exito",
         severity: "success",
       });
       setReset(!reset);
-    } catch (error) {
+      handleCloseModal();
+    } catch (err) {
       setSnackbar({
-        children: "Error al actualizar el Clase",
+        children: "Error al actualizar el insumo",
         severity: "error",
       });
     }
   };
 
-  const handleInputChange = (event) => {
+  const handleEditInputChange = (event) => {
     const { name, value } = event.target;
-    setEditClass({ ...editClass, [name]: value });
+    setEditSupplie({ ...editSupplie, [name]: value });
   };
 
-  ///Delete
+  //Delete
 
   const [open, setOpen] = useState(false);
-  const [section, setSection] = useState("");
+  const [supplieId, setSupplieId] = useState("");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -212,57 +186,22 @@ function ClasesTable() {
     setOpen(false);
   };
 
-  const handleDelete = async (section) => {
+  const handleDelete = async () => {
     try {
-      const response = await axiosPrivate.delete(`/groups/${section}`);
-      console.log(response);
+      await api.delete(`/supplies/${supplieId}`);
       setSnackbar({
-        children: "Clase eliminado",
+        children: "Insumo eliminado con exito",
         severity: "success",
       });
       setReset(!reset);
-    } catch (error) {
+      handleClose();
+    } catch (err) {
       setSnackbar({
-        children: "Error al eliminar el Clase",
+        children: "Error al eliminar el insumo",
         severity: "error",
       });
     }
   };
-
-  //Group Details
-  const [openModalGroup, setOpenModalGroup] = useState(false);
-  const [detailsGroup, setDetailsGroup] = useState({});
-
-  const handleOpenModalGroup = () => setOpenModalGroup(true);
-  const handleCloseModalGroup = () => setOpenModalGroup(false);
-
-  const handleDetails = (group) => {
-    setDetailsGroup(group);
-    handleOpenModalGroup();
-  };
-
-  const StyledCard = styled(Card)({
-    maxWidth: 400,
-    margin: "auto",
-    marginBottom: 16,
-    backgroundColor: "#f5f5f5",
-    borderRadius: 8,
-    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-  });
-  const StyledCardContent = styled(CardContent)({
-    padding: "16px", // Espaciado interno
-  });
-
-  const Title = styled(Typography)({
-    fontSize: "1.2rem",
-    fontWeight: "bold",
-    marginBottom: "8px",
-  });
-
-  const Detail = styled(Typography)({
-    fontSize: "1rem",
-    marginBottom: "4px",
-  });
 
   return (
     <>
@@ -276,6 +215,7 @@ function ClasesTable() {
           <Alert {...snackbar} onClose={handleCloseSnackbar} />
         </Snackbar>
       )}
+
       <DataGrid
         sx={{
           boxShadow: 2,
@@ -287,9 +227,9 @@ function ClasesTable() {
         }}
         style={{ height: 500, width: "100%" }}
         localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-        rows={clases}
-        getRowId={(row) => row.section}
-        loading={clases.length === 0}
+        rows={supplies}
+        getRowId={(row) => row.supplieId}
+        loading={supplies.length === 0}
         columns={columns}
         editMode="row"
         slots={{ toolbar: GridToolbar }}
@@ -304,7 +244,7 @@ function ClasesTable() {
         pageSize={pageSize}
         rowsPerPageOptions={pageSize}
         initialState={{
-          ...clases.initialState,
+          ...supplies.initialState,
           pagination: { paginationModel: { pageSize } },
         }}
         pageSizeOptions={sizeOptions}
@@ -318,7 +258,7 @@ function ClasesTable() {
         <Box sx={style} component="form" onSubmit={handleEditSubmit}>
           <div id="ModalHead" className="flex flex-row justify-between">
             <Typography id="modal-modal-title" variant="h6">
-              Actualizar Clase
+              Actualizar Insumos
             </Typography>
             <Button onClick={handleCloseModal}>
               <CancelIcon />
@@ -332,44 +272,49 @@ function ClasesTable() {
             spacing={1}
             margin={1}
           >
-            <Grid item xs={12}>
+            <Grid xs={12}>
               <TextField
                 fullWidth
-                disabled
                 type="text"
-                name="section"
-                value={editClass.section}
-                label="Sección"
+                name="name"
+                value={editSupplie.name}
                 variant="outlined"
-                onChange={handleInputChange}
+                onChange={handleEditInputChange}
               />
             </Grid>
-
-            <Grid item xs={12}>
+            <Grid xs={12}>
               <TextField
-                required
+                fullWidth
+                type="text"
+                name="price"
+                value={editSupplie.price}
+                variant="outlined"
+                onChange={handleEditInputChange}
+              />
+            </Grid>
+            <Grid xs={12}>
+              <TextField
                 select
                 fullWidth
                 type="text"
-                name="shift"
-                value={editClass.shift}
+                name="state"
+                value={editSupplie.state}
                 variant="outlined"
-                onChange={handleInputChange}
+                onChange={handleEditInputChange}
                 SelectProps={{ native: true }}
               >
-                <option value="matutino">Matutino</option>
-                <option value="vespertino">Vespertino</option>
+                <option value="activo">Activo</option>
+                <option value="inactivo">Inactivo</option>
               </TextField>
             </Grid>
-            <Grid item xs={12}>
+            <Grid xs={12}>
               <TextField
                 fullWidth
                 type="text"
-                name="classRoom"
-                value={editClass.classRoom}
-                label="Agregar Aula"
+                name="description"
+                value={editSupplie.description}
                 variant="outlined"
-                onChange={handleInputChange}
+                onChange={handleEditInputChange}
               />
             </Grid>
           </Grid>
@@ -378,9 +323,10 @@ function ClasesTable() {
             startIcon={<SaveIcon />}
             type="submit"
             variant="contained"
+            color="primary"
             fullWidth
           >
-            Actualizar Clase
+            Actualizar Insumo
           </Button>
         </Box>
       </Modal>
@@ -391,68 +337,21 @@ function ClasesTable() {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">
-          {`Seguro que desea eliminar la sección ${section}?`}
-        </DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"Eliminar Insumo"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Al elimanarlo no podra recuperar la informacion. ¿Desea continuar?
+            ¿Estas seguro que deseas eliminar el insumo?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button
-            onClick={() => {
-              handleDelete(section);
-              handleClose();
-            }}
-          >
+          <Button onClick={handleClose}>Cancelar</Button>
+          <Button onClick={handleDelete} autoFocus>
             Eliminar
-          </Button>
-          <Button onClick={handleClose} autoFocus>
-            Cancelar
           </Button>
         </DialogActions>
       </Dialog>
-
-      {/* Detalles */}
-      <Modal
-        open={openModalGroup}
-        onClose={handleCloseModalGroup}
-        aria-labelledby="modal-modal-title"
-      >
-        <StyledCard>
-          <StyledCardContent>
-            <Title>Detalles del grupo</Title>
-            <Detail>Seccion: {detailsGroup.section}</Detail>
-            <Detail>
-              Profesor guía:{" "}
-              {detailsGroup.Functionary
-                ? `${detailsGroup.Functionary.Person.name} ${detailsGroup.Functionary.Person.lastName}`
-                : "No asignado"}
-            </Detail>
-            <Detail>Grado: {detailsGroup.grade}</Detail>
-            <Detail>Ciclo: {detailsGroup.cycle}</Detail>
-            <Detail>Aula: {detailsGroup.classRoom}</Detail>
-            <Detail>Turno: {detailsGroup.shift}</Detail>
-            <Detail>
-              Cantidad de estudiantes: {detailsGroup.studentCount}
-            </Detail>
-            <Title>Lista de estudiantes</Title>
-
-            {detailsGroup.Students &&
-              detailsGroup.Students.length > 0 &&
-              detailsGroup?.Students.map((student, index) => (
-                <Detail key={index + 1}>{`${index + 1}: ${
-                  student.Person.lastName
-                } ${student.Person.lastName2} ${student.Person.name} ${
-                  student.Person.middleName
-                }`}</Detail>
-              ))}
-          </StyledCardContent>
-        </StyledCard>
-      </Modal>
     </>
   );
 }
 
-export default ClasesTable;
+export default SuppliesTable;
