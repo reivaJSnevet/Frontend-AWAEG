@@ -146,6 +146,17 @@ const ListOptions = () => {
                         <ListItemText primary={"Insumos"} />
                     </ListItemButton>
                 </ListItem>
+
+
+                <ListItem disablePadding>
+                    <ListItemButton component={Link} to="appointment">
+                        <ListItemIcon>
+                            <ScheduleIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={"Citas"} />
+                    </ListItemButton>
+                </ListItem>
+
                     </div>
                 ) : user?.user?.Role?.roleName === "maestra" ? (
                     <div>
@@ -227,6 +238,7 @@ const ListOptions = () => {
 
                     </div>
                 )}
+
             </div>
             <div style={{ flexGrow: 1 }}>
                 <ListItem disablePadding>

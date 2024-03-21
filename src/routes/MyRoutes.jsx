@@ -21,6 +21,7 @@ import PreRegistration from "../pages/profiles/students/components/PreRegistrati
 import Supplies from "../pages/supplies/Supplies";
 import HomeWork from "../pages/profiles/students/components/HomeWork";
 import MyAppointments from "../pages/profiles/students/components/MyAppointments";
+import Appointment from "../pages/appointment/Appointment";
 
 
 const routes = (
@@ -42,6 +43,7 @@ const routes = (
           <Route path="files" element={<Files/>} />
           <Route path="applications" element={<Applications/>} />
           <Route path="supplies" element={<Supplies/>} />
+          <Route path="appointment" element={<Appointment/>} />
         </Route>
       </Route>
       <Route element={<RequireAuth allowedRoles={["estudiante"]}/>}>
