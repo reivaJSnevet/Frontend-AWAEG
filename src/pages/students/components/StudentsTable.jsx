@@ -37,9 +37,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 
 
 
-function StudentsTable() {
-
-  const [reset, setReset] = useState(false);
+function StudentsTable({ reset, setReset}) {
   const [students, setStudents] = useState([]);
   const [groups, setGroups] = useState([]);
   const pageSize = 5;

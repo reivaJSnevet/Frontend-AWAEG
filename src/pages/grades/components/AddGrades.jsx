@@ -45,7 +45,7 @@ const useFormStore = create((set) => ({
     })),
 }));
 
-function AddGrades() {
+function AddGrades({ reset, setReset}) {
   const api = useAxiosPrivate();
   const { formData, setFormData, resetFormData } = useFormStore();
   const [students, setStudents] = useState([]);
@@ -102,7 +102,7 @@ function AddGrades() {
     fetchStudents();
     fetchTeachers();
     fetchSubjects();
-  }, [api]);
+  }, [api, reset]);
 
   const [snackbar, setSnackbar] = useState(null);
 
@@ -133,7 +133,7 @@ function AddGrades() {
         children: "Nota Agregada con exito!",
         severity: "success",
       });
-      window.location.reload();
+        setReset(!reset);
     } catch (err) {
       console.log(formData);
       setSnackbar({

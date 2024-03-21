@@ -58,7 +58,7 @@ const useFormStore = create((set) => ({
     })),
 }));
 
-function AddFunctonary() {
+function AddFunctonary({reset, setReset}) {
   
   const api = useAxiosPrivate();
   const { formData, setFormData, resetFormData } = useFormStore();
@@ -110,9 +110,8 @@ function AddFunctonary() {
         children: "Funcionario Agregado con exito!",
         severity: "success",
       });
-      window.location.reload();
+        setReset(!reset);
     } catch (err) {
-        resetFormData();
         console.log(formData);
       setSnackbar({
         children: "Error al agregar el Funcionario!",

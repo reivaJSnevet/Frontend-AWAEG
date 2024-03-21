@@ -37,7 +37,7 @@ const useFormStore = create((set) => ({
     })),
 }));
 
-function AddUser() {
+function AddUser({ reset, setReset}) {
   const api = useAxiosPrivate();
   const { formData, setFormData, resetFormData } = useFormStore();
   const [roles, setRoles] = useState([]);
@@ -56,11 +56,17 @@ function AddUser() {
         const roles = await api.get("/roles");
         setRoles(roles.data);
 
-        const people = await api.get("/students");
-        const filteredPeople = people.data.filter((person) => !person.User);
+        const students = await api.get("/students");
+        const teachers = await api.get("/functionaries");
+
+        const people = [...students.data, ...teachers.data];
+
+        const filteredPeople = people.filter((person) => !person.User);
         const peopleOptions = filteredPeople.map((person) => {
           return `${person.name} ${person.lastName} - ${person.id}`;
         });
+
+        console.log(peopleOptions);
         setPeople(peopleOptions);
       } catch (error) {
         console.error(error);
@@ -78,14 +84,10 @@ function AddUser() {
     event.preventDefault();
     try {
       await api.post("/users", formData);
-      resetFormData();
-      setError({
-        error: false,
-        validations: [],
-      });
-      setSnackbar({ children: "Rol Agregado con exito!", severity: "success" });
-      window.location.reload();
+      setSnackbar({ children: "Usuario Agregado con exito!", severity: "success" });
+        setReset(!reset);
     } catch (err) {
+        console.log(err);
       setSnackbar({
         children: "Error al agregar el usuario",
         severity: "error",

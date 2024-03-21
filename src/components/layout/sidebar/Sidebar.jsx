@@ -201,14 +201,27 @@ const ListOptions = () => {
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton
-                                component={Link}
-                                to="preregistration"
-                            >
+                            <ListItemButton component={Link} to="preregistration">
                                 <ListItemIcon>
                                     <AppRegistrationIcon />
                                 </ListItemIcon>
                                 <ListItemText primary={"Prematrícula"} />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton component={Link} to="homework">
+                                <ListItemIcon>
+                                    <ScheduleIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={"Tareas"} />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton component={Link} to="appointments">
+                                <ListItemIcon>
+                                    <AssignmentIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={"Citas"} />
                             </ListItemButton>
                         </ListItem>
 

@@ -55,7 +55,7 @@ const useFormStore = create((set) => ({
       })),
   }));
 
-function AddStudents() {
+function AddStudents({ reset, setReset}) {
     const api = useAxiosPrivate();
     const { formData, setFormData, resetFormData } = useFormStore();
     const [error, setError] = useState({
@@ -90,7 +90,6 @@ function AddStudents() {
             ...rest
         } = formData;
         try {
-            console.log(formData);
             await api.post("/students", {
                 ...rest,
                 Student: {
@@ -111,7 +110,7 @@ function AddStudents() {
                 children: "Estudiante Agregado con exito!",
                 severity: "success",
             });
-            window.location.reload();
+            setReset(!reset);
         } catch (err) {
             console.log(formData);
             setSnackbar({

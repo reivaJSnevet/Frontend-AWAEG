@@ -29,12 +29,11 @@ import InfoIcon from "@mui/icons-material/Info";
 import { Card, CardContent } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
-function ClasesTable() {
+function ClasesTable({reset, setReset}) {
   const [clases, setClases] = useState([]);
   const pageSize = 10;
   const sizeOptions = [5, 10, 15];
   const axiosPrivate = useAxiosPrivate();
-  const [reset, setReset] = useState(false);
 
   const [snackbar, setSnackbar] = useState(null);
 

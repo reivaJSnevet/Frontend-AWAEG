@@ -23,12 +23,11 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Button from "@mui/material/Button";
 
-function Role() {
+function Role({ reset, setReset }) {
   const [roles, setRoles] = useState([]);
   const pageSize = 5;
   const sizeOptions = [5, 10];
   const axiosPrivate = useAxiosPrivate();
-  const [reset, setReset] = useState(false);
 
   useEffect(() => {
     const fetchRoles = async () => {

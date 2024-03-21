@@ -19,6 +19,8 @@ import MyGrades from "../pages/profiles/students/components/MyGrades";
 import MySchedule from "../pages/profiles/students/components/MySchedule";
 import PreRegistration from "../pages/profiles/students/components/PreRegistration";
 import Supplies from "../pages/supplies/Supplies";
+import HomeWork from "../pages/profiles/students/components/HomeWork";
+import MyAppointments from "../pages/profiles/students/components/MyAppointments";
 
 
 const routes = (
@@ -48,6 +50,8 @@ const routes = (
             <Route path="mygrades/" element={<MyGrades />} />
             <Route path="schedule/" element={<MySchedule/>} />
             <Route path="preregistration/" element={<PreRegistration/>} />
+            <Route path="homework/" element={<HomeWork/>} />
+            <Route path="appointments/" element={<MyAppointments/>} />
             
             
         </Route>

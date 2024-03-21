@@ -16,12 +16,11 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 
-function GradesTable() {
+function GradesTable({ reset, setReset }) {
     const [grades, setGrades] = useState([]);
     const pageSize = 10;
     const sizeOptions = [5, 10, 15];
     const axiosPrivate = useAxiosPrivate();
-    const [reset, setReset] = useState(false);
 
     const [snackbar, setSnackbar] = useState(null);
 

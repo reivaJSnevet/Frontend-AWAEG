@@ -33,7 +33,7 @@ const useFormStore = create((set) => ({
     })),
 }));
 
-function AddSupplie() {
+function AddSupplie({ reset, setReset}) {
     
     const api = useAxiosPrivate();
     const { formData, setFormData, resetFormData } = useFormStore();
@@ -64,7 +64,7 @@ function AddSupplie() {
                 children: "Insumo agregado con exito",
                 severity: "success",
             });
-            window.location.reload();
+            setReset(!reset);
         } catch (err) {
             setError({
                 error: true,

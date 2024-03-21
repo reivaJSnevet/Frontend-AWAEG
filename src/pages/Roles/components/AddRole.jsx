@@ -15,7 +15,7 @@ import Snackbar from '@mui/material/Snackbar';
 import * as React from 'react';
 
 
-function AddRole() {
+function AddRole({reset, setReset}) {
 
     const api = useAxiosPrivate();
     const [nombre, setNombre] = useState("");
@@ -69,7 +69,7 @@ function AddRole() {
    
        
         setSnackbar({ children: 'Rol Agregado con exito!', severity: 'success' });
-        window.location.reload();
+        setReset(!reset);
       } catch (error) {
        
         setSnackbar({ children: 'Error al agregar el rol', severity: 'error' });

@@ -14,7 +14,7 @@ import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
-function AddFile() {
+function AddFile({ reset, setReset}) {
     const api = useAxiosPrivate();
     const [sections, setSections] = useState([]);
     const [selectedSection, setSelectedSection] = useState([]);
@@ -35,7 +35,7 @@ function AddFile() {
             }
         };
         fetchSections();
-    }, [api]);
+    }, [api, reset]);
 
     const [file, setFile] = useState(null);
 
@@ -50,10 +50,6 @@ function AddFile() {
             formData.append("file", file);
             formData.append("functionaryId", userStore.user.personId);
             formData.append("section", `["${selectedSection}"]`);
-
-            console.log(formData.get("file"));
-            console.log(formData.get("functionaryId"));
-            console.log(formData.get("section"));
 
             const response = await api.post(
                 "/files",
@@ -74,8 +70,7 @@ function AddFile() {
                 children: "Archivo Subido con exito!",
                 severity: "success",
               });
-            window.location.reload();
-            console.log(response.data.message); // Esto debería imprimir "Archivo subido correctamente" si la subida es exitosa
+            setReset(!reset);
         } catch (error) {
             setSnackbar({
                 children: "Error al subir el Archivo!, intentelo de nuevo",

@@ -389,15 +389,15 @@ function ApplicationsTable() {
                 />
             </div>
             <div className="p-10 mb-10">
-                <Typography variant="h4" component="h2" p={1}>
+            <Typography variant="h4" component="h2" p={1}>
                     Pre-Matricula
-                </Typography>
+                </Typography>Período de prematrícula:
                 <Switch
                     checked={preregisterState}
                     onChange={handleSwitchChange}
                     inputProps={{ 'aria-label': 'controlled' }}
                     size="medium"
-                />
+                /> 
                 <DataGrid
                     sx={{
                         boxShadow: 2,

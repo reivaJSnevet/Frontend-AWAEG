@@ -33,7 +33,7 @@ const useFormStore = create((set) => ({
     })),
 }));
 
-function AddClases() {
+function AddClases({ reset, setReset}) {
   const api = useAxiosPrivate();
   const { formData, setFormData, resetFormData } = useFormStore();
   const [error, setError] = useState({
@@ -64,11 +64,11 @@ function AddClases() {
         children: "Grupo Agregado con exito!",
         severity: "success",
       });
-      window.location.reload();
+        setReset(!reset);
     } catch (err) {
       console.log(formData);
       setSnackbar({
-        children: "Error al agregar el Grupo!",
+        children: `Error al agregar el Grupo! ${err.response.data.message ?? ""}`,
         severity: "error",
       });
       setError({

@@ -20,13 +20,12 @@ import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 
 
-function FilesTable() {
+function FilesTable({ reset, setReset }) {
   const [sections, setSections] = useState([]);
   const [files, setFiles] = useState([]);
   const pageSize = 10;
   const sizeOptions = [5, 10];
   const axiosPrivate = useAxiosPrivate();
-  const [reset, setReset] = useState(false);
 
   const [snackbar, setSnackbar] = useState(null);
 

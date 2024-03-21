@@ -33,7 +33,7 @@ function UsersTable() {
   const [users, setUsers] = useState([]);
   const pageSize = 5;
   const sizeOptions = [5, 10];
-  const [reset, setReset] = useState(false);
+    const [reset, setReset] = useState(false);
  
   const api = useAxiosPrivate();
   const [people, setPeople] = useState([]);
@@ -248,7 +248,7 @@ function UsersTable() {
     <>
       <div className="m-10 shadow-lg">
         <div className="pb-5">
-          <AddUser />
+          <AddUser reset={reset} setReset={setReset} />
         </div>
         <div>
           <DataGrid
