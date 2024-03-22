@@ -23,7 +23,7 @@ import HomeWork from "../pages/profiles/students/components/HomeWork";
 import MyAppointments from "../pages/profiles/students/components/MyAppointments";
 import Appointment from "../pages/appointment/Appointment";
 import Loans from "../pages/loans/Loans";
-
+import LoanTable from "../pages/loan/components/LoanTable";
 
 const routes = (
   <>
@@ -44,6 +44,7 @@ const routes = (
           <Route path="applications" element={<Applications/>} />
           <Route path="supplies" element={<Supplies/>} />
           <Route path="appointment" element={<Appointment/>} />
+          <Route path="loans" element={<LoanTable />} />
         </Route>
 
           <Route path="grades/" element={<Grades/>} />
