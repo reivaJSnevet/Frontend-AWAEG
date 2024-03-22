@@ -60,9 +60,9 @@ function GradesTable({ reset, setReset }) {
             flex: 1,
             renderCell: (params) => {
                 return params.row.score >= 65 ? (
-                    <div style={{ color: "#98FF98" }}>{params.row.score}</div>
+                    <div style={{ color: "green" }}>{params.row.score}</div>
                 ) : (
-                    <div style={{ color: "#FF6347" }}>{params.row.score}</div>
+                    <div style={{ color: "red" }}>{params.row.score}</div>
                 );
             },
         },

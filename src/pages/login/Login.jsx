@@ -57,7 +57,7 @@ const Login = () => {
      
 
       if (roleArray.includes("director") || roleArray.includes("maestra")) {
-        navigate("/roles", { replace: true });
+        navigate("/grades", { replace: true });
       } else if (roleArray.includes("estudiante")) {
         navigate("/profile", { replace: true });
       } else {

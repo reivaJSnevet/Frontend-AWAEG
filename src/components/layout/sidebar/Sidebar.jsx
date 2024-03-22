@@ -26,6 +26,7 @@ import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import GradeIcon from '@mui/icons-material/Grade';
 import InventoryIcon from '@mui/icons-material/Inventory';
+import HandshakeIcon from '@mui/icons-material/Handshake';
 
 const ListOptions = () => {
     const user = useUserStore((state) => state.user);
@@ -45,7 +46,7 @@ const ListOptions = () => {
                     flexDirection: "column",
                 }}
             >
-                {user?.user?.Role?.roleName === "director" ? (
+                {(user?.user?.Role?.roleName === "director" || user?.user?.Role?.roleName === "directora") ? (
                     <div>
                         <ListItem disablePadding>
                             <ListItemButton component={Link} to="roles">
@@ -157,8 +158,17 @@ const ListOptions = () => {
                     </ListItemButton>
                 </ListItem>
 
+                <ListItem disablePadding>
+                            <ListItemButton component={Link} to="applications">
+                                <ListItemIcon>
+                                    <AssignmentIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={"Solicitudes"} />
+                            </ListItemButton>
+                </ListItem>
+
                     </div>
-                ) : user?.user?.Role?.roleName === "maestra" ? (
+                ) : (user?.user?.Role?.roleName === "maestra" || user?.user?.Role?.roleName === "maestro") ? (
                     <div>
                         <ListItem disablePadding>
                             <ListItemButton component={Link} to="files">
@@ -177,11 +187,11 @@ const ListOptions = () => {
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton component={Link} to="applications">
+                            <ListItemButton component={Link} to="loans">
                                 <ListItemIcon>
-                                    <AssignmentIcon />
+                                    <HandshakeIcon />
                                 </ListItemIcon>
-                                <ListItemText primary={"Solicitudes"} />
+                                <ListItemText primary={"Préstamo Insumos"} />
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
