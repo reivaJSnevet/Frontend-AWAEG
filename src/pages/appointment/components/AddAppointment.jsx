@@ -38,7 +38,7 @@ const useFormStore = create((set) => ({
     })),
 }));
 
-function AddAppointment() {
+function AddAppointment({ reset, setReset}) {
   const idFunctionary = useUserStore(
     (state) => state.user.user.Person.Functionary.functionaryId
   );
@@ -80,7 +80,7 @@ function AddAppointment() {
         children: "Cita creada correctamente",
         severity: "success",
       });
-      window.location.reload();
+        setReset(!reset);
     } catch (error) {
       setError({
         error: true,

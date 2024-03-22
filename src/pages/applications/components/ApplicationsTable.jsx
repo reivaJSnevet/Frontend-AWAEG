@@ -291,7 +291,7 @@ function ApplicationsTable() {
 
     const handleDetailsLoan = (application) => {
         setDetailsApplication(application);
-
+        console.log(application);
         handleOpenDetailsLoan();
     };
 
@@ -594,9 +594,8 @@ function ApplicationsTable() {
                             </Detail>
 
                             <Detail>
-                                <strong>Sección: </strong>
-                                {detailsApplication?.PreRegistration?.Student
-                                    ?.Person?.section || "Sin asignar"}
+                                <strong>Anterior sección: </strong>
+                                {detailsApplication?.PreRegistration?.Student.section || "Sin asignar"}
                             </Detail>
                         </StyledCardContent>
                     </StyledCard>
@@ -615,18 +614,27 @@ function ApplicationsTable() {
                             <Title>Detalles de la solicitud</Title>
                             <Detail>
                                 <strong>ID:</strong>{" "}
-                                {detailsApplication.applicationId}
+                                {detailsApplication?.applicationId}
                             </Detail>
                             <Detail>
                                 <strong>Estatus:</strong>{" "}
-                                {detailsApplication.status === "pending"
+                                {detailsApplication?.status === "pending"
                                     ? "Pendiente"
-                                    : detailsApplication.status === "approved"
+                                    : detailsApplication?.status === "approved"
                                     ? "Aceptada"
                                     : "Rechazada"}
                             </Detail>
                             <Detail>
-                                <strong>Tipo:</strong> {detailsApplication.type}
+                                <strong>Tipo:</strong> {detailsApplication?.type}
+                            </Detail>
+                            <Detail>
+                                <strong>Fechas solicitadas:</strong> {"'"+detailsApplication?.Loan?.loanDate+"'"} al {"'"+detailsApplication?.Loan?.deadLine+"'"}
+                            </Detail>
+                            <Detail>
+                                <strong>Funcionario:</strong> {detailsApplication?.Loan?.Debtor?.name + " " + detailsApplication?.Loan?.Debtor?.lastName + " " + detailsApplication?.Loan?.Debtor?.lastName2}
+                            </Detail>
+                            <Detail>
+                                <strong>Artículo solicitado:</strong> {detailsApplication?.Loan?.Supplies[0]?.name}
                             </Detail>
                         </StyledCardContent>
                     </StyledCard>

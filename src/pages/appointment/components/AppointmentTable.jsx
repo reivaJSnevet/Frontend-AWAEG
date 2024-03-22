@@ -18,14 +18,13 @@ import DialogActions from "@mui/material/DialogActions";
 
 
 
-function AppointmentTable() {
+function AppointmentTable({ reset, setReset}) {
     
   const [appointments, setAppointments] = useState([]);
   const api = useAxiosPrivate();
   const pageSize = 5;
   const sizeOptions = [5, 10, 15];
-  const [reset, setReset] = useState(false);
-
+  
   const getCurrentDate = () => {
     const currentDate = new Date();
     const year = currentDate.getFullYear();

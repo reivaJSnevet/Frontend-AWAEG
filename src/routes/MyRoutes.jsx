@@ -22,6 +22,7 @@ import Supplies from "../pages/supplies/Supplies";
 import HomeWork from "../pages/profiles/students/components/HomeWork";
 import MyAppointments from "../pages/profiles/students/components/MyAppointments";
 import Appointment from "../pages/appointment/Appointment";
+import Loans from "../pages/loans/Loans";
 
 
 const routes = (
@@ -30,20 +31,26 @@ const routes = (
     <Route path="/" element={<Home/>} />
 
     <Route element={<PersistLogin />}>
-      <Route element={<RequireAuth allowedRoles={["superadmin", "director", "maestra"]} />}>
+      <Route element={<RequireAuth allowedRoles={["superadmin", "director", "maestra", "directora", "maestro"]} />}>
         <Route element={<Layout />}>
+        <Route element={<RequireAuth allowedRoles={["superadmin", "director", "directora"]} />}>
           <Route path="roles/" element={<Roles />} />
           <Route path="users/" element={<UsersTable />} />
           <Route path="functionaries/" element={<Functionaries />} />
           <Route path="students/" element={<Students />} />
           <Route path="caregivers/" element={<Caregivers />} />
           <Route path="groups/" element={<Groups/>} />
-          <Route path="grades/" element={<Grades/>} />
           <Route path="courses" element={<Courses />} />
-          <Route path="files" element={<Files/>} />
           <Route path="applications" element={<Applications/>} />
           <Route path="supplies" element={<Supplies/>} />
           <Route path="appointment" element={<Appointment/>} />
+        </Route>
+
+          <Route path="grades/" element={<Grades/>} />
+          <Route path="files" element={<Files/>} />
+          <Route path="loans" element={<Loans/>} />
+          
+          
         </Route>
       </Route>
       <Route element={<RequireAuth allowedRoles={["estudiante"]}/>}>
