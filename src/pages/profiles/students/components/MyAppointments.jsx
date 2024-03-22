@@ -16,6 +16,7 @@ const AppointmentCards = ({
         try {
             const response = await api.put(`/appointments/${appointmentId}`, {
                 studentId: user?.user?.Person?.Student?.studentId,
+                status: "booked"
             });
             console.log(response.data);
             setReset(!reset);
@@ -28,6 +29,7 @@ const AppointmentCards = ({
         try {
             const response = await api.put(`/appointments/${appointmentId}`, {
                 studentId: null,
+                status: "available"
             });
             console.log(response.data);
             setReset(!reset);

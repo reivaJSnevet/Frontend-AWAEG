@@ -149,14 +149,7 @@ const ListOptions = () => {
                 </ListItem>
 
 
-                <ListItem disablePadding>
-                    <ListItemButton component={Link} to="appointment">
-                        <ListItemIcon>
-                            <ScheduleIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={"Citas"} />
-                    </ListItemButton>
-                </ListItem>
+
 
                 <ListItem disablePadding>
                             <ListItemButton component={Link} to="applications">
@@ -195,13 +188,13 @@ const ListOptions = () => {
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton component={Link} to="loans">
-                                <ListItemIcon>
-                                    <ScheduleIcon />
-                                </ListItemIcon>
-                                <ListItemText primary={"Prestamos"} />
-                            </ListItemButton>
-                        </ListItem>
+                    <ListItemButton component={Link} to="appointment">
+                        <ListItemIcon>
+                            <ScheduleIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={"Citas"} />
+                    </ListItemButton>
+                </ListItem>
                     </div>
                 ) : (
                     <div>
