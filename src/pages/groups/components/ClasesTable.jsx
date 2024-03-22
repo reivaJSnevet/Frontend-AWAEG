@@ -25,7 +25,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import InfoIcon from "@mui/icons-material/Info";
-
+import Autocomplete from "@mui/material/Autocomplete";
 import { Card, CardContent } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
@@ -34,6 +34,7 @@ function ClasesTable({reset, setReset}) {
   const pageSize = 10;
   const sizeOptions = [5, 10, 15];
   const axiosPrivate = useAxiosPrivate();
+  const [teachers, setTeachers] = useState([]);
 
   const [snackbar, setSnackbar] = useState(null);
 
@@ -51,6 +52,22 @@ function ClasesTable({reset, setReset}) {
         });
       }
     };
+    
+    const fetchTeachers = async () => {
+      try {
+        const response = await axiosPrivate.get("/functionaries");
+        const teacherOptions = response.data.map((person) => {
+          return {
+            label: `${person.name} ${person.lastName}`,
+            id: person.Functionary.functionaryId,
+          };
+        });
+        setTeachers(["", ...teacherOptions]);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchTeachers();
     fetchClases();
   }, [axiosPrivate, reset]);
 
@@ -82,7 +99,7 @@ function ClasesTable({reset, setReset}) {
       valueGetter: (params) => {
         if (params.row.Functionary && params.row.Functionary.personId) {
           return `${params.row.Functionary.personId} - ${
-            params.row.Functionary.Person.name ?? "Profesor"
+            params.row.Functionary.Person?.name ?? "Profesor"
           }`;
         } else {
           return "Sin Profesor asignado";
@@ -148,6 +165,7 @@ function ClasesTable({reset, setReset}) {
     section: "",
     shift: "",
     classRoom: "",
+    functionaryId: "",
   });
 
   const theme = useTheme();
@@ -371,7 +389,21 @@ function ClasesTable({reset, setReset}) {
                 onChange={handleInputChange}
               />
             </Grid>
+            <Grid item xs={12}>
+          <Autocomplete
+            options={teachers}
+            getOptionLabel={(option) => option.label}
+            renderInput={(params) => (
+              <TextField {...params} label="Profesor" variant="outlined" />
+            )}
+            onChange={(event, value) => {
+              setEditClass({ ...editClass, functionaryId: value.id });
+            }}
+          />
+        </Grid>
           </Grid>
+         
+
 
           <Button
             startIcon={<SaveIcon />}

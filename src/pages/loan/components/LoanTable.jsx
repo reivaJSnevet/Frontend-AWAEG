@@ -213,7 +213,7 @@ function LoanTable({ reset, setReset }) {
          <Box sx={style} component="form" onSubmit={handlePostSubmit}>
           <div id="ModalHead" className="flex flex-row justify-between">
             <Typography id="modal-modal-title" variant="h6">
-              Solicitar Cita
+              Solicitar Insumo
             </Typography>
             <Button onClick={handleCloseModal}>
               <CancelIcon />
