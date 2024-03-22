@@ -22,7 +22,7 @@ import Supplies from "../pages/supplies/Supplies";
 import HomeWork from "../pages/profiles/students/components/HomeWork";
 import MyAppointments from "../pages/profiles/students/components/MyAppointments";
 import Appointment from "../pages/appointment/Appointment";
-
+import LoanTable from "../pages/loan/components/LoanTable";
 
 const routes = (
   <>
@@ -44,6 +44,7 @@ const routes = (
           <Route path="applications" element={<Applications/>} />
           <Route path="supplies" element={<Supplies/>} />
           <Route path="appointment" element={<Appointment/>} />
+          <Route path="loans" element={<LoanTable />} />
         </Route>
       </Route>
       <Route element={<RequireAuth allowedRoles={["estudiante"]}/>}>
