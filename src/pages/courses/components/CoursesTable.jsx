@@ -102,17 +102,19 @@ function CoursesTable() {
   };
 
   const subjectColor = {
-    Matematicas: "#FF1E01",
-    Español: "#FEF800",
-    Ciencias: "#00E043",
-    EstSociales: "#0F60FF",
-    Inglés: "#70EDFF",
-    EducaciónFísica: "#ED7BFE",
-    Artes: "#B2A4FF",
-    Música: "#FE9642",
-    Computo: "#FF43BA",
-    Recreo: "#FFC946",
+    Matematicas: "#E61900",
+    Español: "#EBE500",
+    Ciencias: "#00BF35",
+    EstSociales: "#0B4DCC",
+    Inglés: "#5BB9DB",
+    EducaciónFísica: "#C754E8",
+    Artes: "#8C7AFF",
+    Música: "#E16A2E",
+    Computo: "#E71F89",
+    Recreo: "#E69D25",
   };
+  
+  
 
   const [groups, setGroups] = useState([]);
   const [selectedGroup, setSelectedGoup] = useState("");

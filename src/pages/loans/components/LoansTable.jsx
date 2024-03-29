@@ -79,33 +79,33 @@ const LoansTable = ({reset, setReset}) => {
           headerName: "Usuario",
           flex: 1,
         },
-        {
-          field: "actions",
-          type: "actions",
-          headerName: "Acciones",
-          flex: 1,
-          cellClassName: "actions",
-          renderCell: (params) => {
-            return (
-              <div>
-                <GridActionsCellItem
-                  icon={<EditIcon />}
-                  label="Editar"
-                  onClick={() => {
-                    console.log("editar");
-                  }}
-                />
-                <GridActionsCellItem
-                  icon={<DeleteIcon />}
-                  label="Eliminar"
-                  onClick={() => {
-                    console.log("delete");
-                  }}
-                />
-              </div>
-            );
-          },
-        },
+        // {
+        //   field: "actions",
+        //   type: "actions",
+        //   headerName: "Acciones",
+        //   flex: 1,
+        //   cellClassName: "actions",
+        //   renderCell: (params) => {
+        //     return (
+        //       <div>
+        //         <GridActionsCellItem
+        //           icon={<EditIcon />}
+        //           label="Editar"
+        //           onClick={() => {
+        //             console.log("editar");
+        //           }}
+        //         />
+        //         <GridActionsCellItem
+        //           icon={<DeleteIcon />}
+        //           label="Eliminar"
+        //           onClick={() => {
+        //             console.log("delete");
+        //           }}
+        //         />
+        //       </div>
+        //     );
+        //   },
+        // },
       ];
 
       const csvOptions = {

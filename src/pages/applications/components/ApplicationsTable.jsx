@@ -582,6 +582,18 @@ function ApplicationsTable() {
                             </Detail>
 
                             <Detail>
+                                <strong>Encargado: </strong>{" "}
+                                {detailsApplication?.PreRegistration?.Student
+                                    ?.Caregiver.Person.name +
+                                    " " +
+                                    detailsApplication?.PreRegistration?.Student
+                                        ?.Caregiver.Person.lastName +
+                                    " " +
+                                    detailsApplication?.PreRegistration?.Student
+                                        ?.Caregiver.Person.lastName2}
+                            </Detail>
+
+                            <Detail>
                                 <strong>Grado: </strong>
                                 {detailsApplication?.PreRegistration?.grade ||
                                     "Sin Datos"}

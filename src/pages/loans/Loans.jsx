@@ -20,7 +20,7 @@ const Loans = () => {
                     Mis prestamos
                 </h2>
                 {user.user.Role.roleName === "maestra" ||
-                user.user.Role.roleName === "maestro" ? (
+                user.user.Role.roleName === "maestro" || user.user.Role.roleName === "director" ? (
                     <LoansTable reset={reset} setReset={setReset} />
                 ) : null}
             </div>

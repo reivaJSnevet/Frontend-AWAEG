@@ -148,15 +148,12 @@ const ListOptions = () => {
                     </ListItemButton>
                 </ListItem>
 
-
-
-
                 <ListItem disablePadding>
-                            <ListItemButton component={Link} to="applications">
+                            <ListItemButton component={Link} to="loan">
                                 <ListItemIcon>
                                     <AssignmentIcon />
                                 </ListItemIcon>
-                                <ListItemText primary={"Solicitudes"} />
+                                <ListItemText primary={"Préstamos"} />
                             </ListItemButton>
                 </ListItem>
 

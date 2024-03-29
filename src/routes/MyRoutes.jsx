@@ -49,7 +49,7 @@ const routes = (
 
           <Route path="grades/" element={<Grades/>} />
           <Route path="files" element={<Files/>} />
-          <Route path="loans" element={<Loans/>} />
+          <Route path="loan" element={<Loans/>} />
           <Route path="loans" element={<LoanTable />} />
           <Route path="appointment" element={<Appointment/>} />
           
