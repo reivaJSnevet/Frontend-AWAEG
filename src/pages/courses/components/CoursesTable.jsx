@@ -407,8 +407,8 @@ function CoursesTable() {
         eventContent={(eventInfo) => {
           return (
             <>
-            <div style={{ color: 'black' }}>{eventInfo.timeText}</div>
-            <div style={{ color: 'black' }}>{eventInfo.event.title}</div>
+            <div style={{ color: 'black' }}><strong>{eventInfo.timeText}</strong></div>
+            <div style={{ color: 'black' }}><strong>{eventInfo.event.title}</strong></div>
             </>
           );
         }}
