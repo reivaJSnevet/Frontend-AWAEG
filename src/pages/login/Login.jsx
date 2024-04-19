@@ -99,7 +99,7 @@ const Login = () => {
           }}
         >
           <div className="flex items-center justify-center mb-2">
-            <img src="/about.png" alt="Logo" className="h-60" />
+            <img src="/about.webp" alt="Logo" className="h-60" />
           </div>
           <p
             ref={errRef}

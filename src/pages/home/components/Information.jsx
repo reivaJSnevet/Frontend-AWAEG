@@ -8,7 +8,7 @@ const Information = () => {
       <div className="w-full h-[700px] bg-gray-900/90 absolute">
         <img
           className="object-cover w-full h-full mix-blend-overlay"
-          src="/a.jpg"
+          src="/a.webp"
           alt="img"
         />
       </div>
