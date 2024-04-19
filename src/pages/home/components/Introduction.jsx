@@ -20,7 +20,7 @@ const Introduction = () => {
         </div>
   
         <div className="flex items-center justify-center">
-          <img className="w-full max-w-sm md:max-w-full" src="/logo-removebg-preview.png" alt="Logo" />
+          <img className="w-full max-w-sm md:max-w-full" src="/logo-removebg-preview.webp" alt="Logo" />
         </div>
       </div>
     </div>
