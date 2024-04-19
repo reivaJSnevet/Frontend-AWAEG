@@ -6,7 +6,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import esLocale from "@fullcalendar/core/locales/es";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
 import { useUserStore } from "../../../../stores";
-import { Box } from "@mui/material";
+
 
 const MySchedule = () => {
     const api = useAxiosPrivate();
@@ -116,10 +116,10 @@ const MySchedule = () => {
                         return (
                             <>
                                 <div style={{ color: "black" }}>
-                                    {eventInfo.timeText}
+                                    <strong>{eventInfo.timeText}</strong>
                                 </div>
                                 <div style={{ color: "black" }}>
-                                    {eventInfo.event.title}
+                                    <strong>{eventInfo.event.title}</strong>
                                 </div>
                             </>
                         );
