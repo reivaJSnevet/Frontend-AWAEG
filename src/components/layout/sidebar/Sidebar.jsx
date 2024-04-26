@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -9,6 +9,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Link, useNavigate } from "react-router-dom";
 import useLogout from "../../../hooks/useLogout";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import GroupIcon from "@mui/icons-material/Group";
 import NoteIcon from "@mui/icons-material/Note";
 import ScheduleIcon from "@mui/icons-material/Schedule";
@@ -260,6 +261,28 @@ const ListOptions = () => {
                         />
                     </ListItemButton>
                 </ListItem>
+                {
+                    (user?.user?.Role?.roleName === "director" || user?.user?.Role?.roleName === "directora") ? (
+                        <ListItem disablePadding>
+                            <ListItemButton component={Link} to="https://drive.google.com/drive/folders/1cHLm_J5l_Nv5hqlJjhGtCvUmv13yiotz?usp=sharing">
+                                <ListItemIcon>
+                                    <HelpOutlineIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={"Guias"} />
+                            </ListItemButton>
+                        </ListItem>
+                    ) : (
+                        <ListItem disablePadding>
+                            <ListItemButton component={Link} to="https://drive.google.com/drive/folders/1dRoQicxojZk-J3or5nsFdakr2_x2lm6U?usp=sharing">
+                                <ListItemIcon>
+                                    <HelpOutlineIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={"Guias"} />
+                            </ListItemButton>
+                        </ListItem>
+                    )
+                }
+
             </div>
         </>
     );

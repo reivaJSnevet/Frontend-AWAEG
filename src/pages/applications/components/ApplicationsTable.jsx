@@ -179,8 +179,9 @@ function ApplicationsTable() {
                 );
             }
             if (application.type === "loan") {
+                console.log(application.Loan.loanId);
                 await api.put(`/loans/${application.Loan.loanId}`, {
-                    status: "APPROVED",
+                    state: "APPROVED",
                 });
             }
 
