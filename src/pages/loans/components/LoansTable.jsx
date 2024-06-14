@@ -39,11 +39,6 @@ const LoansTable = ({reset, setReset}) => {
 
     const columns = [
         {
-          field: "loanId",
-          headerName: "ID",
-          flex: 1,
-        },
-        {
           field: "loanDate",
           headerName: "Fecha de préstamo",                                                                                      
           flex: 1,
