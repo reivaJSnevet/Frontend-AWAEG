@@ -78,11 +78,6 @@ function ApplicationsTable() {
 
     const columns = [
         {
-            field: "applicationId",
-            headerName: "ID",
-            flex: 1,
-        },
-        {
             field: "status",
             headerName: "Estatus",
             flex: 1,
