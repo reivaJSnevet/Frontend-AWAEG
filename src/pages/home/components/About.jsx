@@ -4,7 +4,7 @@ const About = () => {
     <div name="sobre" className="w-full my-32 ">
       <div className="max-w-[1240px] mx-auto">
         <div className="text-center">
-          <h2 className="text-5xl font-bold">¿Quienes Somos?</h2>
+          <h2 className="text-5xl font-bold">¿Quiénes Somos?</h2>
           <p className="py-6 text-3xl text-gray-500">
             {" "}
             En AWAEG, estamos comprometidos con la mejora de la educación en la

@@ -267,7 +267,7 @@ const ListOptions = () => {
               <ListItemIcon>
                 <HelpOutlineIcon />
               </ListItemIcon>
-              <ListItemText primary={"Guias"} />
+              <ListItemText primary={"Guías"} />
             </ListItemButton>
           </ListItem>
         ) : user?.user?.Role.roleName === "maestra" ||
@@ -282,7 +282,7 @@ const ListOptions = () => {
               <ListItemIcon>
                 <HelpOutlineIcon />
               </ListItemIcon>
-              <ListItemText primary={"Guias"} />
+              <ListItemText primary={"Guías"} />
             </ListItemButton>
           </ListItem>
         ) : (
@@ -294,7 +294,7 @@ const ListOptions = () => {
               <ListItemIcon>
                 <HelpOutlineIcon />
               </ListItemIcon>
-              <ListItemText primary={"Guias"} />
+              <ListItemText primary={"Guías"} />
             </ListItemButton>
           </ListItem>
         )}
