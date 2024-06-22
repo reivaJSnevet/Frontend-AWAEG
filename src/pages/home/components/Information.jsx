@@ -19,7 +19,7 @@ const Information = () => {
             Información
           </h2>
           <h3 className="py-6 text-5xl font-bold text-center">
-            Escuela Guyabal
+            Escuela Guayabal
           </h3>
           <p className="py-4 text-2xl text-slate-300">
             Nuestras instalaciones, ubicada en el cantón de Santa Cruz,
