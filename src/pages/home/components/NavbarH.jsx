@@ -22,7 +22,7 @@ const NavbarH = () => {
                 <div className="hidden pr-4 md:flex">
                     <Link to="https://drive.google.com/drive/folders/1jUv6maweqvaGCOdwqmJ-mxvDg-054HLn?usp=sharing">
                         <button className="px-8 py-3 mr-4 text-white bg-transparent border-indigo-600 border-none rounded-md hover:bg-indigo-600 hover:text-white">
-                            Guias
+                            Guías 
                         </button>
                     </Link>
                     <Link to="/login">

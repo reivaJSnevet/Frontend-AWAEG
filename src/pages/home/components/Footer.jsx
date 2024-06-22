@@ -8,8 +8,8 @@ const Footer = () => {
         <Box>
           <Typography variant="h6" fontWeight="bold" sx={{ textTransform: "uppercase", pt: 2 }}>Equipo Desarrollador</Typography>
           <ul>
-            <li className="p-2 py-1">Javier Diaz Marin</li>
-            <li className="p-2 py-1">Dyllan Ruiz Vasquez</li>
+            <li className="p-2 py-1">Javier Díaz Marin</li>
+            <li className="p-2 py-1">Dyllan Ruiz Vásquez</li>
             <li className="p-2 py-1">José Vallejos Álvarez</li>
             <li className="p-2 py-1">Emilio Guevara Gómez</li>
           </ul>
@@ -27,7 +27,7 @@ const Footer = () => {
 
       <Box sx={{ maxWidth: "1240px", mx: "auto", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", p: 2, textAlign: "center" }}>
         <Typography>
-          2023 Todos los derechos reservados, Diseñado por Estudiantes de la Universidad Nacional
+          2023 Algunos derechos reservados, Diseñado por Estudiantes de la Universidad Nacional
         </Typography>
       </Box>
     </Box>
